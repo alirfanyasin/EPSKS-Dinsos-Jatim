@@ -20,6 +20,8 @@
       <p class="section-lead">Karang Taruna</p>
       <div class="card">
 
+        {{-- <h2>{{ Auth::user()->office_id }}</h2> --}}
+
         <ul class="nav nav-pills" role="tablist">
           <li class="text-center nav-item w-50">
             <a class="nav-link active" id="master-tab" data-toggle="tab" href="#dailyReports" role="tab"
@@ -77,7 +79,8 @@
                         }
                         
                       @endphp
-                      @if (auth()->user()->name == $data->name_kartar || ($isAdmin && $data->office_id == Auth::user()->office_id) || $isAdmin)
+                      {{-- @if (auth()->user()->name == $data->name_kartar || ($isAdmin && $data->office_id == Auth::user()->office_id) || $isAdmin) --}}
+                      @if (auth()->user()->name == $data->name_kartar || $isAdmin && $data->office_id == Auth::user()->office_id)
                         @if ($data->period == '1')
                           <tr>
                             <td>{{ $no++ }}</td>
@@ -299,7 +302,7 @@
                             }
                         }
                       @endphp
-                      @if (auth()->user()->name == $data->name_kartar || ($isAdmin && $data->office_id == Auth::user()->office_id) || $isAdmin)
+                      @if (auth()->user()->name == $data->name_kartar ||  $isAdmin && $data->office_id == Auth::user()->office_id)
                         @if ($data->period == '2')
                           <tr>
                             <td>{{ $no++ }}</td>

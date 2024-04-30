@@ -128,9 +128,9 @@
         <li class='{{ request()->routeIs('app.pillar.kartar.report.index') ? 'active' : '' }}'>
           <a class="nav-link" href="{{ route('app.pillar.kartar.report.index') }}">Laporan</a>
         </li>
-        {{-- <li class='{{ request()->routeIs('app.pillar.kartar.report.approval.index') ? 'active' : '' }}'>
+        <li class='{{ request()->routeIs('app.pillar.kartar.report.approval.index') ? 'active' : '' }}'>
           <a class="nav-link" href="{{ route('app.pillar.kartar.report.approval.index') }}">Verifikasi Laporan</a>
-        </li> --}}
+        </li>
         {{-- <li class=''>
           <a class="nav-link" href="">Statistik</a>
         </li> --}}

@@ -40,7 +40,7 @@
           <h4>Form Export Laporan</h4>
         </div>
 
-        <h1>{{ $data['date'] }}</h1>
+        {{-- <h1>{{ $data['date'] }}</h1> --}}
 
         <div class="card-body">
           <form action="{{ route('app.pillar.kartar.report.export_pdf', ['name' => Auth::user()->name]) }}"

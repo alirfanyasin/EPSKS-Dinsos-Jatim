@@ -20,6 +20,7 @@
       <p class="section-lead">Karang Taruna</p>
       <div class="card">
 
+
         <ul class="nav nav-pills" role="tablist">
           <li class="text-center nav-item w-50">
             <a class="nav-link active" id="master-tab" data-toggle="tab" href="#dailyReports" role="tab"

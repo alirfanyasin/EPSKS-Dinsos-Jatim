@@ -98,7 +98,7 @@
             <div class="row">
               <div class="col-6 type-daily" hidden>
                 <div class="form-group">
-                  <label>Waktu</label>
+                  <label>Waktu <span class="text-danger">*</span></label>
                   <input type="date" class="form-control @error('date') is-invalid @enderror" value=""
                     name="date" placeholder="Masukkan waktu">
                   @error('date')
@@ -110,7 +110,7 @@
               </div>
               <div class="col-6 type-daily" hidden>
                 <div class="form-group">
-                  <label>Tempat Kegiatan</label>
+                  <label>Tempat Kegiatan <span class="text-danger">*</span></label>
                   <input type="text" class="form-control @error('place') is-invalid @enderror" value=""
                     name="place" placeholder="Masukkan Tempat Kegiatan">
                   @error('place')
@@ -122,7 +122,7 @@
               </div>
               <div class="col-6 type-daily" hidden>
                 <div class="form-group">
-                  <label>Aktivitas yang dilakukan</label>
+                  <label>Aktivitas yang dilakukan <span class="text-danger">*</span></label>
                   <input type="text" class="form-control @error('activity') is-invalid @enderror" value=""
                     name="activity" placeholder="Masukkan Aktifitas yang dilakukan">
                   @error('activity')
@@ -134,7 +134,7 @@
               </div>
               <div class="col-6 type-daily" hidden>
                 <div class="form-group">
-                  <label>Kendala</label>
+                  <label>Kendala <span class="text-danger">*</span></label>
                   <input type="text" class="form-control @error('constraint') is-invalid @enderror" value=""
                     name="constraint" placeholder="Masukkan Kendala">
                   @error('constraint')
@@ -149,7 +149,7 @@
             <div class="row">
               <div class="col-6 type-daily" hidden>
                 <div class="form-group">
-                  <label>Dokumentasi Lapangan</label>
+                  <label>Dokumentasi Lapangan <span class="text-danger">*</span></label>
                   <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
                     accept=".png, .jpg, .jpeg">
                   <small class="form-text text-muted">
@@ -164,7 +164,7 @@
               </div>
               <div class="col-6 type-daily" hidden>
                 <div class="form-group">
-                  <label>Uraian / Keterangan Foto</label>
+                  <label>Uraian / Keterangan Foto <span class="text-danger">*</span></label>
                   <input type="text" class="form-control @error('description') is-invalid @enderror"
                     name="description" placeholder="Masukkan Uraian / Keterangan Foto"
                     value="{{ old('description') }}">
