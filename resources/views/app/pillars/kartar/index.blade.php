@@ -24,13 +24,11 @@
           <a class="btn btn-success" href="{{ route('app.pillar.kartar.create') }}" type="button">
             <i class="fas fa-plus"></i> Tambah Karang Taruna
           </a>
-          <a class="btn btn-primary" style="margin-left: 10px" href="{{ route('app.pillar.kartar.import') }}"
+          {{-- <a class="btn btn-primary" style="margin-left: 10px" href="{{ route('app.pillar.kartar.import') }}"
             type="button">
             <i class="fas fa-file-import"></i> Import Data
-          </a>
-          {{--          @role('admin') --}}
-          {{--            --}}
-          {{--          @endrole --}}
+          </a> --}}
+
         </div>
         <div class="p-0 m-4 card-body">
           <div class="table-responsive">
