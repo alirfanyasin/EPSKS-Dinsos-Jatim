@@ -69,18 +69,25 @@
                     @foreach ($data_report as $key => $data)
                       @php
                         $isAdmin = false;
-                        
+
                         // Periksa apakah pengguna memiliki peran 'admin'
+
                         foreach (auth()->user()->roles as $role) {
+                            // var_dump($role->name);
+
                             if ($role->name == 'admin' || $role->name == 'super-admin') {
+                                // var_dump(true);
                                 $isAdmin = true;
+                                $isAdminJawaTimur = 1;
                                 break;
                             }
                         }
-                        
                       @endphp
-                      {{-- @if (auth()->user()->name == $data->name_kartar || ($isAdmin && $data->office_id == Auth::user()->office_id) || $isAdmin) --}}
-                      @if (auth()->user()->name == $data->name_kartar || $isAdmin && $data->office_id == Auth::user()->office_id)
+
+
+                      @if (auth()->user()->name == $data->name_kartar ||
+                              ($isAdmin && $data->office_id == Auth::user()->office_id) ||
+                              Auth::user()->office_id == $isAdminJawaTimur)
                         @if ($data->period == '1')
                           <tr>
                             <td>{{ $no++ }}</td>
@@ -293,16 +300,19 @@
                     @foreach ($data_report as $key => $data)
                       @php
                         $isAdmin = false;
-                        
+
                         // Periksa apakah pengguna memiliki peran 'admin'
                         foreach (auth()->user()->roles as $role) {
                             if ($role->name == 'admin' || $role->name == 'super-admin') {
                                 $isAdmin = true;
+                                $isAdminJawaTimur = 1;
                                 break;
                             }
                         }
                       @endphp
-                      @if (auth()->user()->name == $data->name_kartar ||  $isAdmin && $data->office_id == Auth::user()->office_id)
+                      @if (auth()->user()->name == $data->name_kartar ||
+                              ($isAdmin && $data->office_id == Auth::user()->office_id) ||
+                              Auth::user()->office_id == $isAdminJawaTimur)
                         @if ($data->period == '2')
                           <tr>
                             <td>{{ $no++ }}</td>

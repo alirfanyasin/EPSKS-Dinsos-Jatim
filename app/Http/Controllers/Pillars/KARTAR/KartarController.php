@@ -21,6 +21,7 @@ class KartarController extends Controller
     public function profile()
     {
         return view('app.pillars.kartar.index', [
+            'pageTitle' => 'Data Karang Taruna',
             'kartar' => KarangTaruna::all()
         ]);
     }
@@ -123,6 +124,7 @@ class KartarController extends Controller
     public function show($id)
     {
         return view('app.pillars.kartar.show', [
+            'pageTitle' => 'Detail Karang Taruna',
             'data' => KarangTaruna::findOrFail($id),
             'data_member' => KarangTarunaMember::where('kartar_id', $id)->get()
         ]);
@@ -133,6 +135,7 @@ class KartarController extends Controller
     public function edit($id)
     {
         return view('app.pillars.kartar.edit', [
+            'pageTitle' => 'Edit Data Karang Taruna',
             'data' => KarangTaruna::findOrFail($id),
             'data_member' => KarangTarunaMember::where('kartar_id', $id)->get()
         ]);
@@ -188,12 +191,15 @@ class KartarController extends Controller
 
     public function import()
     {
-        return view('app.pillars.kartar.import');
+
+        return view('app.pillars.kartar.import', [
+            'pageTitle' => 'Import Data Karang Taruna'
+        ]);
     }
 
     public function importExcel(Request $request)
     {
-        Excel::import(new KartarImport, $request->file('file'));
+        Excel::import(new KartarImport(auth()->user()->office->id), $request->file('file'));
 
         return redirect()->route('app.pillar.kartar.index')->with('success', 'Data berhasil di import');
     }

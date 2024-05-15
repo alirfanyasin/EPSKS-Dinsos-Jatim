@@ -20,19 +20,50 @@
       <div class="card">
         <div class="card-header">
           <h4>Import Data Karang Taruna</h4>
-          <a class="btn btn-info" href="{{ asset('storage/image/pillars/kartar/excel/template.xlsx') }}"
-            download="Template Karang Taruna.xlsx" type="button">
+          <a class="btn btn-info" href="{{ asset('dummy/FORMAT_PEDATAAN_KARANG_TARUNA.xlsx') }}"
+            download="FORMAT_PENDATAAN_KARANG_TARUNA.xlsx" type="button">
             <i class="fas fa-download"></i> Download Template CSV
           </a>
         </div>
         <div class="card-body">
+          <div class="alert alert-warning alert-has-icon">
+            <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+            <div class="alert-body">
+              <div class="alert-title">Info</div>
+              <p style="font-size: 15px">Mohon Perhatikan Persyaratan Berikut Untuk Dapat Menggunakan Fitur Import!</p>
+            </div>
+          </div>
+          <div class="section-title">Persyratan Import Data Karang Taruna</div>
+          <div class="row">
+            <ol>
+              <li>Template yang digunakan untuk import harus sesuai dengan ketentuan, silahkan download template yang
+                telah disediakan.</li>
+              <li>Kolom klasifikasi karang taruna harus sesuai dengan database, silahkan sesuaikan dengan status kinerja
+                dibawah:
+                <ul>
+                  <li>Tumbuh</li>
+                  <li>Berkembang</li>
+                  <li>Maju</li>
+                  <li>Percontohan</li>
+                </ul>
+              </li>
+              <li>Kolom status kinerja harus sesuai dengan database, silahkan sesuaikan dengan status kinerja dibawah:
+                <ul>
+                  <li>Aktif</li>
+                  <li>Tidak Aktif</li>
+                </ul>
+              </li>
+              <li>Format tanggal dd-mm-yyyy</li>
+              <li>Mohon sesuikan dengan benar, jika ada kesalahan inputan berpotensi menyebabkan error pada sistem</li>
+            </ol>
+          </div>
           <form action="{{ route('app.pillar.kartar.import-excel') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
               <div class="col-12">
                 <div class="form-group">
                   <label>Import Data</label>
-                  <input type="file" class="form-control" accept=".csv, .xlsx" name="file" required="">
+                  <input type="file" class="form-control"accept=".xlsx" name="file" required="">
                 </div>
               </div>
             </div>

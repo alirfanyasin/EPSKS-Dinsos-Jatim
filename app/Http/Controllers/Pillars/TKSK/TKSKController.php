@@ -25,9 +25,9 @@ class TKSKController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $this->user= Auth::user();
+            $this->user = Auth::user();
 
-            if (! Gate::allows('manage-tksk')) {
+            if (!Gate::allows('manage-tksk')) {
                 abort(403, 'Anda tidak memiliki akses ke halaman ini');
             }
 
@@ -66,11 +66,11 @@ class TKSKController extends Controller
 
     public function store(TKSKAction $action): RedirectResponse
     {
-         $command = $action->create();
+        $command = $action->create();
 
-         return $command
-             ? redirect()->route('app.pillar.tksk.index')->with('success', 'Berhasil menambahkan data')
-             : redirect()->back()->with('error', 'Gagal menambahkan data')->withInput();
+        return $command
+            ? redirect()->route('app.pillar.tksk.index')->with('success', 'Berhasil menambahkan data')
+            : redirect()->back()->with('error', 'Gagal menambahkan data')->withInput();
     }
 
     public function edit(TKSK $tksk)
@@ -145,8 +145,8 @@ class TKSKController extends Controller
             : redirect()->back()->with('error', 'Gagal mengimport data');
     }
 
-    public function profile(){
+    public function profile()
+    {
         return view('app.pillars.tksk.profile', ['pageTitle' => 'Profile TKSK']);
     }
-
 }

@@ -32,6 +32,25 @@
             <input type="hidden" name="office_id" value="{{ Auth::user()->office_id }}">
             <input type="hidden" name="period" value="{{ $data_report->period }}">
             <div class="row">
+              <div class="col">
+                <div class="alert alert-warning d-flex align-items-center" role="alert">
+                  <div style="width: 30px; height: 30px" class="mr-3">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+                    </svg>
+                  </div>
+
+                  <div>
+
+                    {{ $data_report->message }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
               <div class="col-12">
                 <div class="mt-0 section-title">Pilih Periode Laporan</div>
                 <div class="form-group">
@@ -45,6 +64,7 @@
                 </div>
               </div>
             </div>
+
             <div class="row">
               <div class="col-12">
                 <div class="form-group">
@@ -98,6 +118,7 @@
                 </div>
               </div>
             </div>
+
             <div class="row">
               <div class="col-6 type-daily" {{ $data_report->period == '1' ? '' : 'hidden' }}>
                 <div class="form-group">
@@ -127,7 +148,8 @@
                 <div class="form-group">
                   <label>Aktivitas yang dilakukan</label>
                   <input type="text" class="form-control @error('activity') is-invalid @enderror"
-                    value="{{ $data_report->activity }}" name="activity" placeholder="Masukkan Aktifitas yang dilakukan">
+                    value="{{ $data_report->activity }}" name="activity"
+                    placeholder="Masukkan Aktifitas yang dilakukan">
                   @error('activity')
                     <div class="invalid-feedback">
                       {{ $message }}

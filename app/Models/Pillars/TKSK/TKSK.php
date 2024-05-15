@@ -171,7 +171,7 @@ class TKSK extends Model
 
     protected function getPhoto($photo): ?string
     {
-        if (! $photo) {
+        if (!$photo) {
             return null;
         }
 

@@ -160,10 +160,7 @@
   @endif
 
   <!-- report code management only available for super-admin (except dinas sosial jawa timur) and admin -->
-  @if (
-      (auth()->user()->hasRole('super-admin') &&
-          !auth()->user()->isDinsosJatim) ||
-          auth()->user()->hasRole('admin'))
+  @if ((auth()->user()->hasRole('super-admin') && !auth()->user()->isDinsosJatim) || auth()->user()->hasRole('admin'))
     <li class="{{ request()->routeIs('app.report-code-management.*') ? 'active' : '' }}">
       <a class="nav-link" href="{{ route('app.report-code-management.index') }}"><i class="fas fa-paper-plane"></i>
         <span>Kode Pelaporan</span></a>

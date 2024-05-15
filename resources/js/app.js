@@ -1,8 +1,8 @@
-import "./bootstrap";
-import "./stisla";
-import "./scripts";
-import "./custom";
-import "./chocolat";
+import "./bootstrap.js";
+import "./stisla.js";
+import "./scripts.js";
+import "./custom.js";
+import "./chocolat.js";
 
 // SweetAlert 2
 import Swal from 'sweetalert2'

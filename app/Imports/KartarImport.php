@@ -9,6 +9,10 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class KartarImport implements ToModel, WithHeadingRow
 {
+    public function __construct(
+        protected int $officeId
+    ) {
+    }
     /**
      * @param array $row
      *
@@ -41,7 +45,8 @@ class KartarImport implements ToModel, WithHeadingRow
             'klasifikasi_kartar' => $row['klasifikasi_karang_taruna'],
             'status_kinerja' => $row['status_kinerja'],
             'status' => '',
-            'office_id' => Auth::user()->office_id,
+            'office_id' => $this->officeId,
+            // 'office_id' => Auth::user()->office_id,
         ]);
     }
 }

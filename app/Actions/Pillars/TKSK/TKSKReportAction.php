@@ -36,7 +36,7 @@ class TKSKReportAction
         $query = TKSKReport::query();
         $query->where('type', TKSKReport::TYPE_DAILY);
 
-        if (! auth()->user()?->isDinsosJatim()) {
+        if (!auth()->user()?->isDinsosJatim()) {
             $query->where('office_id', auth()->user()->office->id);
         }
 
@@ -48,7 +48,7 @@ class TKSKReportAction
         $query = TKSKReport::query();
         $query->where('type', TKSKReport::TYPE_MONTHLY);
 
-        if (! auth()->user()?->isDinsosJatim()) {
+        if (!auth()->user()?->isDinsosJatim()) {
             $query->where('office_id', auth()->user()->office->id);
         }
 
@@ -184,7 +184,7 @@ class TKSKReportAction
             ->get();
 
         if ($payloads->isEmpty()) {
-             return false;
+            return false;
         }
 
         return $this->doExportMonthly($payloads, $payloads->first()->tksk, $month);
@@ -213,7 +213,7 @@ class TKSKReportAction
     {
         return [
             'date_monthly' => 'required',
-            'attachment_monthly' => 'file|mimes:pdf' . ($report ? '|required' : '|nullable'), // max 10Mb
+            'attachment_monthly' => 'file|mimes:pdf,docx' . ($report ? '|required' : '|nullable'), // max 10Mb
         ];
     }
 }

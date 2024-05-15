@@ -153,7 +153,6 @@ class ReportController extends Controller
         return $action
             ? response()->download($action)->deleteFileAfterSend(true)
             : back()->withInput()->withErrors(['message' => 'Belum ada laporan yang dapat diexport!']);
-
     }
 
     /**

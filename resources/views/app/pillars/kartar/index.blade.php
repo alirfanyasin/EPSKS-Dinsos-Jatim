@@ -21,16 +21,16 @@
       <div class="card">
         <div class="card-header">
           <h4>Data Karang Taruna</h4>
-            <a class="btn btn-success" href="{{ route('app.pillar.kartar.create') }}" type="button">
-                <i class="fas fa-plus"></i> Tambah Karang Taruna
-            </a>
-            <a class="btn btn-primary" style="margin-left: 10px" href="{{ route('app.pillar.kartar.import') }}"
-               type="button">
-                <i class="fas fa-file-import"></i> Import Data
-            </a>
-{{--          @role('admin')--}}
-{{--            --}}
-{{--          @endrole--}}
+          <a class="btn btn-success" href="{{ route('app.pillar.kartar.create') }}" type="button">
+            <i class="fas fa-plus"></i> Tambah Karang Taruna
+          </a>
+          <a class="btn btn-primary" style="margin-left: 10px" href="{{ route('app.pillar.kartar.import') }}"
+            type="button">
+            <i class="fas fa-file-import"></i> Import Data
+          </a>
+          {{--          @role('admin') --}}
+          {{--            --}}
+          {{--          @endrole --}}
         </div>
         <div class="p-0 m-4 card-body">
           <div class="table-responsive">
@@ -53,8 +53,23 @@
                   $no = 1;
                 @endphp
                 @foreach ($kartar as $key => $item)
-                  @if (Auth::user()->office_id == $item->office_id ||
-                          auth()->user()->hasRole('admin'))
+                  @php
+                    $isAdmin = false;
+
+                    // Periksa apakah pengguna memiliki peran 'admin'
+                    foreach (auth()->user()->roles as $role) {
+                        if ($role->name == 'admin' || $role->name == 'super-admin') {
+                            $isAdmin = true;
+                            $isAdminJawaTimur = 1;
+                            break;
+                        }
+                    }
+
+                  @endphp
+                  {{-- @if (Auth::user()->office_id == $item->office_id || auth()->user()->hasRole('admin')) --}}
+                  @if (auth()->user()->name == $item->name_kartar ||
+                          ($isAdmin && $item->office_id == Auth::user()->office_id) ||
+                          Auth::user()->office_id == $isAdminJawaTimur)
                     <tr>
                       <td>{{ $no++ }}</td>
                       <td>{{ $item->nama_kartar }}</td>
