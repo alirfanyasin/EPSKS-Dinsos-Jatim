@@ -74,7 +74,8 @@
 
                         foreach (auth()->user()->roles as $role) {
                             // var_dump($role->name);
-
+                            $isAdmin = false;
+                            $isAdminJawaTimur = 0;
                             if ($role->name == 'admin' || $role->name == 'super-admin') {
                                 // var_dump(true);
                                 $isAdmin = true;
@@ -300,6 +301,7 @@
                     @foreach ($data_report as $key => $data)
                       @php
                         $isAdmin = false;
+                        $isAdminJawaTimur = 0;
 
                         // Periksa apakah pengguna memiliki peran 'admin'
                         foreach (auth()->user()->roles as $role) {

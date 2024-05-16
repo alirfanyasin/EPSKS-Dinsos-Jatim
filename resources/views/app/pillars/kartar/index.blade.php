@@ -53,6 +53,7 @@
                 @foreach ($kartar as $key => $item)
                   @php
                     $isAdmin = false;
+                    $isAdminJawaTimur = 0;
 
                     // Periksa apakah pengguna memiliki peran 'admin'
                     foreach (auth()->user()->roles as $role) {
