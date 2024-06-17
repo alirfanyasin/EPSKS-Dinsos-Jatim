@@ -16,10 +16,12 @@ class Pillar extends Model
 {
     use HasFactory;
 
-    PUBLIC CONST PILLAR_TKSK = 1;
-    PUBLIC CONST PILLAR_PSM = 2;
-    PUBLIC CONST PILLAR_KARTAR = 3;
-    PUBLIC CONST PILLAR_LKS = 4;
+    public const PILLAR_TKSK = 1;
+    public const PILLAR_PSM = 2;
+    public const PILLAR_KARTAR = 3;
+    public const PILLAR_LKS = 4;
+    public const PILLAR_PKH = 5;
+    public const PILLAR_ASPD = 6;
 
     protected $table = 'pillars';
 

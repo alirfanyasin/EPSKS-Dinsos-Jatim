@@ -85,6 +85,10 @@ return [
         \App\Http\Routes\Pillars\PSM\PSMReportRoute::class,
         \App\Http\Routes\Pillars\PSM\PSMReportApprovalRoute::class,
 
+        App\Http\Routes\Pillars\PKH\PKHProfileRoute::class,
+        App\Http\Routes\Pillars\PKH\PKHReportRoute::class,
+        App\Http\Routes\Pillars\ASPD\ASPDProfileRoute::class,
+        App\Http\Routes\Pillars\ASPD\ASPDReportRoute::class,
         /** @inject web **/
     ],
     'api' => [
