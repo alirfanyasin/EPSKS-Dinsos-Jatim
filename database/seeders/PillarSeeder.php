@@ -18,6 +18,7 @@ class PillarSeeder extends Seeder
         ['code' => 'KARTAR', 'name' => 'Karang Taruna'],
         ['code' => 'LKS', 'name' => 'Lembaga Kesejahteraan Sosial'],
         ['code' => 'PKH', 'name' => 'Program Keluarga Harapan'],
+        ['code' => 'ASPD', 'name' => 'Asistensi Social Pendamping Disabilitas'],
     ];
     /**
      * Run the database seeds.
