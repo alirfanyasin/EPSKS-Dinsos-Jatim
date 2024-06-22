@@ -26,6 +26,10 @@ class PKHProfileRoute extends BaseRoute
             'as' => $this->name('create'),
             'uses' => $this->uses('create')
         ]);
+        $this->router->get($this->prefix('store'), [
+            'as' => $this->name('store'),
+            'uses' => $this->uses('store')
+        ]);
     }
 
     public function controller(): string
