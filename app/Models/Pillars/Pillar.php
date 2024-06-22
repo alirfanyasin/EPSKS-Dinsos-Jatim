@@ -21,6 +21,7 @@ class Pillar extends Model
     public const PILLAR_KARTAR = 3;
     public const PILLAR_LKS = 4;
     public const PILLAR_PKH = 5;
+    public const PILLAR_ASPD = 6;
 
     protected $table = 'pillars';
 

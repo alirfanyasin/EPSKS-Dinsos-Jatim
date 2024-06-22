@@ -74,6 +74,44 @@
         </li> --}}
       </ul>
     </li>
+
+    <li class="nav-item dropdown {{ request()->routeIs('app.pillar.pkh.*') ? 'active' : '' }}">
+      <a href="#" class="nav-link has-dropdown"><i class="fas fa-list"></i><span>PKH</span></a>
+      <ul class="dropdown-menu">
+        <li class='{{ request()->routeIs('app.pillar.pkh.index') ? 'active' : '' }}'>
+          <a class="nav-link" href="{{ route('app.pillar.pkh.index') }}">Profil</a>
+        </li>
+        <li class='{{ request()->routeIs('app.pillar.pkh.report.*') ? 'active' : '' }}'>
+          <a class="nav-link" href="">Laporan</a>
+        </li>
+        {{-- <li class='{{ request()->routeIs('app.pillar.lks.approval.*') ? 'active' : '' }}'>
+          <a class="nav-link" href="{{ route('app.pillar.lks.approval.index') }}">Verifikasi
+            Laporan</a>
+        </li> --}}
+        {{-- <li class=''>
+          <a class="nav-link" href="#">Statistik</a>
+        </li> --}}
+      </ul>
+    </li>
+
+    <li class="nav-item dropdown {{ request()->routeIs('app.pillar.aspd.*') ? 'active' : '' }}">
+      <a href="#" class="nav-link has-dropdown"><i class="fas fa-list"></i><span>ASPD</span></a>
+      <ul class="dropdown-menu">
+        <li class='{{ request()->routeIs('app.pillar.aspd.index') ? 'active' : '' }}'>
+          <a class="nav-link" href="{{ route('app.pillar.aspd.index') }}">Profil</a>
+        </li>
+        <li class='{{ request()->routeIs('app.pillar.aspd.report.*') ? 'active' : '' }}'>
+          <a class="nav-link" href="">Laporan</a>
+        </li>
+        {{-- <li class='{{ request()->routeIs('app.pillar.lks.approval.*') ? 'active' : '' }}'>
+          <a class="nav-link" href="{{ route('app.pillar.lks.approval.index') }}">Verifikasi
+            Laporan</a>
+        </li> --}}
+        {{-- <li class=''>
+          <a class="nav-link" href="#">Statistik</a>
+        </li> --}}
+      </ul>
+    </li>
   @endif
 
   @if (auth()->user()->hasRole('admin') && auth()->user()->pillar->id === \App\Models\Pillars\Pillar::PILLAR_TKSK)
@@ -152,6 +190,48 @@
           <a class="nav-link" href="{{ route('app.pillar.lks.approval.index') }}">Verifikasi
             Laporan</a>
         </li>
+        {{-- <li class=''>
+          <a class="nav-link" href="#">Statistik</a>
+        </li> --}}
+      </ul>
+    </li>
+  @endif
+
+  @if (auth()->user()->hasRole('admin') && auth()->user()->pillar->id === \App\Models\Pillars\Pillar::PILLAR_PKH)
+    <li class="nav-item dropdown {{ request()->routeIs('app.pillar.pkh.*') ? 'active' : '' }}">
+      <a href="#" class="nav-link has-dropdown"><i class="fas fa-list"></i><span>PKH</span></a>
+      <ul class="dropdown-menu">
+        <li class='{{ request()->routeIs('app.pillar.pkh.index') ? 'active' : '' }}'>
+          <a class="nav-link" href="{{ route('app.pillar.pkh.index') }}">Profil</a>
+        </li>
+        {{-- <li class='{{ request()->routeIs('app.pillar.lks.report.*') ? 'active' : '' }}'>
+          <a class="nav-link" href="{{ route('app.pillar.lks.report.index') }}">Laporan</a>
+        </li>
+        <li class='{{ request()->routeIs('app.pillar.lks.approval.*') ? 'active' : '' }}'>
+          <a class="nav-link" href="{{ route('app.pillar.lks.approval.index') }}">Verifikasi
+            Laporan</a>
+        </li> --}}
+        {{-- <li class=''>
+          <a class="nav-link" href="#">Statistik</a>
+        </li> --}}
+      </ul>
+    </li>
+  @endif
+
+  @if (auth()->user()->hasRole('admin') && auth()->user()->pillar->id === \App\Models\Pillars\Pillar::PILLAR_ASPD)
+    <li class="nav-item dropdown {{ request()->routeIs('app.pillar.aspd.*') ? 'active' : '' }}">
+      <a href="#" class="nav-link has-dropdown"><i class="fas fa-list"></i><span>ASPD</span></a>
+      <ul class="dropdown-menu">
+        <li class='{{ request()->routeIs('app.pillar.aspd.index') ? 'active' : '' }}'>
+          <a class="nav-link" href="{{ route('app.pillar.aspd.index') }}">Profil</a>
+        </li>
+        {{-- <li class='{{ request()->routeIs('app.pillar.lks.report.*') ? 'active' : '' }}'>
+          <a class="nav-link" href="{{ route('app.pillar.lks.report.index') }}">Laporan</a>
+        </li>
+        <li class='{{ request()->routeIs('app.pillar.lks.approval.*') ? 'active' : '' }}'>
+          <a class="nav-link" href="{{ route('app.pillar.lks.approval.index') }}">Verifikasi
+            Laporan</a>
+        </li> --}}
         {{-- <li class=''>
           <a class="nav-link" href="#">Statistik</a>
         </li> --}}
