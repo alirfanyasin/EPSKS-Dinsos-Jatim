@@ -10,4 +10,9 @@ class PKH extends Model
     use HasFactory;
     protected $table = 'pkhs';
     protected $guarded = ['id'];
+
+
+    protected $casts = [
+        'education' => 'array', // Ensure 'education' is cast to an array
+    ];
 }
