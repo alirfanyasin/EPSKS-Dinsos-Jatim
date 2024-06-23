@@ -37,10 +37,10 @@
                 <tr>
                   <th>No.</th>
                   <th>Nama Lengkap</th>
-                  <th>NIK</th>
                   <th>Jenis Kelamin</th>
                   <th>Email</th>
                   <th>Telepon</th>
+                  <th>Kabupaten / Kota</th>
                   <th width="100px">Detail</th>
                   @role('admin')
                     <th width="100px">Aksi</th>
@@ -48,41 +48,45 @@
                 </tr>
               </thead>
               <tbody>
-
-                <tr>
-                  <td>1</td>
-                  <td>hELLO</td>
-                  <td>DASDSA</td>
-                  <td>DASDAS</td>
-                  <td>DASDAS</td>
-
-                  <td>DASDSA</td>
-                  <td>
-                    <div class="flex-row flex-wrap d-flex">
-                      <a href="" class="mb-2 btn btn-sm btn-icon btn-info w-100" title="Detail">Detail
-                        Data</a>
-                      <a href="" class="btn btn-sm btn-icon btn-warning w-100" title="Detail Laporan">Detail
-                        Laporan</a>
-                    </div>
-                  </td>
-                  @role('admin')
+                @php
+                  $no = 1;
+                @endphp
+                @foreach ($datas as $data)
+                  <tr>
+                    <td>{{ $no++ }}</td>
+                    <td>{{ $data->name }}</td>
+                    <td>{{ $data->gender }}</td>
+                    <td>{{ $data->email }}</td>
+                    <td>{{ $data->phone }}</td>
+                    <td>{{ $data->city }}</td>
                     <td>
                       <div class="flex-row flex-wrap d-flex">
-                        <a href="" class="btn btn-icon btn-primary btn-sm w-100" title="Edit">Edit
+                        <a href="" class="mb-2 btn btn-sm btn-icon btn-info w-100" title="Detail">Detail
                           Data</a>
-
-                        <div class="w-100">
-                          <form action="" class="formDelete" method="POST">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="mt-2 btn btn-sm btn-danger w-100">Delete
-                              Data</button>
-                          </form>
-                        </div>
+                        <a href="" class="btn btn-sm btn-icon btn-warning w-100" title="Detail Laporan">Detail
+                          Laporan</a>
                       </div>
                     </td>
-                  @endrole
-                </tr>
+                    @role('admin')
+                      <td>
+                        <div class="flex-row flex-wrap d-flex">
+                          <a href="" class="btn btn-icon btn-primary btn-sm w-100" title="Edit">Edit
+                            Data</a>
+
+                          <div class="w-100">
+                            <form action="" class="formDelete" method="POST">
+                              @csrf
+                              @method('delete')
+                              <button type="submit" class="mt-2 btn btn-sm btn-danger w-100">Delete
+                                Data</button>
+                            </form>
+                          </div>
+                        </div>
+                      </td>
+                    @endrole
+                  </tr>
+                @endforeach
+
               </tbody>
             </table>
           </div>

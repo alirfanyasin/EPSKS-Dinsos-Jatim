@@ -9,4 +9,5 @@ class PKH extends Model
 {
     use HasFactory;
     protected $table = 'pkhs';
+    protected $guarded = ['id'];
 }

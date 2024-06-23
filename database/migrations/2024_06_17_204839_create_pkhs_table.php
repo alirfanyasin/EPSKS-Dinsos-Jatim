@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('pkhs', function (Blueprint $table) {
             $table->id();
+            $table->string('province');
+            $table->string('city');
             $table->string('name');
             $table->string('nik');
             $table->string('gender');
@@ -25,16 +27,22 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('email');
-            $table->string('no_npwp');
-            $table->string('appointment_letter');
-            $table->string('education');
-            $table->string('pt_origin');
-            $table->string('major');
+            $table->string('no_npwp')->nullable();
+            $table->string('appointment_letter')->nullable();
+            $table->json('education')->nullable();
+            $table->string('pt_origin_d3')->nullable();
+            $table->string('pt_origin_s1')->nullable();
+            $table->string('pt_origin_s2')->nullable();
+            $table->string('pt_origin_s3')->nullable();
+            $table->string('major_d3')->nullable();
+            $table->string('major_s1')->nullable();
+            $table->string('major_s2')->nullable();
+            $table->string('major_s3')->nullable();
             $table->string('clothes_size');
             $table->string('marital_status');
-            $table->string('number_of_children');
-            $table->string('no_bpjs');
-            $table->string('husband_or_wife_name');
+            $table->string('number_of_children')->nullable();
+            $table->string('no_bpjs')->nullable();
+            $table->string('husband_or_wife_name')->nullable();
             $table->string('mother_name');
             $table->string('family_card_number');
             $table->foreignIdFor(Office::class, 'office_id')->constrained()->cascadeOnDelete();

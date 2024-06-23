@@ -24,13 +24,14 @@
           <form action="{{ route('app.pillar.pkh.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="text" value="{{ auth()->user()->office_id }}" name="office_id" hidden>
+            <input type="text" value="{{ auth()->user()->id }}" name="user_id" hidden>
             <div class="row">
 
               <div class="col-4">
                 <div class="form-group">
                   <label for="name">Nama Lengkap <span class="text-danger">*</span></label>
                   <input type="text" id="name" class="form-control  @error('name') is-invalid @enderror"
-                    name="name" placeholder="Masukkan Nama Lengkap" value="{{ old('name') }}" required>
+                    name="name" placeholder="Masukkan Nama Lengkap" value="{{ old('name') }}">
                   @error('name')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -43,7 +44,8 @@
                 <div class="form-group">
                   <label for="nik">NIK <span class="text-danger">*</span></label>
                   <input type="number" name="nik" id="nik"
-                    class="form-control @error('nik') is-invalid @enderror" placeholder="Masukkan NIK KTP" required>
+                    class="form-control @error('nik') is-invalid @enderror" placeholder="Masukkan NIK KTP"
+                    value="{{ old('nik') }}" required>
                   @error('nik')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -56,7 +58,8 @@
                 <div class="form-group">
                   <label for="tmt">TMT <span class="text-danger">*</span></label>
                   <input type="text" name="tmt" id="tmt"
-                    class="form-control @error('tmt') is-invalid @enderror" placeholder="Masukkan TMT" required>
+                    class="form-control @error('tmt') is-invalid @enderror" placeholder="Masukkan TMT"
+                    value="{{ old('tmt') }}" required>
                   @error('tmt')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -105,8 +108,8 @@
                 <div class="form-group">
                   <label for="place_of_birth">Tempat Lahir <span class="text-danger">*</span></label>
                   <input type="text" name="place_of_birth" id="place_of_birth"
-                    class="form-control @error('place_of_birth') is-invalid @enderror" placeholder="Masukkan Tempat Lahir"
-                    required>
+                    class="form-control @error('place_of_birth') is-invalid @enderror"
+                    value="{{ old('place_of_birth') }}" placeholder="Masukkan Tempat Lahir" required>
                   @error('place_of_birth')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -119,8 +122,8 @@
                 <div class="form-group">
                   <label for="date_of_birth">Tanggal Lahir <span class="text-danger">*</span></label>
                   <input type="date" name="date_of_birth" id="date_of_birth"
-                    class="form-control @error('date_of_birth') is-invalid @enderror" placeholder="Masukkan Tanggal Lahir"
-                    required>
+                    class="form-control @error('date_of_birth') is-invalid @enderror"
+                    value="{{ old('date_of_birth') }}" placeholder="Masukkan Tanggal Lahir" required>
                   @error('date_of_birth')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -135,8 +138,8 @@
                 <div class="form-group">
                   <label for="email">Email <span class="text-danger">*</span></label>
                   <input type="email" name="email" id="email"
-                    class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Alamat Email"
-                    required>
+                    class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
+                    placeholder="Masukkan Alamat Email" required>
                   @error('email')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -149,8 +152,8 @@
                 <div class="form-group">
                   <label for="phone">Nomor Telepon <span class="text-danger">*</span></label>
                   <input type="number" name="phone" id="phone"
-                    class="form-control @error('phone') is-invalid @enderror" placeholder="Masukkan Nomor Telepon"
-                    required>
+                    class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}"
+                    placeholder="Masukkan Nomor Telepon" required>
                   @error('phone')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -163,7 +166,8 @@
                 <div class="form-group">
                   <label for="address">Alamat <span class="text-danger">*</span></label>
                   <input type="text" name="address" id="address"
-                    class="form-control @error('address') is-invalid @enderror" placeholder="Masukkan Alamat" required>
+                    class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}"
+                    placeholder="Masukkan Alamat" required>
                   @error('address')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -208,8 +212,8 @@
                 <div class="form-group">
                   <label for="no_npwp">Nomor NPWP <span class="text-danger">*</span></label>
                   <input type="number" name="no_npwp" id="no_npwp"
-                    class="form-control @error('no_npwp') is-invalid @enderror" placeholder="Masukkan Nomor NPWP"
-                    required>
+                    class="form-control @error('no_npwp') is-invalid @enderror" value="{{ old('no_npwp') }}"
+                    placeholder="Masukkan Nomor NPWP" required>
                   @error('no_npwp')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -239,8 +243,8 @@
                 <div class="form-group">
                   <label for="clothes_size">Ukuran Baju <span class="text-danger">*</span></label>
                   <input type="text" name="clothes_size" id="clothes_size"
-                    class="form-control @error('clothes_size') is-invalid @enderror" placeholder="Masukkan Ukuran Baju"
-                    required>
+                    class="form-control @error('clothes_size') is-invalid @enderror" value="{{ old('clothes_size') }}"
+                    placeholder="Masukkan Ukuran Baju" required>
                   @error('clothes_size')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -262,19 +266,23 @@
 
                   <div>
                     <div class="form-check">
-                      <input class="form-check-input" name="major" type="checkbox" value="D3" id="d3">
+                      <input class="form-check-input" name="education[]" type="checkbox" value="D3"
+                        id="d3">
                       <label class="form-check-label" for="d3">D3</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" name="major" type="checkbox" value="S1/DIV" id="s1_div">
-                      <label class="form-check-label" for="s1_div">S1 / DIV</label>
+                      <input class="form-check-input" name="education[]" type="checkbox" value="S1"
+                        id="s1_div">
+                      <label class="form-check-label" for="s1_div">S1</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" name="major" type="checkbox" value="S2" id="s2">
+                      <input class="form-check-input" name="education[]" type="checkbox" value="S2"
+                        id="s2">
                       <label class="form-check-label" for="s2">S2</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" name="major" type="checkbox" value="S3" id="s3">
+                      <input class="form-check-input" name="education[]" type="checkbox" value="S3"
+                        id="s3">
                       <label class="form-check-label" for="s3">S3</label>
                     </div>
                   </div>
@@ -336,10 +344,10 @@
 
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="number_of_children">Jumlah Anak <span class="text-danger">*</span></label>
+                  <label for="number_of_children">Jumlah Anak</label>
                   <input type="number" name="number_of_children" id="number_of_children"
                     class="form-control @error('number_of_children') is-invalid @enderror"
-                    placeholder="Masukkan Jumlah Anak" required>
+                    placeholder="Masukkan Jumlah Anak" value="{{ old('number_of_children') }}">
                   @error('number_of_children')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -350,10 +358,10 @@
 
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="husband_or_wife_name">Nama Suami / Istri <span class="text-danger">*</span></label>
+                  <label for="husband_or_wife_name">Nama Suami / Istri</label>
                   <input type="text" name="husband_or_wife_name" id="husband_or_wife_name"
                     class="form-control @error('husband_or_wife_name') is-invalid @enderror"
-                    placeholder="Masukkan Nama Suami atau Istri" required>
+                    placeholder="Masukkan Nama Suami atau Istri" value="{{ old('husband_or_wife_name') }}">
                   @error('husband_or_wife_name')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -362,13 +370,27 @@
                 </div>
               </div>
 
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="mother_name">Nomor Ibu Kandung <span class="text-danger">*</span></label>
+                  <input type="text" name="mother_name" id="mother_name"
+                    class="form-control @error('mother_name') is-invalid @enderror"
+                    placeholder="Masukkan Nomor Kartu Keluarga" value="{{ old('mother_name') }}" required>
+                  @error('mother_name')
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                  @enderror
+                </div>
+              </div>
 
-              <div class="col-md-6">
+
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="family_card_number">Nomor Kartu Keluarga <span class="text-danger">*</span></label>
                   <input type="number" name="family_card_number" id="family_card_number"
                     class="form-control @error('family_card_number') is-invalid @enderror"
-                    placeholder="Masukkan Nomor Kartu Keluarga" required>
+                    placeholder="Masukkan Nomor Kartu Keluarga" value="{{ old('family_card_number') }}" required>
                   @error('family_card_number')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -377,12 +399,12 @@
                 </div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
-                  <label for="no_bpjs">Nomor BPJS <span class="text-danger">*</span></label>
+                  <label for="no_bpjs">Nomor BPJS</label>
                   <input type="number" name="no_bpjs" id="no_bpjs"
-                    class="form-control @error('no_bpjs') is-invalid @enderror" placeholder="Masukkan Nomor BPJS"
-                    required>
+                    class="form-control @error('no_bpjs') is-invalid @enderror" value="{{ old('no_bpjs') }}"
+                    placeholder="Masukkan Nomor BPJS">
                   @error('no_bpjs')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -495,39 +517,42 @@
   </script>
 
 
+
   <script>
-    // JavaScript untuk menangani perubahan pada checkbox
-    const checkboxes = document.querySelectorAll('input[name="major"]');
-    checkboxes.forEach(checkbox => {
-      checkbox.addEventListener('change', function() {
-        const checkedCheckboxes = document.querySelectorAll('input[name="major"]:checked');
+    document.addEventListener('DOMContentLoaded', function() {
+      // JavaScript untuk menangani perubahan pada checkbox
+      const checkboxes = document.querySelectorAll('input[name="education[]"]');
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          const checkedCheckboxes = document.querySelectorAll('input[name="education[]"]:checked');
 
-        // Hapus semua input sebelum menambahkan yang baru
-        document.getElementById('pt_origin_inputs').innerHTML = '';
-        document.getElementById('major_inputs').innerHTML = '';
+          // Hapus semua input sebelum menambahkan yang baru
+          document.getElementById('pt_origin_inputs').innerHTML = '';
+          document.getElementById('major_inputs').innerHTML = '';
 
-        // Tambahkan input sesuai dengan checkbox yang dicek
-        checkedCheckboxes.forEach(checked => {
-          const value = checked.value;
-          const label = checked.parentElement.querySelector('.form-check-label').textContent.trim();
+          // Tambahkan input sesuai dengan checkbox yang dicek
+          checkedCheckboxes.forEach(checked => {
+            const value = checked.value;
+            const label = checked.parentElement.querySelector('.form-check-label').textContent.trim();
 
-          // Buat elemen input untuk asal perguruan tinggi
-          const ptInput = document.createElement('div');
-          ptInput.classList.add('form-group');
-          ptInput.innerHTML = `
-                  <label for="pt_${value}">${label}</label>
-                  <input type="text" name="pt_origin_${value}" id="pt_${value}" class="form-control">
-              `;
-          document.getElementById('pt_origin_inputs').appendChild(ptInput);
+            // Buat elemen input untuk asal perguruan tinggi
+            const ptInput = document.createElement('div');
+            ptInput.classList.add('form-group');
+            ptInput.innerHTML = `
+            <label for="pt_${value}">${label}</label>
+            <input type="text" name="pt_origin_${value}" id="pt_${value}" class="form-control">
+          `;
+            document.getElementById('pt_origin_inputs').appendChild(ptInput);
 
-          // Buat elemen input untuk jurusan
-          const majorInput = document.createElement('div');
-          majorInput.classList.add('form-group');
-          majorInput.innerHTML = `
-                  <label for="major_${value}">${label}</label>
-                  <input type="text" name="major_${value}" id="major_${value}" class="form-control">
-              `;
-          document.getElementById('major_inputs').appendChild(majorInput);
+            // Buat elemen input untuk jurusan
+            const majorInput = document.createElement('div');
+            majorInput.classList.add('form-group');
+            majorInput.innerHTML = `
+            <label for="major_${value}">${label}</label>
+            <input type="text" name="major_${value}" id="major_${value}" class="form-control">
+          `;
+            document.getElementById('major_inputs').appendChild(majorInput);
+          });
         });
       });
     });
