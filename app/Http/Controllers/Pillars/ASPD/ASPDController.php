@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pillars\ASPD;
 use App\Http\Controllers\Controller;
 use App\Models\Pillars\ASPD\ASPD;
 use App\Models\Pillars\ASPD\ASPDQuota;
+use App\Models\Pillars\ASPD\ASPDRegency;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -14,6 +15,7 @@ class ASPDController extends Controller
     {
         return view('app.pillars.aspd.index', [
             'pageTitle' => 'Data ASPD',
+            'datas' => ASPDRegency::all()
         ]);
     }
 
@@ -52,7 +54,12 @@ class ASPDController extends Controller
             $data['identity_photo'] = $name_file_identity_photo;
         }
 
-        ASPD::create($data);
+        $aspd = ASPD::create($data);
+        ASPDRegency::create([
+            'aspd_id' => $aspd->id,
+            'aspd_quota_id' => $data['regency']
+        ]);
+
         return redirect()->route('app.pillar.aspd.index')->with('success', 'Data berhasil disimpan');
     }
 
