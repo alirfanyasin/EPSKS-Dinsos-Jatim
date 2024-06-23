@@ -25,6 +25,30 @@ class ASPDProfileRoute extends BaseRoute
             'as' => $this->name('create'),
             'uses' => $this->uses('create')
         ]);
+
+        $this->router->post($this->prefix('store'), [
+            'as' => $this->name('store'),
+            'uses' => $this->uses('store')
+        ]);
+
+        $this->router->get($this->prefix('show/{id}'), [
+            'as' => $this->name('show'),
+            'uses' => $this->uses('show')
+        ]);
+
+        $this->router->get($this->prefix('edit/{id}'), [
+            'as' => $this->name('edit'),
+            'uses' => $this->uses('edit')
+        ]);
+
+        $this->router->post($this->prefix('update/{id}'), [
+            'as' => $this->name('update'),
+            'uses' => $this->uses('update')
+        ]);
+        $this->router->delete($this->prefix('delete/{id}'), [
+            'as' => $this->name('delete'),
+            'uses' => $this->uses('delete')
+        ]);
     }
 
     public function controller(): string

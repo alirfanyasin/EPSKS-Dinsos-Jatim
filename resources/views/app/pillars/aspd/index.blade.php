@@ -17,7 +17,7 @@
 
     <div class="section-body">
       <h2 class="section-title">Data ASPD</h2>
-      <p class="section-lead">Asistensi Social Pendamping Disabilitas</p>
+      <p class="section-lead">Asistensi Sosial Pendamping Disabilitas</p>
       <div class="card">
         <div class="card-header">
           <h4>Data ASPD</h4>
@@ -40,10 +40,11 @@
                   <th>Alamat Sekretariat</th>
                   <th>Lokasi Tugas</th>
                   <th>No. Telp</th>
+                  <th>No. Telp</th>
                   <th width="100px">Detail</th>
-                  {{-- @role('admin') --}}
-                  <th width="100px">Aksi</th>
-                  {{-- @endrole --}}
+                  @role('admin')
+                    <th width="100px">Aksi</th>
+                  @endrole
                 </tr>
               </thead>
               <tbody>
@@ -64,6 +65,23 @@
                         Laporan</a>
                     </div>
                   </td>
+                  @role('admin')
+                    <td>
+                      <div class="flex-row flex-wrap d-flex">
+                        <a href="" class="btn btn-icon btn-primary btn-sm w-100" title="Edit">Edit
+                          Data</a>
+
+                        <div class="w-100">
+                          <form action="" class="formDelete" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="mt-2 btn btn-sm btn-danger w-100">Delete
+                              Data</button>
+                          </form>
+                        </div>
+                      </div>
+                    </td>
+                  @endrole
                 </tr>
               </tbody>
             </table>

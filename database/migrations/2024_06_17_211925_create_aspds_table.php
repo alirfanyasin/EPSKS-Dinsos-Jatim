@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('nik');
             $table->string('address');
-            $table->string('indentity_photo');
+            $table->string('identity_photo');
             $table->string('phone');
+            $table->string('explanation');
             $table->foreignIdFor(Office::class, 'office_id')->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class, 'user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
