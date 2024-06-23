@@ -204,13 +204,13 @@
         <li class='{{ request()->routeIs('app.pillar.pkh.index') ? 'active' : '' }}'>
           <a class="nav-link" href="{{ route('app.pillar.pkh.index') }}">Profil</a>
         </li>
-        {{-- <li class='{{ request()->routeIs('app.pillar.lks.report.*') ? 'active' : '' }}'>
-          <a class="nav-link" href="{{ route('app.pillar.lks.report.index') }}">Laporan</a>
+        <li class='{{ request()->routeIs('app.pillar.lks.report.*') ? 'active' : '' }}'>
+          <a class="nav-link" href="">Laporan</a>
         </li>
         <li class='{{ request()->routeIs('app.pillar.lks.approval.*') ? 'active' : '' }}'>
-          <a class="nav-link" href="{{ route('app.pillar.lks.approval.index') }}">Verifikasi
+          <a class="nav-link" href="">Verifikasi
             Laporan</a>
-        </li> --}}
+        </li>
         {{-- <li class=''>
           <a class="nav-link" href="#">Statistik</a>
         </li> --}}
