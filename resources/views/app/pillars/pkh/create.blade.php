@@ -31,7 +31,7 @@
                 <div class="form-group">
                   <label for="name">Nama Lengkap <span class="text-danger">*</span></label>
                   <input type="text" id="name" class="form-control  @error('name') is-invalid @enderror"
-                    name="name" placeholder="Masukkan Nama Lengkap" value="{{ old('name') }}">
+                    name="name" placeholder="Masukkan Nama Lengkap" value="{{ old('name') }}" required>
                   @error('name')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -416,7 +416,7 @@
 
             <div class="row">
               <div class="col-12">
-                <a type="button" href="{{ route('app.pillar.kartar.index') }}" class="btn btn-icon btn-danger"
+                <a type="button" href="{{ route('app.pillar.pkh.index') }}" class="btn btn-icon btn-danger"
                   title="Batal">Batal</a>
                 <button type="submit" class="btn btn-icon btn-success" title="Simpan">Simpan</button>
               </div>
