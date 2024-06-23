@@ -78,7 +78,6 @@ class ASPDController extends Controller
     {
         $data = ASPDRegency::findOrFail($id);
         $dataASPD = ASPD::where('id', $id)->first();
-
         $this->deleteFileIfExists($data->aspd->identity_photo);
         $data->delete();
         $dataASPD->delete();
