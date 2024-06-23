@@ -51,7 +51,7 @@ class PKHController extends Controller
             'city' => $request->city,
             'no_npwp' => $request->no_npwp,
             'clothes_size' => $request->clothes_size,
-            'education' => json_encode($request->education),
+            'education' => $request->education,
             'pt_origin_d3' => $request->pt_origin_D3,
             'pt_origin_s1' => $request->pt_origin_S1,
             'pt_origin_s2' => $request->pt_origin_S2,
