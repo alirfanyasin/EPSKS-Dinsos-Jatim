@@ -50,37 +50,55 @@
                 @php
                   $no = 1;
                 @endphp
-                @foreach ($datas as $data)
-                  <tr>
-                    <td>{{ $no++ }}</td>
-                    <td>{{ $data->aspd->name }}</td>
-                    <td>{{ $data->aspd->nik }}</td>
-                    <td>{{ $data->aspd->address }}</td>
-                    <td>{{ $data->aspdQuota->name }}</td>
-                    <td>
-                      <div class="flex-row flex-wrap d-flex">
-                        <a href="{{ route('app.pillar.aspd.show', $data->id) }}"
-                          class="mb-2 btn btn-sm btn-icon btn-info w-100" title="Detail">Detail Data</a>
-                        <a href="" class="btn btn-sm btn-icon btn-warning w-100" title="Detail Laporan">Detail
-                          Laporan</a>
-                      </div>
-                    </td>
-                    @role('admin')
+                @foreach ($datas as $key => $data)
+                  @php
+                    $isAdmin = false;
+                    $isAdminJawaTimur = 0;
+
+                    // Periksa apakah pengguna memiliki peran 'admin'
+                    foreach (auth()->user()->roles as $role) {
+                        if ($role->name == 'admin' || $role->name == 'super-admin') {
+                            $isAdmin = true;
+                            $isAdminJawaTimur = 1;
+                            break;
+                        }
+                    }
+
+                  @endphp
+                  @if (auth()->user()->id == $data->aspd->id ||
+                          ($isAdmin && $data->aspd->office_id == Auth::user()->office_id) ||
+                          Auth::user()->office_id == $isAdminJawaTimur)
+                    <tr>
+                      <td>{{ $no++ }}</td>
+                      <td>{{ $data->aspd->name }}</td>
+                      <td>{{ $data->aspd->nik }}</td>
+                      <td>{{ $data->aspd->address }}</td>
+                      <td>{{ $data->aspdQuota->name }}</td>
                       <td>
                         <div class="flex-row flex-wrap d-flex">
-                          <a href="" class="btn btn-icon btn-primary btn-sm w-100" title="Edit">Edit Data</a>
-                          <div class="w-100">
-                            <form action="{{ route('app.pillar.aspd.delete', $data->aspd->id) }}" class="formDelete"
-                              method="POST">
-                              @csrf
-                              @method('delete')
-                              <button type="submit" class="mt-2 btn btn-sm btn-danger w-100">Delete Data</button>
-                            </form>
-                          </div>
+                          <a href="{{ route('app.pillar.aspd.show', $data->id) }}"
+                            class="mb-2 btn btn-sm btn-icon btn-info w-100" title="Detail">Detail Data</a>
+                          <a href="" class="btn btn-sm btn-icon btn-warning w-100" title="Detail Laporan">Detail
+                            Laporan</a>
                         </div>
                       </td>
-                    @endrole
-                  </tr>
+                      @role('admin')
+                        <td>
+                          <div class="flex-row flex-wrap d-flex">
+                            <a href="" class="btn btn-icon btn-primary btn-sm w-100" title="Edit">Edit Data</a>
+                            <div class="w-100">
+                              <form action="{{ route('app.pillar.aspd.delete', $data->aspd->id) }}" class="formDelete"
+                                method="POST">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="mt-2 btn btn-sm btn-danger w-100">Delete Data</button>
+                              </form>
+                            </div>
+                          </div>
+                        </td>
+                      @endrole
+                    </tr>
+                  @endif
                 @endforeach
               </tbody>
             </table>

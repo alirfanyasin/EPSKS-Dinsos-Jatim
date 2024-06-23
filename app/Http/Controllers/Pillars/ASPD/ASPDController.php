@@ -7,8 +7,10 @@ use App\Models\Pillars\ASPD\ASPD;
 use App\Models\Pillars\ASPD\ASPDQuota;
 use App\Models\Pillars\ASPD\ASPDRegency;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ASPDController extends Controller
 {
@@ -23,10 +25,38 @@ class ASPDController extends Controller
 
     public function create()
     {
-        $regencies = ASPDQuota::all();
+        // Dapatkan semua aspd_quotas
+        $quotas = ASPDQuota::all();
+
+        // Hitung jumlah entri aspd_regencies untuk setiap aspd_quota_id
+        $quotaCounts = ASPDRegency::select('aspd_quota_id', DB::raw('count(*) as count'))
+            ->groupBy('aspd_quota_id')
+            ->pluck('count', 'aspd_quota_id');
+
+        // Filter quotas yang belum penuh
+        $availableQuotas = $quotas->filter(function ($quota) use ($quotaCounts) {
+            $usedCount = $quotaCounts->get($quota->id, 0);
+            return $usedCount < $quota->quota;
+        });
+
+
+        $name = Auth::user()->name;
+        $nameWithoutLastWord = preg_replace('/\b\w+\s*$/', '', $name);
+        preg_match('/(KOTA|KABUPATEN) [A-Z ]+/', $nameWithoutLastWord, $matches);
+        $kota = isset($matches[0]) ? trim($matches[0]) : 'Not found';
+
+        $allQuotasFull = true;
+
+        foreach ($availableQuotas  as $regency) {
+            if (trim($regency->name) == $kota) {
+                $allQuotasFull = false;
+            }
+        }
+
         return view('app.pillars.aspd.create', [
             'pageTitle' => 'Tambah Data ASPD',
-            'regencies' => $regencies
+            'regencies' => $availableQuotas,
+            'allQuotasFull' => $allQuotasFull
         ]);
     }
 

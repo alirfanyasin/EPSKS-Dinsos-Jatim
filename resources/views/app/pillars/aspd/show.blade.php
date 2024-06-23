@@ -53,7 +53,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="identity_photo">Foto KTP <span class="text-danger">*</span></label>
-                  <a href="{{ asset('storage/image/pillars/ASP/profile/KTP/' . $data->aspd->identity_photo) }}"
+                  <a href="{{ asset('storage/image/pillars/ASPD/profile/KTP/' . $data->aspd->identity_photo) }}"
                     target="_blank" class="btn btn-primary d-block">Lihat Foto KTP</a>
                 </div>
               </div>

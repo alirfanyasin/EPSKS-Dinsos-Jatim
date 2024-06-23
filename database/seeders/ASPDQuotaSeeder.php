@@ -15,39 +15,39 @@ class ASPDQuotaSeeder extends Seeder
     {
         $datas = [
             [
-                'name' => 'KAB. BANGKALAN',
+                'name' => 'KABUPATEN BANGKALAN',
                 'quota' => 4
             ],
             [
-                'name' => 'KAB. BANYUWANGI',
+                'name' => 'KABUPATEN BANYUWANGI',
                 'quota' => 5
             ],
             [
-                'name' => 'KAB. BLITAR',
+                'name' => 'KABUPATEN BLITAR',
                 'quota' => 6
             ],
             [
-                'name' => 'KAB. BOJONEGORO',
+                'name' => 'KABUPATEN BOJONEGORO',
                 'quota' => 6
             ],
             [
-                'name' => 'KAB. BONDOWOSO',
+                'name' => 'KABUPATEN BONDOWOSO',
                 'quota' => 5
             ],
             [
-                'name' => 'KAB. GRESIK',
+                'name' => 'KABUPATEN GRESIK',
                 'quota' => 6
             ],
             [
-                'name' => 'KAB. JEMBER',
+                'name' => 'KABUPATEN JEMBER',
                 'quota' => 6
             ],
             [
-                'name' => 'KAB. JOMBANG',
+                'name' => 'KABUPATEN JOMBANG',
                 'quota' => 5
             ],
             [
-                'name' => 'KAB. KEDIRI',
+                'name' => 'KABUPATEN KEDIRI',
                 'quota' => 7
             ],
             [
@@ -87,83 +87,83 @@ class ASPDQuotaSeeder extends Seeder
                 'quota' => 4
             ],
             [
-                'name' => 'KAB. LAMONGAN',
+                'name' => 'KABUPATEN LAMONGAN',
                 'quota' => 6
             ],
             [
-                'name' => 'KAB. LUMAJANG',
+                'name' => 'KABUPATEN LUMAJANG',
                 'quota' => 3
             ],
             [
-                'name' => 'KAB. MADIUN',
+                'name' => 'KABUPATEN MADIUN',
                 'quota' => 6
             ],
             [
-                'name' => 'KAB. MAGETAN',
+                'name' => 'KABUPATEN MAGETAN',
                 'quota' => 6
             ],
             [
-                'name' => 'KAB. MALANG',
+                'name' => 'KABUPATEN MALANG',
                 'quota' => 6
             ],
             [
-                'name' => 'KAB. MOJOKERTO',
+                'name' => 'KABUPATEN MOJOKERTO',
                 'quota' => 4
             ],
             [
-                'name' => 'KAB. NGANJUK',
+                'name' => 'KABUPATEN NGANJUK',
                 'quota' => 4
             ],
             [
-                'name' => 'KAB. NGAWI',
+                'name' => 'KABUPATEN NGAWI',
                 'quota' => 6
             ],
             [
-                'name' => 'KAB. PACITAN',
+                'name' => 'KABUPATEN PACITAN',
                 'quota' => 6
             ],
             [
-                'name' => 'KAB. PAMEKASAN',
+                'name' => 'KABUPATEN PAMEKASAN',
                 'quota' => 4
             ],
             [
-                'name' => 'KAB. PASURUAN',
+                'name' => 'KABUPATEN PASURUAN',
                 'quota' => 5
             ],
             [
-                'name' => 'KAB. PONOROGO',
+                'name' => 'KABUPATEN PONOROGO',
                 'quota' => 5
             ],
             [
-                'name' => 'KAB. PROBOLINGGO',
+                'name' => 'KABUPATEN PROBOLINGGO',
                 'quota' => 7
             ],
             [
-                'name' => 'KAB. SAMPANG',
+                'name' => 'KABUPATEN SAMPANG',
                 'quota' => 6
             ],
             [
-                'name' => 'KAB. SIDOARJO',
+                'name' => 'KABUPATEN SIDOARJO',
                 'quota' => 4
             ],
             [
-                'name' => 'KAB. SITUBONDO',
+                'name' => 'KABUPATEN SITUBONDO',
                 'quota' => 4
             ],
             [
-                'name' => 'KAB. SUMENEP',
+                'name' => 'KABUPATEN SUMENEP',
                 'quota' => 5
             ],
             [
-                'name' => 'KAB. TRENGGALEK',
+                'name' => 'KABUPATEN TRENGGALEK',
                 'quota' => 6
             ],
             [
-                'name' => 'KAB. TUBAN',
+                'name' => 'KABUPATEN TUBAN',
                 'quota' => 4
             ],
             [
-                'name' => 'KAB. TULUNGAGUNG',
+                'name' => 'KABUPATEN TULUNGAGUNG',
                 'quota' => 5
             ],
         ];
