@@ -82,6 +82,16 @@ class PKHController extends Controller
     }
 
 
+
+    public function show($id)
+    {
+        return view('app.pillars.pkh.show', [
+            'pageTitle' => 'Detail Data PKH',
+            'data' => PKH::findOrFail($id)
+        ]);
+    }
+
+
     public function rules($request)
     {
         $request->validate([
