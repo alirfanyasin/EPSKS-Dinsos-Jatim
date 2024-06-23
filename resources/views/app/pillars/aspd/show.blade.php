@@ -9,19 +9,19 @@
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="{{ route('app.dashboard') }}">Dashboard</a></div>
         <div class="breadcrumb-item active"><a href="{{ route('app.pillar.pkh.index') }}">Data ASPD</a></div>
-        <div class="breadcrumb-item">Tambah Data</div>
+        <div class="breadcrumb-item">Detail Data</div>
       </div>
     </div>
 
     <div class="section-body">
-      <h2 class="section-title">Tambah Data ASPD</h2>
+      <h2 class="section-title">Detail Data ASPD</h2>
       <p class="section-lead">Asistensi Sosial Pendamping Disabilitas</p>
       <div class="card">
         <div class="card-header">
-          <h4>Tambah Data ASPD</h4>
+          <h4>Detail Data ASPD</h4>
         </div>
         <div class="card-body">
-          <form action="{{ route('app.pillar.aspd.store') }}" method="POST" enctype="multipart/form-data">
+          <form action="" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="text" value="{{ auth()->user()->office_id }}" name="office_id" hidden>
             <input type="text" value="{{ auth()->user()->id }}" name="user_id" hidden>
@@ -29,59 +29,32 @@
               <div class="col-4">
                 <div class="form-group">
                   <label for="name">Nama Lengkap <span class="text-danger">*</span></label>
-                  <input type="text" id="name" class="form-control  @error('name') is-invalid @enderror"
-                    name="name" placeholder="Masukkan Nama Lengkap" value="{{ old('name') }}" required>
-                  @error('name')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                  @enderror
+                  <input type="text" id="name" class="form-control" name="name"
+                    placeholder="Masukkan Nama Lengkap" value="{{ $data->aspd->name }}" readonly>
                 </div>
               </div>
 
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="nik">NIK <span class="text-danger">*</span></label>
-                  <input type="number" name="nik" id="nik"
-                    class="form-control @error('nik') is-invalid @enderror" placeholder="Masukkan NIK KTP"
-                    value="{{ old('nik') }}" required>
-                  @error('nik')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                  @enderror
+                  <input type="number" name="nik" id="nik" class="form-control" placeholder="Masukkan NIK KTP"
+                    value="{{ $data->aspd->nik }}" readonly>
                 </div>
               </div>
 
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="phone">Nomor Telepon <span class="text-danger">*</span></label>
-                  <input type="number" name="phone" id="phone"
-                    class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}"
-                    placeholder="Masukkan Nomor Telepon" required>
-                  @error('phone')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                  @enderror
+                  <input type="number" name="phone" id="phone" class="form-control"
+                    value="{{ $data->aspd->phone }}" placeholder="Masukkan Nomor Telepon" readonly>
                 </div>
               </div>
 
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="identity_photo">Foto KTP <span class="text-danger">*</span></label>
-                  <input type="file" name="identity_photo" id="identity_photo"
-                    class="form-control @error('identity_photo') is-invalid @enderror" placeholder="Masukkan Foto KTP"
-                    accept=".jpg, .png, .jpeg" required>
-                  <div class="text-small">
-                    <li>Ekstensi file harus : JPG, PNG, JPEG</li>
-                    <li>Maksimal : 2 MB</li>
-                  </div>
-                  @error('identity_photo')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                  @enderror
+                  <a href="{{ asset('storage/image/pillars/ASP/profile/KTP/' . $data->aspd->identity_photo) }}"
+                    target="_blank" class="btn btn-primary d-block">Lihat Foto KTP</a>
                 </div>
               </div>
 
@@ -90,17 +63,8 @@
 
                 <div class="form-group">
                   <label for="regency">Kabupaten / Kota <span class="text-danger">*</span></label>
-                  <select name="regency" id="regency" class="form-control" required>
-                    <option disabled selected>Pilih Kabupaten / Kota</option>
-                    @foreach ($regencies as $regency)
-                      <option value="{{ $regency->id }}">{{ $regency->name }}</option>
-                    @endforeach
-                  </select>
-                  @error('regency')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                  @enderror
+                  <input type="text" name="regency" id="regency" class="form-control"
+                    placeholder="Masukkan Kabupaten / Kota" value="{{ $data->aspdQuota->name }}" readonly>
                 </div>
               </div>
 
@@ -108,27 +72,15 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="address">Alamat <span class="text-danger">*</span></label>
-                  <input type="text" name="address" id="address"
-                    class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}"
-                    placeholder="Masukkan Alamat" required>
-                  @error('address')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                  @enderror
+                  <input type="text" name="address" id="address" class="form-control"
+                    value="{{ $data->aspd->address }}" placeholder="Masukkan Alamat" readonly>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="explanation">Ketaranga (Unsur)</label>
-                  <textarea name="explanation" id="explanation" style="height: 100px"
-                    class="form-control @error('explanation') is-invalid @enderror"></textarea>
-                  @error('explanation')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                  @enderror
+                  <label for="explanation">Keterangan (Unsur)</label>
+                  <textarea name="explanation" id="explanation" style="height: 100px" class="form-control" disabled>{{ $data->aspd->explanation }}</textarea>
                 </div>
               </div>
             </div>

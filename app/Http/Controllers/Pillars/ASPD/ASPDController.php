@@ -63,6 +63,16 @@ class ASPDController extends Controller
         return redirect()->route('app.pillar.aspd.index')->with('success', 'Data berhasil disimpan');
     }
 
+
+    public function show($id)
+    {
+        return view('app.pillars.aspd.show', [
+            'pageTitle' => 'Detail Data ASPD',
+            'data' => ASPDRegency::findOrFail($id)
+        ]);
+    }
+
+
     public function rules($request)
     {
         $request->validate([

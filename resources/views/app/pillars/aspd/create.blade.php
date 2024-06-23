@@ -121,7 +121,7 @@
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="explanation">Ketaranga (Unsur)</label>
+                  <label for="explanation">Keterangan (Unsur)</label>
                   <textarea name="explanation" id="explanation" style="height: 100px"
                     class="form-control @error('explanation') is-invalid @enderror"></textarea>
                   @error('explanation')

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('aspd_regencies', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(ASPD::class, 'aspd_id')->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(ASPDQuota::class, 'aspd_quota_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(ASPDQuota::class, 'aspd_quota_id')->constrained();
             $table->timestamps();
         });
     }
