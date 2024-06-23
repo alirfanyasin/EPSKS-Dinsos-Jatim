@@ -25,6 +25,28 @@
             @csrf
             <input type="text" value="{{ auth()->user()->office_id }}" name="office_id" hidden>
             <input type="text" value="{{ auth()->user()->id }}" name="user_id" hidden>
+
+            @if ($allQuotasFull)
+              <div class="row">
+                <div class="col">
+                  <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <div style="width: 30px; height: 30px" class="mr-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+                      </svg>
+                    </div>
+                    <div class="fw-bold">
+                      KUOTA SUDAH PENUH <br>
+                      <p>Anda sudah tidak dapat menambahkan data baru</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endif
+
+
             <div class="row">
               <div class="col-4">
                 <div class="form-group">
@@ -89,11 +111,19 @@
               <div class="col-4">
 
                 <div class="form-group">
+                  @php
+                    $name = Auth::user()->name;
+                    $nameWithoutLastWord = preg_replace('/\b\w+\s*$/', '', $name);
+                    preg_match('/(KOTA|KABUPATEN) [A-Z ]+/', $nameWithoutLastWord, $matches);
+                    $kota = isset($matches[0]) ? trim($matches[0]) : 'Not found';
+
+                  @endphp
                   <label for="regency">Kabupaten / Kota <span class="text-danger">*</span></label>
                   <select name="regency" id="regency" class="form-control" required>
-                    <option disabled selected>Pilih Kabupaten / Kota</option>
                     @foreach ($regencies as $regency)
-                      <option value="{{ $regency->id }}">{{ $regency->name }}</option>
+                      @if (trim($regency->name) == $kota)
+                        <option value="{{ $regency->id }}" selected>{{ $regency->name }}</option>
+                      @endif
                     @endforeach
                   </select>
                   @error('regency')
@@ -121,7 +151,7 @@
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="explanation">Ketaranga (Unsur)</label>
+                  <label for="explanation">Keterangan (Unsur)</label>
                   <textarea name="explanation" id="explanation" style="height: 100px"
                     class="form-control @error('explanation') is-invalid @enderror"></textarea>
                   @error('explanation')
@@ -132,14 +162,22 @@
                 </div>
               </div>
             </div>
-
-            <div class="row">
-              <div class="col-12">
-                <a type="button" href="{{ route('app.pillar.aspd.index') }}" class="btn btn-icon btn-danger"
-                  title="Batal">Batal</a>
-                <button type="submit" class="btn btn-icon btn-success" title="Simpan">Simpan</button>
+            @if (!$allQuotasFull)
+              <div class="row">
+                <div class="col-12">
+                  <a type="button" href="{{ route('app.pillar.aspd.index') }}" class="btn btn-icon btn-danger"
+                    title="Batal">Batal</a>
+                  <button type="submit" class="btn btn-icon btn-success" title="Simpan">Simpan</button>
+                </div>
               </div>
-            </div>
+            @else
+              <div class="row">
+                <div class="col-12">
+                  <a type="button" href="{{ route('app.pillar.aspd.index') }}" class="btn btn-icon btn-danger"
+                    title="Batal">Kembali</a>
+                </div>
+              </div>
+            @endif
           </form>
         </div>
       </div>

@@ -36,11 +36,10 @@
               <thead>
                 <tr>
                   <th>No.</th>
-                  <th>Nama Karang Taruna</th>
-                  <th>Alamat Sekretariat</th>
-                  <th>Lokasi Tugas</th>
-                  <th>No. Telp</th>
-                  <th>No. Telp</th>
+                  <th>Nama Lengkap</th>
+                  <th>NIK</th>
+                  <th>Alamat</th>
+                  <th>Regency</th>
                   <th width="100px">Detail</th>
                   @role('admin')
                     <th width="100px">Aksi</th>
@@ -48,41 +47,59 @@
                 </tr>
               </thead>
               <tbody>
+                @php
+                  $no = 1;
+                @endphp
+                @foreach ($datas as $key => $data)
+                  @php
+                    $isAdmin = false;
+                    $isAdminJawaTimur = 0;
 
-                <tr>
-                  <td>1</td>
-                  <td>hELLO</td>
-                  <td>DASDSA</td>
-                  <td>DASDAS</td>
-                  <td>DASDAS</td>
+                    // Periksa apakah pengguna memiliki peran 'admin'
+                    foreach (auth()->user()->roles as $role) {
+                        if ($role->name == 'admin' || $role->name == 'super-admin') {
+                            $isAdmin = true;
+                            $isAdminJawaTimur = 1;
+                            break;
+                        }
+                    }
 
-                  <td>DASDSA</td>
-                  <td>
-                    <div class="flex-row flex-wrap d-flex">
-                      <a href="" class="mb-2 btn btn-sm btn-icon btn-info w-100" title="Detail">Detail
-                        Data</a>
-                      <a href="" class="btn btn-sm btn-icon btn-warning w-100" title="Detail Laporan">Detail
-                        Laporan</a>
-                    </div>
-                  </td>
-                  @role('admin')
-                    <td>
-                      <div class="flex-row flex-wrap d-flex">
-                        <a href="" class="btn btn-icon btn-primary btn-sm w-100" title="Edit">Edit
-                          Data</a>
-
-                        <div class="w-100">
-                          <form action="" class="formDelete" method="POST">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="mt-2 btn btn-sm btn-danger w-100">Delete
-                              Data</button>
-                          </form>
+                  @endphp
+                  @if (auth()->user()->id == $data->aspd->id ||
+                          ($isAdmin && $data->aspd->office_id == Auth::user()->office_id) ||
+                          Auth::user()->office_id == $isAdminJawaTimur)
+                    <tr>
+                      <td>{{ $no++ }}</td>
+                      <td>{{ $data->aspd->name }}</td>
+                      <td>{{ $data->aspd->nik }}</td>
+                      <td>{{ $data->aspd->address }}</td>
+                      <td>{{ $data->aspdQuota->name }}</td>
+                      <td>
+                        <div class="flex-row flex-wrap d-flex">
+                          <a href="{{ route('app.pillar.aspd.show', $data->id) }}"
+                            class="mb-2 btn btn-sm btn-icon btn-info w-100" title="Detail">Detail Data</a>
+                          <a href="" class="btn btn-sm btn-icon btn-warning w-100" title="Detail Laporan">Detail
+                            Laporan</a>
                         </div>
-                      </div>
-                    </td>
-                  @endrole
-                </tr>
+                      </td>
+                      @role('admin')
+                        <td>
+                          <div class="flex-row flex-wrap d-flex">
+                            <a href="" class="btn btn-icon btn-primary btn-sm w-100" title="Edit">Edit Data</a>
+                            <div class="w-100">
+                              <form action="{{ route('app.pillar.aspd.delete', $data->aspd->id) }}" class="formDelete"
+                                method="POST">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="mt-2 btn btn-sm btn-danger w-100">Delete Data</button>
+                              </form>
+                            </div>
+                          </div>
+                        </td>
+                      @endrole
+                    </tr>
+                  @endif
+                @endforeach
               </tbody>
             </table>
           </div>
