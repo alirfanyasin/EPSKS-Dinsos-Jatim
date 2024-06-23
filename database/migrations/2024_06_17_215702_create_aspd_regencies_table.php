@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Pillars\ASPD\ASPD;
+use App\Models\Pillars\ASPD\ASPDQuota;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +16,7 @@ return new class extends Migration
         Schema::create('aspd_regencies', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(ASPD::class, 'aspd_id')->constrained()->cascadeOnDelete();
-            $table->string('name');
-            $table->string('quota');
+            $table->foreignIdFor(ASPDQuota::class, 'aspd_quota_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
