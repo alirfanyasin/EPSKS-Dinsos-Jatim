@@ -7,6 +7,7 @@ use App\Models\Pillars\ASPD\ASPD;
 use App\Models\Pillars\ASPD\ASPDQuota;
 use App\Models\Pillars\ASPD\ASPDRegency;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ASPDController extends Controller
@@ -50,7 +51,7 @@ class ASPDController extends Controller
             $identity_photo = $request->file('identity_photo');
             $randomString = Str::random(5);
             $name_file_identity_photo = $randomString . "_" . $identity_photo->getClientOriginalName();
-            $identity_photo->storeAs('public/image/pillars/ASP/profile/KTP/', $name_file_identity_photo);
+            $identity_photo->storeAs('public/image/pillars/ASPD/profile/KTP/', $name_file_identity_photo);
             $data['identity_photo'] = $name_file_identity_photo;
         }
 
@@ -73,6 +74,18 @@ class ASPDController extends Controller
     }
 
 
+    public function delete($id)
+    {
+        $data = ASPDRegency::findOrFail($id);
+        $dataASPD = ASPD::where('id', $id)->first();
+
+        $this->deleteFileIfExists($data->aspd->identity_photo);
+        $data->delete();
+        $dataASPD->delete();
+        return redirect()->route('app.pillar.aspd.index')->with('success', 'Data berhasil dihapus.');
+    }
+
+
     public function rules($request)
     {
         $request->validate([
@@ -84,5 +97,12 @@ class ASPDController extends Controller
             'address' => 'required|max:255',
             'explanation' => 'nullable',
         ]);
+    }
+
+    private function deleteFileIfExists($fileName)
+    {
+        if ($fileName && Storage::exists('public/image/pillars/ASPD/profile/KTP/' . $fileName)) {
+            Storage::delete('public/image/pillars/ASPD/profile/KTP/' . $fileName);
+        }
     }
 }

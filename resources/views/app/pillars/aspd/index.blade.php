@@ -70,7 +70,8 @@
                         <div class="flex-row flex-wrap d-flex">
                           <a href="" class="btn btn-icon btn-primary btn-sm w-100" title="Edit">Edit Data</a>
                           <div class="w-100">
-                            <form action="" class="formDelete" method="POST">
+                            <form action="{{ route('app.pillar.aspd.delete', $data->aspd->id) }}" class="formDelete"
+                              method="POST">
                               @csrf
                               @method('delete')
                               <button type="submit" class="mt-2 btn btn-sm btn-danger w-100">Delete Data</button>
