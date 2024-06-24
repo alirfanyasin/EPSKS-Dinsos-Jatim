@@ -8,6 +8,7 @@ use App\Models\Utilities\Province;
 use App\Models\Utilities\Regency;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PKHController extends Controller
 {
@@ -50,7 +51,7 @@ class PKHController extends Controller
             'city' => $request->city,
             'no_npwp' => $request->no_npwp,
             'clothes_size' => $request->clothes_size,
-            'education' => json_encode($request->education),
+            'education' => $request->education,
             'pt_origin_d3' => $request->pt_origin_D3,
             'pt_origin_s1' => $request->pt_origin_S1,
             'pt_origin_s2' => $request->pt_origin_S2,
@@ -157,6 +158,15 @@ class PKHController extends Controller
 
 
 
+    public function delete($id)
+    {
+        $data = PKH::findOrFail($id);
+
+        $this->deleteFileIfExists($data->appointment_letter);
+        $data->delete();
+        return redirect()->route('app.pillar.pkh.index')->with('success', 'Data berhasil dihapus.');
+    }
+
 
     public function rules($request)
     {
@@ -191,5 +201,12 @@ class PKHController extends Controller
             'family_card_number' => 'required|max:20',
             'no_bpjs' => 'nullable|max:20',
         ]);
+    }
+
+    private function deleteFileIfExists($fileName)
+    {
+        if ($fileName && Storage::exists('public/image/pillars/pkh/profile/' . $fileName)) {
+            Storage::delete('public/image/pillars/pkh/profile/' . $fileName);
+        }
     }
 }

@@ -31,7 +31,7 @@
                 <div class="form-group">
                   <label for="name">Nama Lengkap <span class="text-danger">*</span></label>
                   <input type="text" id="name" class="form-control  @error('name') is-invalid @enderror"
-                    name="name" placeholder="Masukkan Nama Lengkap" value="{{ old('name') }}">
+                    name="name" placeholder="Masukkan Nama Lengkap" value="{{ old('name') }}" required>
                   @error('name')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -416,7 +416,7 @@
 
             <div class="row">
               <div class="col-12">
-                <a type="button" href="{{ route('app.pillar.kartar.index') }}" class="btn btn-icon btn-danger"
+                <a type="button" href="{{ route('app.pillar.pkh.index') }}" class="btn btn-icon btn-danger"
                   title="Batal">Batal</a>
                 <button type="submit" class="btn btn-icon btn-success" title="Simpan">Simpan</button>
               </div>
@@ -530,29 +530,36 @@
           document.getElementById('pt_origin_inputs').innerHTML = '';
           document.getElementById('major_inputs').innerHTML = '';
 
+          // Buat array untuk menyimpan nilai dari checkbox yang dicek
+          const values = [];
+
           // Tambahkan input sesuai dengan checkbox yang dicek
           checkedCheckboxes.forEach(checked => {
             const value = checked.value;
+            values.push(value);
             const label = checked.parentElement.querySelector('.form-check-label').textContent.trim();
 
             // Buat elemen input untuk asal perguruan tinggi
             const ptInput = document.createElement('div');
             ptInput.classList.add('form-group');
             ptInput.innerHTML = `
-            <label for="pt_${value}">${label}</label>
-            <input type="text" name="pt_origin_${value}" id="pt_${value}" class="form-control">
-          `;
+                      <label for="pt_${value}">${label}</label>
+                      <input type="text" name="pt_origin_${value}" id="pt_${value}" class="form-control">
+                  `;
             document.getElementById('pt_origin_inputs').appendChild(ptInput);
 
             // Buat elemen input untuk jurusan
             const majorInput = document.createElement('div');
             majorInput.classList.add('form-group');
             majorInput.innerHTML = `
-            <label for="major_${value}">${label}</label>
-            <input type="text" name="major_${value}" id="major_${value}" class="form-control">
-          `;
+                      <label for="major_${value}">${label}</label>
+                      <input type="text" name="major_${value}" id="major_${value}" class="form-control">
+                  `;
             document.getElementById('major_inputs').appendChild(majorInput);
           });
+
+          // Tampilkan array dalam format yang diinginkan
+          console.log(values);
         });
       });
     });

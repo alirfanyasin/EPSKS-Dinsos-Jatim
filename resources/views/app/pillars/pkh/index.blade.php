@@ -92,7 +92,8 @@
                               Data</a>
 
                             <div class="w-100">
-                              <form action="" class="formDelete" method="POST">
+                              <form action="{{ route('app.pillar.pkh.delete', $data->id) }}" class="formDelete"
+                                method="POST">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="mt-2 btn btn-sm btn-danger w-100">Delete

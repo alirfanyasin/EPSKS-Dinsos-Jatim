@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Pillars\ASPD\ASPDQuota;
 use Database\Seeders\utilities\IndoRegionSeeder;
 use Illuminate\Database\Seeder;
 
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(DummyPillarSeeder::class);
 
+        $this->call(ASPDQuotaSeeder::class);
 
         // $this->call(KarangTarunaSeeder::class);
         // $this->call(KarangTarunaMemberSeeder::class);
