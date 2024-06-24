@@ -86,11 +86,84 @@ class PKHController extends Controller
 
     public function show($id)
     {
+        $data = PKH::findOrFail($id);
+        $data->education = $data->education;
+
         return view('app.pillars.pkh.show', [
             'pageTitle' => 'Detail Data PKH',
-            'data' => PKH::findOrFail($id)
+            'data' => $data
         ]);
     }
+    public function edit($id)
+    {
+        $data = PKH::findOrFail($id);
+        $data->education = $data->education;
+
+        return view('app.pillars.pkh.edit', [
+            'pageTitle' => 'Detail Data PKH',
+            'data' => $data
+        ]);
+    }
+    public function update(Request $request, $id)
+    {
+        $this->rules($request);
+
+        $data = [
+            'name' => $request->name,
+            'nik' => $request->nik,
+            'tmt' => $request->tmt,
+            'religion' => $request->religion,
+            'gender' => $request->gender,
+            'place_of_birth' => $request->place_of_birth,
+            'date_of_birth' => $request->date_of_birth,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'province' => $request->province,
+            'city' => $request->city,
+            'no_npwp' => $request->no_npwp,
+            'clothes_size' => $request->clothes_size,
+            'education' => $request->education,
+            'pt_origin_d3' => $request->pt_origin_D3,
+            'pt_origin_s1' => $request->pt_origin_S1,
+            'pt_origin_s2' => $request->pt_origin_S2,
+            'pt_origin_s3' => $request->pt_origin_S3,
+            'major_d3' => $request->major_D3,
+            'major_s1' => $request->major_S1,
+            'major_s2' => $request->major_S2,
+            'major_s3' => $request->major_S3,
+            'marital_status' => $request->marital_status,
+            'number_of_children' => $request->number_of_children,
+            'husband_or_wife_name' => $request->husband_or_wife_name,
+            'family_card_number' => $request->family_card_number,
+            'mother_name' => $request->mother_name,
+            'no_bpjs' => $request->no_bpjs,
+            'office_id' => $request->office_id,
+            'user_id' => $request->user_id,
+        ];
+
+        $pkh = PKH::findOrFail($id);
+
+
+        if ($request->hasFile('appointment_letter')) {
+            if ($pkh->appointment_letter) {
+                Storage::delete('public/image/pillars/PKH/profile/' . $pkh->appointment_letter);
+            }
+
+            $file = $request->file('appointment_letter');
+            $randomString = Str::random(5);
+            $name = $randomString . "_" . $file->getClientOriginalName();
+            $file->storeAs('public/image/pillars/PKH/profile/', $name);
+
+            $pkh->appointment_letter = $name;
+        }
+
+        $pkh->update($data);
+
+        return redirect()->route('app.pillar.pkh.index')->with('success', 'Data berhasil diupdate.');
+    }
+
+
 
     public function delete($id)
     {
@@ -118,7 +191,7 @@ class PKHController extends Controller
             'province' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'no_npwp' => 'required|max:30',
-            'appointment_letter' => 'required|file|mimes:pdf|max:2048',
+            'appointment_letter' => 'nullable|file|mimes:pdf|max:2048',
             'clothes_size' => 'required|max:10',
             'education' => 'array', // Make sure 'education' is an array
             'pt_origin_d3' => 'nullable|string|max:255',
