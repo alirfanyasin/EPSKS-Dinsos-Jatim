@@ -85,11 +85,77 @@ class PKHController extends Controller
 
     public function show($id)
     {
+        $data = PKH::findOrFail($id);
+        $data->education = json_decode($data->education, true);
+
         return view('app.pillars.pkh.show', [
             'pageTitle' => 'Detail Data PKH',
-            'data' => PKH::findOrFail($id)
+            'data' => $data
         ]);
     }
+    public function edit($id)
+    {
+        $data = PKH::findOrFail($id);
+        $data->education = json_decode($data->education, true);
+
+        return view('app.pillars.pkh.edit', [
+            'pageTitle' => 'Detail Data PKH',
+            'data' => $data
+        ]);
+    }
+    public function update(Request $request, $id)
+    {
+        $this->rules($request);
+
+        $data = [
+            'name' => $request->name,
+            'nik' => $request->nik,
+            'tmt' => $request->tmt,
+            'religion' => $request->religion,
+            'gender' => $request->gender,
+            'place_of_birth' => $request->place_of_birth,
+            'date_of_birth' => $request->date_of_birth,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'province' => $request->province,
+            'city' => $request->city,
+            'no_npwp' => $request->no_npwp,
+            'clothes_size' => $request->clothes_size,
+            'education' => json_encode($request->education),
+            'pt_origin_d3' => $request->pt_origin_D3,
+            'pt_origin_s1' => $request->pt_origin_S1,
+            'pt_origin_s2' => $request->pt_origin_S2,
+            'pt_origin_s3' => $request->pt_origin_S3,
+            'major_d3' => $request->major_D3,
+            'major_s1' => $request->major_S1,
+            'major_s2' => $request->major_S2,
+            'major_s3' => $request->major_S3,
+            'marital_status' => $request->marital_status,
+            'number_of_children' => $request->number_of_children,
+            'husband_or_wife_name' => $request->husband_or_wife_name,
+            'family_card_number' => $request->family_card_number,
+            'mother_name' => $request->mother_name,
+            'no_bpjs' => $request->no_bpjs,
+            'office_id' => $request->office_id,
+            'user_id' => $request->user_id,
+        ];
+
+        if ($request->hasFile('appointment_letter')) {
+            $appointment_letter = $request->file('appointment_letter');
+            $randomString = Str::random(5);
+            $name_file_appointment_letter = $randomString . "_" . $appointment_letter->getClientOriginalName();
+            $appointment_letter->storeAs('public/image/pillars/PKH/profile/', $name_file_appointment_letter);
+            $data['appointment_letter'] = $name_file_appointment_letter;
+        }
+
+        $pkh = PKH::findOrFail($id);
+        $pkh->update($data);
+
+        return redirect()->route('app.pillar.pkh.index')->with('success', 'Data berhasil diupdate.');
+    }
+
+
 
 
     public function rules($request)

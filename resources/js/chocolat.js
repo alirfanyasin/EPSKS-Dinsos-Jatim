@@ -1,3 +1,4 @@
+
 !(function (t) {
     "object" == typeof module && "object" == typeof module.exports
         ? (module.exports = t(require("jquery"), window, document))
