@@ -88,8 +88,7 @@
             <div class="row">
               <div class="col-12">
                 <a type="button" href="{{ route('app.pillar.aspd.index') }}" class="btn btn-icon btn-danger"
-                  title="Batal">Batal</a>
-                <button type="submit" class="btn btn-icon btn-success" title="Simpan">Simpan</button>
+                  title="Batal">Kembali</a>
               </div>
             </div>
           </form>
