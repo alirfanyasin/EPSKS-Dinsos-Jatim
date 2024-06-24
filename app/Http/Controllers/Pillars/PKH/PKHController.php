@@ -212,8 +212,8 @@ class PKHController extends Controller
 
     private function deleteFileIfExists($fileName)
     {
-        if ($fileName && Storage::exists('public/image/pillars/pkh/profile/' . $fileName)) {
-            Storage::delete('public/image/pillars/pkh/profile/' . $fileName);
+        if ($fileName && Storage::exists('public/image/pillars/PKH/profile/' . $fileName)) {
+            Storage::delete('public/image/pillars/PKH/profile/' . $fileName);
         }
     }
 }
