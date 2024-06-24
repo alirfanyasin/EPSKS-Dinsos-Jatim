@@ -418,7 +418,7 @@
 
             <div class="row">
               <div class="col-12">
-                <a type="button" href="{{ route('app.pillar.kartar.index') }}" class="btn btn-icon btn-danger"
+                <a type="button" href="{{ route('app.pillar.pkh.index') }}" class="btn btn-icon btn-danger"
                   title="Batal">Batal</a>
                 <button type="submit" class="btn btn-icon btn-success" title="Simpan">Simpan</button>
               </div>
