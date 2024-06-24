@@ -7,6 +7,7 @@ use App\Models\Pillars\ASPD\ASPD;
 use App\Models\Pillars\Kartar\KarangTaruna;
 use App\Models\Pillars\LKS;
 use App\Models\Pillars\Pillar;
+use App\Models\Pillars\PKH\PKH;
 use App\Models\Pillars\PSM\PSM;
 use App\Models\Pillars\TKSK\TKSK;
 use App\Models\User;
@@ -86,6 +87,7 @@ class ReportCodeManagementAction
             Pillar::PILLAR_LKS => LKS::query()->where('office_id', auth()->user()->isDinsosJatim ? $this->request['office_id'] : auth()->user()->office_id)->get(),
             Pillar::PILLAR_KARTAR => KarangTaruna::query()->where('office_id', auth()->user()->isDinsosJatim ? $this->request['office_id'] : auth()->user()->office_id)->get(),
             Pillar::PILLAR_ASPD => ASPD::query()->where('office_id', auth()->user()->isDinsosJatim ? $this->request['office_id'] : auth()->user()->office_id)->get(),
+            Pillar::PILLAR_PKH => PKH::query()->where('office_id', auth()->user()->isDinsosJatim ? $this->request['office_id'] : auth()->user()->office_id)->get(),
         };
     }
 }

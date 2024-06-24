@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pillars\PKH;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Users\CreateNewUserAfterPKHCreate;
 use App\Models\Pillars\PKH\PKH;
 use App\Models\Utilities\Province;
 use App\Models\Utilities\Regency;
@@ -78,7 +79,9 @@ class PKHController extends Controller
             $data['appointment_letter'] = $name_file_appointment_letter;
         }
 
-        PKH::create($data);
+        $pkh = PKH::create($data);
+
+        CreateNewUserAfterPKHCreate::dispatch($pkh);
         return redirect()->route('app.pillar.pkh.index')->with('success', 'Data berhasil disimpan.');
     }
 
