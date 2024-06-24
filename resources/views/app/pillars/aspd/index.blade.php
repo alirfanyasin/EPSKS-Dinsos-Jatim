@@ -85,7 +85,8 @@
                       @role('admin')
                         <td>
                           <div class="flex-row flex-wrap d-flex">
-                            <a href="" class="btn btn-icon btn-primary btn-sm w-100" title="Edit">Edit Data</a>
+                            <a href="{{ route('app.pillar.aspd.edit', $data->id) }}"
+                              class="btn btn-icon btn-primary btn-sm w-100" title="Edit">Edit Data</a>
                             <div class="w-100">
                               <form action="{{ route('app.pillar.aspd.delete', $data->aspd->id) }}" class="formDelete"
                                 method="POST">

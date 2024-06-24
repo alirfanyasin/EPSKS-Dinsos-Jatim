@@ -103,6 +103,29 @@ class ASPDController extends Controller
         ]);
     }
 
+    public function edit($id)
+    {
+        // Dapatkan semua aspd_quotas
+        $quotas = ASPDQuota::all();
+
+        // Hitung jumlah entri aspd_regencies untuk setiap aspd_quota_id
+        $quotaCounts = ASPDRegency::select('aspd_quota_id', DB::raw('count(*) as count'))
+            ->groupBy('aspd_quota_id')
+            ->pluck('count', 'aspd_quota_id');
+
+        // Filter quotas yang belum penuh
+        $availableQuotas = $quotas->filter(function ($quota) use ($quotaCounts) {
+            $usedCount = $quotaCounts->get($quota->id, 0);
+            return $usedCount < $quota->quota;
+        });
+
+        return view('app.pillars.aspd.edit', [
+            'pageTitle' => 'Edit Data ASPD',
+            'data' => ASPDRegency::findOrFail($id),
+            'regencies' => $availableQuotas,
+        ]);
+    }
+
 
     public function delete($id)
     {
@@ -115,13 +138,54 @@ class ASPDController extends Controller
     }
 
 
+
+    public function update($id, Request $request)
+    {
+        $validate = $this->rules($request);
+        $validate['identity_photo'] = 'nullable';
+
+        // Find the record by ID
+        $data = ASPD::findOrFail($id);
+
+        // Check if a new file is uploaded
+        if ($request->hasFile('identity_photo')) {
+            // Delete the old file if it exists
+            if ($data->identity_photo) {
+                Storage::delete('public/image/pillars/ASPD/profile/KTP/' . $data->identity_photo);
+            }
+
+            // Handle the new file upload
+            $file = $request->file('identity_photo');
+            $randomString = Str::random(5);
+            $name = $randomString . "_" . $file->getClientOriginalName();
+            $file->storeAs('public/image/pillars/ASPD/profile/KTP/', $name);
+
+            // Update the identity_photo field with the new file name
+            $data->identity_photo = $name;
+        }
+
+        // Update the remaining fields
+        $data->update([
+            'name' => $request->name,
+            'nik' => $request->nik,
+            'phone' => $request->phone,
+            'regency' => $request->regency,
+            'address' => $request->address,
+            'explanation' => $request->explanation,
+            'identity_photo' => $data->identity_photo,
+        ]);
+
+        return redirect()->route('app.pillar.aspd.index')->with('success', 'Berhasil mengupdate data');
+    }
+
+
     public function rules($request)
     {
         $request->validate([
             'name' => 'required|string|max:150',
             'nik' => 'required|max:20',
             'phone' => 'required|max:15',
-            'identity_photo' => 'required|max:255',
+            'identity_photo' => 'nullable|file|mimes:png,jpg,jpeg|max:2048',
             'regency' => 'required|max:255',
             'address' => 'required|max:255',
             'explanation' => 'nullable',
