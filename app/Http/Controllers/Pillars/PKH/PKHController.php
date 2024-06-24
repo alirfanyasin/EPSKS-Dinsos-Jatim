@@ -87,7 +87,7 @@ class PKHController extends Controller
     public function show($id)
     {
         $data = PKH::findOrFail($id);
-        $data->education = json_decode($data->education, true);
+        $data->education = $data->education;
 
         return view('app.pillars.pkh.show', [
             'pageTitle' => 'Detail Data PKH',
@@ -97,7 +97,7 @@ class PKHController extends Controller
     public function edit($id)
     {
         $data = PKH::findOrFail($id);
-        $data->education = json_decode($data->education, true);
+        $data->education = $data->education;
 
         return view('app.pillars.pkh.edit', [
             'pageTitle' => 'Detail Data PKH',
@@ -123,7 +123,7 @@ class PKHController extends Controller
             'city' => $request->city,
             'no_npwp' => $request->no_npwp,
             'clothes_size' => $request->clothes_size,
-            'education' => json_encode($request->education),
+            'education' => $request->education,
             'pt_origin_d3' => $request->pt_origin_D3,
             'pt_origin_s1' => $request->pt_origin_S1,
             'pt_origin_s2' => $request->pt_origin_S2,
@@ -142,15 +142,22 @@ class PKHController extends Controller
             'user_id' => $request->user_id,
         ];
 
+        $pkh = PKH::findOrFail($id);
+
+
         if ($request->hasFile('appointment_letter')) {
-            $appointment_letter = $request->file('appointment_letter');
+            if ($pkh->appointment_letter) {
+                Storage::delete('public/image/pillars/PKH/profile/' . $pkh->appointment_letter);
+            }
+
+            $file = $request->file('appointment_letter');
             $randomString = Str::random(5);
-            $name_file_appointment_letter = $randomString . "_" . $appointment_letter->getClientOriginalName();
-            $appointment_letter->storeAs('public/image/pillars/PKH/profile/', $name_file_appointment_letter);
-            $data['appointment_letter'] = $name_file_appointment_letter;
+            $name = $randomString . "_" . $file->getClientOriginalName();
+            $file->storeAs('public/image/pillars/PKH/profile/', $name);
+
+            $pkh->appointment_letter = $name;
         }
 
-        $pkh = PKH::findOrFail($id);
         $pkh->update($data);
 
         return redirect()->route('app.pillar.pkh.index')->with('success', 'Data berhasil diupdate.');
@@ -184,7 +191,7 @@ class PKHController extends Controller
             'province' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'no_npwp' => 'required|max:30',
-            'appointment_letter' => 'required|file|mimes:pdf|max:2048',
+            'appointment_letter' => 'nullable|file|mimes:pdf|max:2048',
             'clothes_size' => 'required|max:10',
             'education' => 'array', // Make sure 'education' is an array
             'pt_origin_d3' => 'nullable|string|max:255',
