@@ -37,7 +37,7 @@ class CreateNewUserAfterASPDCreate implements ShouldQueue
             'name' => $this->aspd->name,
             'nip' => $this->aspd->id . "" . Str::random(4),
             'username' => $this->aspd->name . Str::random(7),
-            'email' => strtolower(trim($this->aspd->name)) . Str::random(4) . '@gmail.com' ?? '',
+            'email' => strtolower(str_replace(' ', '', trim($this->aspd->name))) . Str::random(4) . '@gmail.com' ?? '',
             'password' => $this->aspd->nik,
             'office_id' => $this->aspd->office_id,
             'pillar_id' => Pillar::PILLAR_ASPD,
