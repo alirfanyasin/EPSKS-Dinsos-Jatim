@@ -8,6 +8,7 @@ use App\Models\Pillars\PSM\PSM;
 use App\Models\Pillars\TKSK\TKSK;
 use App\Models\Pillars\LKS\LKS;
 use App\Models\Pillars\LKS\LKSReviewReport;
+use App\Models\Pillars\PKH\PKH;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -110,6 +111,10 @@ class User extends Authenticatable
     public function karang_taruna(): BelongsTo
     {
         return $this->belongsTo(KarangTaruna::class, 'id', 'user_id');
+    }
+    public function pkh(): BelongsTo
+    {
+        return $this->belongsTo(PKH::class, 'id', 'user_id');
     }
 
     public function office(): BelongsTo

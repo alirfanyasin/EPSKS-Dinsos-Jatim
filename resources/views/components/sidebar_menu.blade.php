@@ -160,10 +160,10 @@
     <li class="nav-item dropdown {{ request()->routeIs('app.pillar.kartar.*') ? 'active' : '' }}">
       <a href="#" class="nav-link has-dropdown"><i class="fas fa-list"></i><span>Karang Taruna</span></a>
       <ul class="dropdown-menu">
-        <li class='{{ request()->routeIs('app.pillar.kartar.index') ? 'active' : '' }}'>
+        <li class='{{ request()->routeIs('app.pillar.kartar.*') ? 'active' : '' }}'>
           <a class="nav-link" href="{{ route('app.pillar.kartar.index') }}">Profil</a>
         </li>
-        <li class='{{ request()->routeIs('app.pillar.kartar.report.index') ? 'active' : '' }}'>
+        <li class='{{ request()->routeIs('app.pillar.kartar.report.*') ? 'active' : '' }}'>
           <a class="nav-link" href="{{ route('app.pillar.kartar.report.index') }}">Laporan</a>
         </li>
         <li class='{{ request()->routeIs('app.pillar.kartar.report.approval.index') ? 'active' : '' }}'>
@@ -201,11 +201,12 @@
     <li class="nav-item dropdown {{ request()->routeIs('app.pillar.pkh.*') ? 'active' : '' }}">
       <a href="#" class="nav-link has-dropdown"><i class="fas fa-list"></i><span>PKH</span></a>
       <ul class="dropdown-menu">
-        <li class='{{ request()->routeIs('app.pillar.pkh.index') ? 'active' : '' }}'>
+        <li class='{{ request()->routeIs('app.pillar.pkh.*') ? 'active' : '' }}'>
           <a class="nav-link" href="{{ route('app.pillar.pkh.index') }}">Profil</a>
         </li>
         <li class='{{ request()->routeIs('app.pillar.pkh.report.*') ? 'active' : '' }}'>
-          <a class="nav-link" href="">Laporan</a>
+          <a class="nav-link"
+            href="{{ request()->routeIs('app.pillar.pkh.report.index') ? 'active' : '' }}">Laporan</a>
         </li>
         <li class='{{ request()->routeIs('app.pillar.pkh.approval.*') ? 'active' : '' }}'>
           <a class="nav-link" href="">Verifikasi
@@ -264,6 +265,11 @@
     @elseif(Auth::user()->pillar_id == 3)
       <li class="{{ request()->routeIs('app.pillar.kartar.report.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('app.pillar.kartar.report.index') }}"><i class="fas fa-paper-plane"></i>
+          <span>Laporan</span></a>
+      </li>
+    @elseif(Auth::user()->pillar_id == 5)
+      <li class="{{ request()->routeIs('app.pillar.pkh.report.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('app.pillar.pkh.report.index') }}"><i class="fas fa-paper-plane"></i>
           <span>Laporan</span></a>
       </li>
     @else

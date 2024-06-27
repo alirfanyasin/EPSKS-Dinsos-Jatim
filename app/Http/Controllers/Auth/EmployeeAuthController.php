@@ -36,11 +36,13 @@ class EmployeeAuthController extends AuthenticatedSessionController
 
             if (Auth::user()->pillar_id == 4) {
                 return redirect()->route('app.pillar.lks.report.index');
-            }
-            else{
+            } else if (Auth::user()->pillar_id == 3) {
+                return redirect()->route('app.pillar.kartar.report.index');
+            } else if (Auth::user()->pillar_id == 5) {
+                return redirect()->route('app.pillar.pkh.report.index');
+            } else {
                 return redirect()->route('app.employee.report.index');
             }
-
         }
 
         if ($user && $user->code_expired_date < now() && $user->is_employee === true) {
@@ -53,6 +55,4 @@ class EmployeeAuthController extends AuthenticatedSessionController
             'employe_code' => 'Kode Unik Pegawai tidak ditemukan.',
         ]);
     }
-
-
 }
