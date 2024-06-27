@@ -20,6 +20,7 @@ class KartarReportController extends Controller
     public function index()
     {
         return view('app.pillars.kartar.report.index', [
+            'pageTitle' => 'Laporan',
             'data_report' => KarangTarunaReport::all(),
         ]);
     }
@@ -29,8 +30,8 @@ class KartarReportController extends Controller
     public function create(KarangTarunaReport $kartar)
     {
         return view('app.pillars.kartar.report.create', [
+            'pageTitle' => 'Tambah Laporan',
             'kartar' => $kartar,
-
         ]);
     }
 

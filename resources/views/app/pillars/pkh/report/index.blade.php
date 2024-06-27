@@ -36,7 +36,7 @@
             <div class="tab-pane fade show active" id="dailyReports" role="tabpanel" aria-labelledby="dailyReports">
               <div class="p-0 card-header">
                 <h4>Data Laporan Harian</h4>
-                {{-- @role('employee')
+                @role('employee')
                   <a class="btn btn-success" href="{{ route('app.pillar.pkh.report.create') }}" type="button">
                     <i class="fas fa-plus"></i> Tambah Laporan
                   </a>
@@ -44,14 +44,14 @@
                     href="{{ route('app.pillar.kartar.report.exportReport', ['select' => '1']) }}">
                     <i class="fas fa-file-pdf"></i> Export Laporan
                   </a>
-                @endrole --}}
+                @endrole
               </div>
               <div class="table-responsive">
                 <table class="table table-striped table-md" id="table-data-daily">
                   <thead>
                     <tr>
                       <th>No.</th>
-                      <th>Karang Taruna</th>
+                      <th>Nama Lengkap</th>
                       <th>Periode Laporan</th>
                       <th>Waktu</th>
                       <th>Status</th>
@@ -67,9 +67,7 @@
                     @foreach ($data_report as $key => $data)
                       @php
                         $isAdmin = false;
-
                         // Periksa apakah pengguna memiliki peran 'admin'
-
                         foreach (auth()->user()->roles as $role) {
                             // var_dump($role->name);
                             $isAdmin = false;
@@ -84,16 +82,21 @@
                       @endphp
 
 
-                      @if (auth()->user()->name == $data->name_kartar ||
+                      @if (auth()->user()->name == $data->pkh->name ||
                               ($isAdmin && $data->office_id == Auth::user()->office_id) ||
                               Auth::user()->office_id == $isAdminJawaTimur)
-                        @if ($data->period == '1')
+                        @if ($data->type == 'daily')
                           <tr>
                             <td>{{ $no++ }}</td>
-                            <td>{{ $data->name_kartar }}</td>
-                            <td>{{ $data->period == '1' ? 'Harian' : 'Bulanan' }}</td>
+                            <td>{{ $data->pkh->name }}</td>
+                            <td>{{ $data->type == 'daily' ? 'Harian' : 'Bulanan' }}</td>
                             <td>{{ date('d F Y', strtotime($data->date)) }}</td>
-                            <td>{{ $data->status }}</td>
+                            <td>
+                              {{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Konfirmasi' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Terkonfirmasi' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_REJECTED ? 'Ditolak' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}
+                            </td>
 
                             @role('employee')
                               <td>

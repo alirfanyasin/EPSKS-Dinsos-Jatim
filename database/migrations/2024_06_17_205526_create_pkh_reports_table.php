@@ -22,7 +22,9 @@ return new class extends Migration
             $table->string('venue')->nullable();
             $table->text('activity')->nullable();
             $table->text('constraint')->nullable(); // kendala
-            $table->string('attachment')->nullable();
+            $table->string('attachment_daily')->nullable();
+            $table->string('attachment_monthly')->nullable();
+            $table->string('month')->nullable();
             $table->text('description')->nullable();
             $table->enum('type', [PKHReport::TYPE_DAILY, PKHReport::TYPE_MONTHLY])->nullable();
             $table->foreignIdFor(Office::class, 'office_id')->nullable()->constrained()->cascadeOnDelete();
