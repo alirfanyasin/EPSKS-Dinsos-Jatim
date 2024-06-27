@@ -92,8 +92,9 @@
                             <td>{{ $data->type == 'daily' ? 'Harian' : 'Bulanan' }}</td>
                             <td>{{ date('d F Y', strtotime($data->date)) }}</td>
                             <td>
-                              {{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Konfirmasi' : '' }}
-                              {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Terkonfirmasi' : '' }}
+                              {{-- Menunggu Persetujuan dari Dinas Sosial Kabupaten/Kota --}}
+                              {{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Disetujui' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Disetujui' : '' }}
                               {{ $data->status == \App\Models\Review::STATUS_REJECTED ? 'Ditolak' : '' }}
                               {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}
                             </td>
@@ -104,17 +105,17 @@
                                   <a href="{{ route('app.pillar.kartar.report.revisi', $data->id) }}"
                                     class="btn btn-icon btn-warning" title="Edit">Revisi</i></a>
                                 @else
-                                  <button type="button" class="btn btn-info btn-detail" data-toggle="modal"
+                                  <button type="button" class="btn btn-primary btn-detail" data-toggle="modal"
                                     data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
 
-                                  <a href="{{ route('app.pillar.kartar.report.edit', $data->id) }}"
+                                  {{-- <a href="{{ route('app.pillar.kartar.report.edit', $data->id) }}"
                                     class="btn btn-icon btn-primary" title="Edit">Edit</i></a>
                                   <form action="{{ route('app.pillar.kartar.report.delete', $data->id) }}"
                                     class="formDelete d-inline" method="POST">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-icon btn-danger">Hapus</button>
-                                  </form>
+                                  </form> --}}
                                 @endif
                               </td>
                             @endrole
@@ -139,44 +140,20 @@
                                   <div class="form-group">
                                     <label for="exampleInputEmail1">Tipe Pelaporan</label>
                                     <input type="text" class="form-control" id="type_report" disabled
-                                      value="{{ $data->period == '1' ? 'Harian' : 'Bulanan' }}">
+                                      value="{{ $data->type == 'daily' ? 'Harian' : 'Bulanan' }}">
                                   </div>
                                 </div>
                                 <div class="col-md-6">
                                   <div class="form-group">
-                                    <label for="exampleInputEmail1">Nama Karang Taruna</label>
-                                    <input type="text" class="form-control" id="name_kartar" disabled
-                                      value="{{ $data->name_kartar }}">
+                                    <label for="exampleInputEmail1">Nama Lengkap</label>
+                                    <input type="text" class="form-control" id="name" disabled
+                                      value="{{ $data->pkh->name }}">
                                   </div>
                                 </div>
-
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="exampleInputEmail1">Kabupaten / Kota</label>
-                                    <input type="text" class="form-control" id="regency" disabled
-                                      value="{{ $data->regency }}">
-                                  </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="exampleInputEmail1">Kecamatan</label>
-                                    <input type="text" class="form-control" id="distric" disabled
-                                      value="{{ $data->distric }}">
-                                  </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="exampleInputEmail1">Desa / Kelurahan</label>
-                                    <input type="text" class="form-control" id="village" disabled
-                                      value="{{ $data->village }}">
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                   <div class="form-group">
                                     <label for="exampleInputEmail1">Waktu</label>
-                                    <input type="text" class="form-control" id="village" disabled
+                                    <input type="text" class="form-control" id="date" disabled
                                       value="{{ $data->date }}">
                                   </div>
                                 </div>
@@ -186,42 +163,42 @@
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <label for="">Tempat Kegiatan</label>
-                                    <input type="text" class="form-control" id="place" disabled
-                                      value="{{ $data->place }}">
+                                    <textarea class="form-control" name="" placeholder="Masukkan Tempat Kegiatan" style="min-height: 150px"
+                                      disabled>{{ $data->venue }}</textarea>
                                   </div>
                                 </div>
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <label for="">Aktifitas yang dilakukan</label>
-                                    <input type="text" class="form-control" id="activity" disabled
-                                      value="{{ $data->activity }}">
+                                    <textarea class="form-control" name="" placeholder="Masukkan Aktivitas yang dilakukan"
+                                      style="min-height: 150px" disabled>{{ $data->activity }}</textarea>
+
                                   </div>
                                 </div>
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <label for="">Kendala</label>
-                                    <input type="text" class="form-control" id="constraint" disabled
-                                      value="{{ $data->constraint }}">
+                                    <textarea class="form-control" name="" placeholder="Masukkan Kendala" style="min-height: 150px" disabled>{{ $data->constraint }}</textarea>
                                   </div>
                                 </div>
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <label for="">Uraian / Keterangan Foto</label>
-                                    <input type="text" class="form-control" id="description" disabled
-                                      value="{{ $data->description }}">
+                                    <textarea class="form-control" name="" placeholder="Masukkan Uraian / Keterangan Foto"
+                                      style="min-height: 150px" disabled>{{ $data->description }}</textarea>
                                   </div>
                                 </div>
                               </div>
-
                               <div class="form-group">
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
                                       <label for="exampleInputEmail1">Dokumentasi Lapangan</label>
                                       <div class="mb-3 input-group">
-                                        <a href="{{ asset('storage/image/pillars/kartar/report/' . $data->image) }}"
+                                        <a href="{{ asset('storage/image/pillars/PKH/report/' . $data->attachment_daily) }}"
                                           target="_blank">
-                                          <img src="{{ asset('storage/image/pillars/kartar/report/' . $data->image) }}"
+                                          <img
+                                            src="{{ asset('storage/image/pillars/PKH/report/' . $data->attachment_daily) }}"
                                             class="w-100" alt="">
                                         </a>
                                         {{-- <input type="text" class="form-control" placeholder="Document"
@@ -237,7 +214,10 @@
                                     <div class="form-group">
                                       <label for="exampleInputEmail1">Status</label>
                                       <input type="text" class="form-control" id="status" disabled
-                                        value="{{ $data->status }}">
+                                        value="{{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Disetujui' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Disetujui' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_REJECTED ? 'Ditolak' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}">
                                     </div>
                                   </div>
                                 </div>
@@ -257,27 +237,9 @@
               <div class="p-0 card-header">
                 <h4>Data Laporan Bulanan</h4>
                 @role('employee')
-                  {{-- <a class="ml-3 btn btn-outline-danger"
-                    href="{{ route('app.pillar.kartar.report.exportReport', ['select' => '2']) }}" type="button">
-                    <i class="fas fa-file-pdf"></i> Export Laporan
-                  </a> --}}
-                  {{-- <div class="dropdown d-inline">
-                    <button class="border btn border-danger text-danger dropdown-toggle" style="margin-left: 10px"
-                      type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true"
-                      aria-expanded="false">
-                      <i class="fas fa-file-download"></i> Export Laporan
-                    </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item has-icon"
-                        href="{{ route('app.pillar.kartar.report.export_pdf', ['select' => 'bulanan', 'name' => Auth::user()->name]) }}"><i
-                          class="fas fa-file-pdf"></i>
-                        PDF</a>
-                      <a class="dropdown-item has-icon"
-                        href="{{ route('app.pillar.kartar.report.export_excel', ['select' => 'bulanan', 'name' => Auth::user()->name]) }}"><i
-                          class="far fa-file-excel"></i>
-                        Excel</a>
-                    </div>
-                  </div> --}}
+                  <a class="btn btn-success" href="{{ route('app.pillar.pkh.report.create') }}" type="button">
+                    <i class="fas fa-plus"></i> Tambah Laporan
+                  </a>
                 @endrole
               </div>
 
@@ -286,7 +248,7 @@
                   <thead>
                     <tr>
                       <th>No.</th>
-                      <th>Karang Taruna</th>
+                      <th>Nama Lengkap</th>
                       <th>Periode Laporan</th>
                       <th>Waktu</th>
                       <th>Status</th>
@@ -313,34 +275,24 @@
                             }
                         }
                       @endphp
-                      @if (auth()->user()->name == $data->name_kartar ||
+                      @if (auth()->user()->name == $data->pkh->name ||
                               ($isAdmin && $data->office_id == Auth::user()->office_id) ||
                               Auth::user()->office_id == $isAdminJawaTimur)
-                        @if ($data->period == '2')
+                        @if ($data->type == 'monthly')
                           <tr>
                             <td>{{ $no++ }}</td>
-                            <td>{{ $data->name_kartar }}</td>
-                            <td>{{ $data->period == '1' ? 'Harian' : 'Bulanan' }}</td>
+                            <td>{{ $data->pkh->name }}</td>
+                            <td>{{ $data->type == 'monthly' ? 'Harian' : 'Bulanan' }}</td>
                             <td>{{ date('F Y', strtotime($data->month)) }}</td>
                             <td>{{ $data->status }}</td>
                             @role('employee')
                               <td>
-
                                 @if ($data->status == 'Revisi')
                                   <a href="{{ route('app.pillar.kartar.report.edit', $data->id) }}"
                                     class="btn btn-icon btn-warning" title="Edit">Revisi</i></a>
                                 @else
                                   <button type="button" class="btn btn-info btn-detail" data-toggle="modal"
-                                    data-target="#detailReportYearly{{ $key }}">Lihat Detail</button>
-
-                                  <a href="{{ route('app.pillar.kartar.report.edit', $data->id) }}"
-                                    class="btn btn-icon btn-primary" title="Edit">Edit</i></a>
-                                  <form action="{{ route('app.pillar.kartar.report.delete', $data->id) }}"
-                                    class="formDelete d-inline" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="btn btn-icon btn-danger">Hapus</button>
-                                  </form>
+                                    data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
                                 @endif
                               </td>
                             @endrole
@@ -349,7 +301,7 @@
                       @endif
 
                       {{-- Modal --}}
-                      <div class="modal fade" id="detailReportYearly{{ $key }}" tabindex="-1"
+                      <div class="modal fade" id="detailReportMonthly{{ $key }}" tabindex="-1"
                         role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                           <div class="modal-content">
@@ -366,7 +318,7 @@
                                   <div class="form-group">
                                     <label for="exampleInputEmail1">Tipe Pelaporan</label>
                                     <input type="text" class="form-control" id="type_report" disabled
-                                      value="{{ $data->period == '1' ? 'Harian' : 'Bulanan' }}">
+                                      value="{{ $data->period == 'daily' ? 'Harian' : 'Bulanan' }}">
                                   </div>
                                 </div>
                                 <div class="col-md-6">

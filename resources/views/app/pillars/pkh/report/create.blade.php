@@ -115,6 +115,7 @@
                     name="attachment_daily" accept=".png, .jpg, .jpeg">
                   <small class="form-text text-muted">
                     <li>Ekstensi file harus : PNG, JPG, JPEG</li>
+                    <li>Maksimal : 2 MB</li>
                   </small>
                   @error('attachment_daily')
                     <div class="invalid-feedback">
@@ -155,6 +156,10 @@
                     <label>Dokumen Laporan</label>
                     <input type="file" class="form-control  @error('attachment_monthly') is-invalid @enderror"
                       name="attachment_monthly" accept=".pdf">
+                    <small class="form-text text-muted">
+                      <li>Ekstensi file harus : PDF</li>
+                      <li>Maksimal : 7 MB</li>
+                    </small>
                     @error('attachment_monthly')
                       <div class="invalid-feedback">
                         {{ $message }}
