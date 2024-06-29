@@ -81,8 +81,8 @@
         <li class='{{ request()->routeIs('app.pillar.pkh.index') ? 'active' : '' }}'>
           <a class="nav-link" href="{{ route('app.pillar.pkh.index') }}">Profil</a>
         </li>
-        <li class='{{ request()->routeIs('app.pillar.pkh.report.*') ? 'active' : '' }}'>
-          <a class="nav-link" href="">Laporan</a>
+        <li class='{{ request()->routeIs('app.pillar.pkh.report.index') ? 'active' : '' }}'>
+          <a class="nav-link" href="{{ route('app.pillar.pkh.report.index') }}">Laporan</a>
         </li>
         {{-- <li class='{{ request()->routeIs('app.pillar.lks.approval.*') ? 'active' : '' }}'>
           <a class="nav-link" href="{{ route('app.pillar.lks.approval.index') }}">Verifikasi
@@ -204,11 +204,11 @@
         <li class='{{ request()->routeIs('app.pillar.pkh.index') ? 'active' : '' }}'>
           <a class="nav-link" href="{{ route('app.pillar.pkh.index') }}">Profil</a>
         </li>
-        <li class='{{ request()->routeIs('app.pillar.pkh.report.*') ? 'active' : '' }}'>
+        <li class='{{ request()->routeIs('app.pillar.pkh.report.index') ? 'active' : '' }}'>
           <a class="nav-link" href="{{ route('app.pillar.pkh.report.index') }}">Laporan</a>
         </li>
-        <li class='{{ request()->routeIs('app.pillar.pkh.approval.*') ? 'active' : '' }}'>
-          <a class="nav-link" href="">Verifikasi
+        <li class='{{ request()->routeIs('app.pillar.pkh.report.approval.*') ? 'active' : '' }}'>
+          <a class="nav-link" href="{{ route('app.pillar.pkh.report.approval.index') }}">Verifikasi
             Laporan</a>
         </li>
         {{-- <li class=''>
