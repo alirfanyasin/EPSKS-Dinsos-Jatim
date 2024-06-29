@@ -85,7 +85,7 @@
                       @if (auth()->user()->name == $data->pkh->name ||
                               ($isAdmin && $data->office_id == Auth::user()->office_id) ||
                               Auth::user()->office_id == $isAdminJawaTimur)
-                        @if ($data->type == 'daily' && $data->status == 'approved')
+                        @if ($data->type == 'daily' && $data->status !== 'approved')
                           <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $data->pkh->name }}</td>
@@ -99,7 +99,7 @@
                               {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}
                             </td>
 
-                            @role('employee')
+                            {{-- @role('employee')
                               <td>
                                 @if ($data->status == 'Revisi')
                                   <a href="{{ route('app.pillar.kartar.report.revisi', $data->id) }}"
@@ -109,11 +109,11 @@
                                     data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
                                 @endif
                               </td>
-                            @endrole
+                            @endrole --}}
                             @role('admin')
                               <td>
                                 <button type="button" class="btn btn-primary btn-detail" data-toggle="modal"
-                                  data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
+                                  data-target="#detailReportMonthly{{ $key }}">Verifikasi Laporan</button>
                               </td>
                             @endrole
                           </tr>
@@ -135,21 +135,21 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   <div class="form-group">
-                                    <label for="exampleInputEmail1">Tipe Pelaporan</label>
-                                    <input type="text" class="form-control" id="type_report" disabled
-                                      value="{{ $data->type == 'daily' ? 'Harian' : 'Bulanan' }}">
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group">
                                     <label for="exampleInputEmail1">Nama Lengkap</label>
                                     <input type="text" class="form-control" id="name" disabled
                                       value="{{ $data->pkh->name }}">
                                   </div>
                                 </div>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label for="exampleInputEmail1">NIK KTP</label>
+                                    <input type="text" class="form-control" id="type_report" disabled
+                                      value="{{ $data->pkh->nik }}">
+                                  </div>
+                                </div>
                                 <div class="col-md-12">
                                   <div class="form-group">
-                                    <label for="exampleInputEmail1">Waktu</label>
+                                    <label for="exampleInputEmail1">Tanngal Pelaporan</label>
                                     <input type="text" class="form-control" id="date" disabled
                                       value="{{ $data->date }}">
                                   </div>
@@ -180,7 +180,7 @@
                                 </div>
                                 <div class="col-md-6">
                                   <div class="form-group">
-                                    <label for="">Uraian / Keterangan Foto</label>
+                                    <label for="">Lampiran</label>
                                     <textarea class="form-control" name="" placeholder="Masukkan Uraian / Keterangan Foto"
                                       style="min-height: 150px" disabled>{{ $data->description }}</textarea>
                                   </div>
@@ -207,16 +207,33 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label for="exampleInputEmail1">Status</label>
-                                      <input type="text" class="form-control" id="status" disabled
-                                        value="{{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Disetujui' : '' }}
-                              {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Disetujui' : '' }}
-                              {{ $data->status == \App\Models\Review::STATUS_REJECTED ? 'Ditolak' : '' }}
-                              {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}">
+                                  @role('employee')
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label for="exampleInputEmail1">Status</label>
+                                        <input type="text" class="form-control" id="status" disabled
+                                          value="{{ $data->status }}">
+                                      </div>
                                     </div>
-                                  </div>
+                                  @endrole
+                                  @role('admin|super-admin')
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                        <label for="">Verifikasi Laporan</label>
+                                        <select name="status" id="" class="form-control custom-select">
+                                          <option value="approved">Setuju</option>
+                                          <option value="revision">Revisi</option>
+                                          <option value="rejected">Tolak</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-12 message-revision" hidden>
+                                      <div class="form-group">
+                                        <label for="">Pesan Revisi</label>
+                                        <textarea name="message" id="" cols="30" rows="10" style="height: 100px;" class="form-control"></textarea>
+                                      </div>
+                                    </div>
+                                  @endrole
                                 </div>
                               </div>
                             </div>
@@ -275,7 +292,7 @@
                       @if (auth()->user()->name == $data->pkh->name ||
                               ($isAdmin && $data->office_id == Auth::user()->office_id) ||
                               Auth::user()->office_id == $isAdminJawaTimur)
-                        @if ($data->type == 'monthly' && $data->status == 'approved')
+                        @if ($data->type == 'monthly' && $data->status !== 'approved')
                           <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $data->pkh->name }}</td>
@@ -378,13 +395,33 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label for="exampleInputEmail1">Status</label>
-                                      <input type="text" class="form-control" id="status" disabled
-                                        value="{{ $data->status }}">
+                                  @role('employee')
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label for="exampleInputEmail1">Status</label>
+                                        <input type="text" class="form-control" id="status" disabled
+                                          value="{{ $data->status }}">
+                                      </div>
                                     </div>
-                                  </div>
+                                  @endrole
+                                  @role('admin|super-admin')
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                        <label for="">Verifikasi Laporan</label>
+                                        <select name="status" id="" class="form-control custom-select">
+                                          <option value="approved">Setuju</option>
+                                          <option value="revision">Revisi</option>
+                                          <option value="rejected">Tolak</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-12 message-revision" hidden>
+                                      <div class="form-group">
+                                        <label for="">Pesan Revisi</label>
+                                        <textarea name="message" id="" cols="30" rows="10" style="height: 100px;" class="form-control"></textarea>
+                                      </div>
+                                    </div>
+                                  @endrole
                                 </div>
                               </div>
                             </div>
@@ -417,6 +454,15 @@
       $('#table-data-daily').DataTable();
       $('#table-data-monthly').DataTable();
     });
+
+    $('.custom-select').on('change', function() {
+      console.log($(this).val());
+      if ($(this).val() == 'revision') {
+        $('.message-revision').attr('hidden', false);
+      } else {
+        $('.message-revision').attr('hidden', true);
+      }
+    })
 
 
     $('.formDelete').submit(function(e) {

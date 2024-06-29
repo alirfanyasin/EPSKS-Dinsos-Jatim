@@ -2,6 +2,7 @@
 
 namespace App\Http\Routes\Pillars\PKH;
 
+use App\Http\Controllers\Pillars\PKH\PKHReportApprovalController;
 use Dentro\Yalr\BaseRoute;
 
 class PKHReportApprovalRoute extends BaseRoute
@@ -19,5 +20,10 @@ class PKHReportApprovalRoute extends BaseRoute
             'as' => $this->name('index'),
             'uses' => $this->uses('index')
         ]);
+    }
+
+    public function controller(): string
+    {
+        return PKHReportApprovalController::class;
     }
 }
