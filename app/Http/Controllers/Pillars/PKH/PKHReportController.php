@@ -8,6 +8,10 @@ use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+
+use function Laravel\Prompts\error;
 
 class PKHReportController extends Controller
 {
@@ -69,6 +73,51 @@ class PKHReportController extends Controller
         PKHReport::create($data);
         return redirect()->route('app.pillar.pkh.report.index')->with('success', 'Tambah Laporan Berhasil');
     }
+
+    public function exportReport($select)
+    {
+        return view('app.pillars.pkh.report.export', [
+            'data' => PKHReport::where('type', $select)->first()
+        ]);
+    }
+
+
+    public function export_pdf(Request $request)
+    {
+        $data = [
+            'type' => $request->input('type'),
+            'office_id' => $request->input('office_id'),
+            'name' => Auth::user()->name,
+            'month' => $request->input('month'),  // Simpan month sebagai string asli
+            'date' => $request->input('date'),
+        ];
+
+        // Mendapatkan tahun dan bulan dari input month
+        $dateYear = date('Y', strtotime($data['month']));
+        $dateMonth = date('m', strtotime($data['month']));
+
+        // Mengambil data laporan berdasarkan tahun dan bulan
+        $data_report = DB::table('pkh_reports')
+            ->whereYear('date', $dateYear)
+            ->whereMonth('date', $dateMonth)
+            ->get();
+
+        if ($data_report->isNotEmpty()) {
+            $validStatus = [Review::STATUS_APPROVED];
+            $hasValidStatus = $data_report->contains(function ($report) use ($validStatus) {
+                return in_array($report->status, $validStatus);
+            });
+
+            if ($hasValidStatus) {
+                PDF::setOptions(['defaultFont' => 'Nunito Sans']);
+                $pdf = PDF::loadView('app.pillars.pkh.report.pdf.export-report', ['data' => $data_report, 'data_export' => $data]);
+                return $pdf->download('Laporan PKH - ' . Auth::user()->name . '.pdf');
+            }
+        }
+
+        return redirect()->back()->withErrors('Tidak ada data yang dapat di export');
+    }
+
 
 
     // public function rules($request)
