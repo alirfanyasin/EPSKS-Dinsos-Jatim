@@ -55,7 +55,7 @@
                       <th>Tempat Kejadian</th>
                       <th>Waktu</th>
                       <th>Status</th>
-                      @role('employee')
+                      @role('employee|admin')
                         <th>Aksi</th>
                       @endrole
                     </tr>
@@ -85,7 +85,7 @@
                       @if (auth()->user()->name == $data->pkh->name ||
                               ($isAdmin && $data->office_id == Auth::user()->office_id) ||
                               Auth::user()->office_id == $isAdminJawaTimur)
-                        @if ($data->type == 'daily')
+                        @if ($data->type == 'daily' && $data->status == 'approved')
                           <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $data->pkh->name }}</td>
@@ -107,16 +107,13 @@
                                 @else
                                   <button type="button" class="btn btn-primary btn-detail" data-toggle="modal"
                                     data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
-
-                                  {{-- <a href="{{ route('app.pillar.kartar.report.edit', $data->id) }}"
-                                    class="btn btn-icon btn-primary" title="Edit">Edit</i></a>
-                                  <form action="{{ route('app.pillar.kartar.report.delete', $data->id) }}"
-                                    class="formDelete d-inline" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="btn btn-icon btn-danger">Hapus</button>
-                                  </form> --}}
                                 @endif
+                              </td>
+                            @endrole
+                            @role('admin')
+                              <td>
+                                <button type="button" class="btn btn-primary btn-detail" data-toggle="modal"
+                                  data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
                               </td>
                             @endrole
                           </tr>
@@ -252,7 +249,7 @@
                       <th>Periode Laporan</th>
                       <th>Waktu</th>
                       <th>Status</th>
-                      @role('employee')
+                      @role('employee|admin')
                         <th width="100px">Aksi</th>
                       @endrole
                     </tr>
@@ -278,7 +275,7 @@
                       @if (auth()->user()->name == $data->pkh->name ||
                               ($isAdmin && $data->office_id == Auth::user()->office_id) ||
                               Auth::user()->office_id == $isAdminJawaTimur)
-                        @if ($data->type == 'monthly')
+                        @if ($data->type == 'monthly' && $data->status == 'approved')
                           <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $data->pkh->name }}</td>
@@ -294,6 +291,12 @@
                                   <button type="button" class="btn btn-info btn-detail" data-toggle="modal"
                                     data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
                                 @endif
+                              </td>
+                            @endrole
+                            @role('admin')
+                              <td>
+                                <button type="button" class="btn btn-info btn-detail" data-toggle="modal"
+                                  data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
                               </td>
                             @endrole
                           </tr>

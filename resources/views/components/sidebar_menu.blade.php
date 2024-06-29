@@ -201,12 +201,11 @@
     <li class="nav-item dropdown {{ request()->routeIs('app.pillar.pkh.*') ? 'active' : '' }}">
       <a href="#" class="nav-link has-dropdown"><i class="fas fa-list"></i><span>PKH</span></a>
       <ul class="dropdown-menu">
-        <li class='{{ request()->routeIs('app.pillar.pkh.*') ? 'active' : '' }}'>
+        <li class='{{ request()->routeIs('app.pillar.pkh.index') ? 'active' : '' }}'>
           <a class="nav-link" href="{{ route('app.pillar.pkh.index') }}">Profil</a>
         </li>
         <li class='{{ request()->routeIs('app.pillar.pkh.report.*') ? 'active' : '' }}'>
-          <a class="nav-link"
-            href="{{ request()->routeIs('app.pillar.pkh.report.index') ? 'active' : '' }}">Laporan</a>
+          <a class="nav-link" href="{{ route('app.pillar.pkh.report.index') }}">Laporan</a>
         </li>
         <li class='{{ request()->routeIs('app.pillar.pkh.approval.*') ? 'active' : '' }}'>
           <a class="nav-link" href="">Verifikasi
