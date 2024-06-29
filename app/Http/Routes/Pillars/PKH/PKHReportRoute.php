@@ -45,6 +45,16 @@ class PKHReportRoute extends BaseRoute
             'as' => $this->name('destroy'),
             'uses' => $this->uses('destroy')
         ]);
+
+        $this->router->get($this->prefix('exportReport/{select}'), [
+            'as' => $this->name('exportReport'),
+            'uses' => $this->uses('exportReport')
+        ]);
+
+        $this->router->post($this->prefix('export_pdf'), [
+            'as' => $this->name('export_pdf'),
+            'uses' => $this->uses('export_pdf')
+        ]);
     }
 
     public function controller(): string

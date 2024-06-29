@@ -41,7 +41,7 @@
                     <i class="fas fa-plus"></i> Tambah Laporan
                   </a>
                   <a class="ml-3 btn btn-outline-danger"
-                    href="{{ route('app.pillar.kartar.report.exportReport', ['select' => '1']) }}">
+                    href="{{ route('app.pillar.pkh.report.exportReport', ['select' => 'daily']) }}">
                     <i class="fas fa-file-pdf"></i> Export Laporan
                   </a>
                 @endrole
@@ -52,7 +52,7 @@
                     <tr>
                       <th>No.</th>
                       <th>Nama Lengkap</th>
-                      <th>Periode Laporan</th>
+                      <th>Tempat Kejadian</th>
                       <th>Waktu</th>
                       <th>Status</th>
                       @role('employee')
@@ -89,7 +89,7 @@
                           <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $data->pkh->name }}</td>
-                            <td>{{ $data->type == 'daily' ? 'Harian' : 'Bulanan' }}</td>
+                            <td>{{ $data->venue }}</td>
                             <td>{{ date('d F Y', strtotime($data->date)) }}</td>
                             <td>
                               {{-- Menunggu Persetujuan dari Dinas Sosial Kabupaten/Kota --}}
