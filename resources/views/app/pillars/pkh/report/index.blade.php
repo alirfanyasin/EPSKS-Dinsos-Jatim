@@ -85,7 +85,7 @@
                       @if (auth()->user()->name == $data->pkh->name ||
                               ($isAdmin && $data->office_id == Auth::user()->office_id) ||
                               Auth::user()->office_id == $isAdminJawaTimur)
-                        @if ($data->type == 'daily' && $data->status == 'approved')
+                        @if ($data->type == 'daily')
                           <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $data->pkh->name }}</td>
@@ -246,7 +246,7 @@
                     <tr>
                       <th>No.</th>
                       <th>Nama Lengkap</th>
-                      <th>Periode Laporan</th>
+                      <th>Tempat Kejadian</th>
                       <th>Waktu</th>
                       <th>Status</th>
                       @role('employee|admin')
@@ -275,27 +275,32 @@
                       @if (auth()->user()->name == $data->pkh->name ||
                               ($isAdmin && $data->office_id == Auth::user()->office_id) ||
                               Auth::user()->office_id == $isAdminJawaTimur)
-                        @if ($data->type == 'monthly' && $data->status == 'approved')
+                        @if ($data->type == 'monthly')
                           <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $data->pkh->name }}</td>
-                            <td>{{ $data->type == 'monthly' ? 'Harian' : 'Bulanan' }}</td>
-                            <td>{{ date('F Y', strtotime($data->month)) }}</td>
-                            <td>{{ $data->status }}</td>
+                            <td>{{ $data->type == 'daily' ? 'Harian' : 'Bulanan' }}</td>
+                            <td>{{ date('d F Y', strtotime($data->month)) }}</td>
+                            <td>
+                              {{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Disetujui' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Disetujui' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_REJECTED ? 'Ditolak' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}
+                            </td>
                             @role('employee')
                               <td>
                                 @if ($data->status == 'Revisi')
                                   <a href="{{ route('app.pillar.kartar.report.edit', $data->id) }}"
                                     class="btn btn-icon btn-warning" title="Edit">Revisi</i></a>
                                 @else
-                                  <button type="button" class="btn btn-info btn-detail" data-toggle="modal"
+                                  <button type="button" class="btn btn-primary btn-detail" data-toggle="modal"
                                     data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
                                 @endif
                               </td>
                             @endrole
                             @role('admin')
                               <td>
-                                <button type="button" class="btn btn-info btn-detail" data-toggle="modal"
+                                <button type="button" class="btn btn-primary btn-detail" data-toggle="modal"
                                   data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
                               </td>
                             @endrole
