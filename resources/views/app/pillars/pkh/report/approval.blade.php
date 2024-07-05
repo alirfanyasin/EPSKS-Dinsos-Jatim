@@ -320,106 +320,110 @@
                               </button>
                             </div>
                             <div class="modal-body">
-
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="exampleInputEmail1">Nama Lengkap</label>
-                                    <input type="text" class="form-control" id="name" disabled
-                                      value="{{ $data->pkh->name }}">
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="exampleInputEmail1">NIK KTP</label>
-                                    <input type="text" class="form-control" id="type_report" disabled
-                                      value="{{ $data->pkh->nik }}">
-                                  </div>
-                                </div>
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <label for="exampleInputEmail1">Tanngal Pelaporan</label>
-                                    <input type="text" class="form-control" id="date" disabled
-                                      value="{{ $data->date }}">
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="">Tempat Kegiatan</label>
-                                    <textarea class="form-control" name="" placeholder="Masukkan Tempat Kegiatan" style="min-height: 150px"
-                                      disabled>{{ $data->venue }}</textarea>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="">Aktifitas yang dilakukan</label>
-                                    <textarea class="form-control" name="" placeholder="Masukkan Aktivitas yang dilakukan"
-                                      style="min-height: 150px" disabled>{{ $data->activity }}</textarea>
-
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="">Kendala</label>
-                                    <textarea class="form-control" name="" placeholder="Masukkan Kendala" style="min-height: 150px" disabled>{{ $data->constraint }}</textarea>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="">Lampiran</label>
-                                    <textarea class="form-control" name="" placeholder="Masukkan Uraian / Keterangan Foto"
-                                      style="min-height: 150px" disabled>{{ $data->description }}</textarea>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="form-group">
+                              <form
+                                action="{{ route('app.pillar.pkh.report.approval.update-status', ['id' => $data->id]) }}"
+                                method="POST">
+                                @csrf
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="exampleInputEmail1">Dokumentasi Lapangan</label>
-                                      <div class="mb-3 input-group">
-                                        <a href="{{ asset('storage/image/pillars/PKH/report/' . $data->attachment_monthly) }}"
-                                          target="_blank">
-                                          <img
-                                            src="{{ asset('storage/image/pillars/PKH/report/' . $data->attachment_monthly) }}"
-                                            class="w-100" alt="">
-                                        </a>
-                                      </div>
+                                      <label for="exampleInputEmail1">Nama Lengkap</label>
+                                      <input type="text" class="form-control" id="name" disabled
+                                        value="{{ $data->pkh->name }}">
                                     </div>
                                   </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">NIK KTP</label>
+                                      <input type="text" class="form-control" id="type_report" disabled
+                                        value="{{ $data->pkh->nik }}">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">Tanngal Pelaporan</label>
+                                      <input type="text" class="form-control" id="date" disabled
+                                        value="{{ $data->date }}">
+                                    </div>
+                                  </div>
+                                </div>
 
-                                  @role('admin|super-admin')
-                                    <div class="col-md-12">
-                                      <div class="form-group">
-                                        <label for="">Verifikasi Laporan</label>
-                                        <select name="status" id="" class="form-control custom-select">
-                                          <option value="approved">Setuju</option>
-                                          <option value="revision">Revisi</option>
-                                          <option value="rejected">Tolak</option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-12 message-revision" hidden>
-                                      <div class="form-group">
-                                        <label for="">Pesan Revisi</label>
-                                        <textarea name="message" id="" cols="30" rows="10" style="height: 100px;" class="form-control"></textarea>
-                                      </div>
-                                    </div>
-                                  @endrole
-                                </div>
-                              </div>
-                              @role('admin|super-admin')
                                 <div class="row">
-                                  <div class="col-12">
-                                    <a type="button" href="{{ route('app.pillar.pkh.report.approval.index') }}"
-                                      class="btn btn-icon btn-danger" title="Batal">Batal</a>
-                                    <button type="submit" class="btn btn-icon btn-success">Simpan</button>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="">Tempat Kegiatan</label>
+                                      <textarea class="form-control" name="" placeholder="Masukkan Tempat Kegiatan" style="min-height: 150px"
+                                        disabled>{{ $data->venue }}</textarea>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="">Aktifitas yang dilakukan</label>
+                                      <textarea class="form-control" name="" placeholder="Masukkan Aktivitas yang dilakukan"
+                                        style="min-height: 150px" disabled>{{ $data->activity }}</textarea>
+
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="">Kendala</label>
+                                      <textarea class="form-control" name="" placeholder="Masukkan Kendala" style="min-height: 150px" disabled>{{ $data->constraint }}</textarea>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="">Lampiran</label>
+                                      <textarea class="form-control" name="" placeholder="Masukkan Uraian / Keterangan Foto"
+                                        style="min-height: 150px" disabled>{{ $data->description }}</textarea>
+                                    </div>
                                   </div>
                                 </div>
-                              @endrole
+                                <div class="form-group">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label for="exampleInputEmail1">Dokumentasi Lapangan</label>
+                                        <div class="mb-3 input-group">
+                                          <a href="{{ asset('storage/image/pillars/PKH/report/' . $data->attachment_monthly) }}"
+                                            target="_blank">
+                                            <img
+                                              src="{{ asset('storage/image/pillars/PKH/report/' . $data->attachment_monthly) }}"
+                                              class="w-100" alt="">
+                                          </a>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    @role('admin|super-admin')
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <label for="">Verifikasi Laporan</label>
+                                          <select name="status" id="" class="form-control custom-select">
+                                            <option value="approved">Setuju</option>
+                                            <option value="revision">Revisi</option>
+                                            <option value="rejected">Tolak</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-12 message-revision" hidden>
+                                        <div class="form-group">
+                                          <label for="">Pesan Revisi</label>
+                                          <textarea name="message" id="" cols="30" rows="10" style="height: 100px;" class="form-control"></textarea>
+                                        </div>
+                                      </div>
+                                    @endrole
+                                  </div>
+                                </div>
+                                @role('admin|super-admin')
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <a type="button" href="{{ route('app.pillar.pkh.report.approval.index') }}"
+                                        class="btn btn-icon btn-danger" title="Batal">Batal</a>
+                                      <button type="submit" class="btn btn-icon btn-success">Simpan</button>
+                                    </div>
+                                  </div>
+                                @endrole
+                              </form>
                             </div>
                           </div>
                         </div>

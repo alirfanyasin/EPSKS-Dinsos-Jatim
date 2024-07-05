@@ -56,8 +56,8 @@
 
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="tmt">TMT <span class="text-danger">*</span></label>
-                  <input type="text" name="tmt" id="tmt"
+                  <label for="tmt">TMT (Tanggal Mulai)<span class="text-danger">*</span></label>
+                  <input type="date" name="tmt" id="tmt"
                     class="form-control @error('tmt') is-invalid @enderror" placeholder="Masukkan TMT"
                     value="{{ old('tmt') }}" required>
                   @error('tmt')
@@ -372,7 +372,7 @@
 
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="mother_name">Nomor Ibu Kandung <span class="text-danger">*</span></label>
+                  <label for="mother_name">Nama Ibu Kandung <span class="text-danger">*</span></label>
                   <input type="text" name="mother_name" id="mother_name"
                     class="form-control @error('mother_name') is-invalid @enderror"
                     placeholder="Masukkan Nomor Kartu Keluarga" value="{{ old('mother_name') }}" required>
