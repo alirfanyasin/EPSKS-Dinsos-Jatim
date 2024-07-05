@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('month')->nullable();
             $table->text('description')->nullable();
             $table->enum('type', [PKHReport::TYPE_DAILY, PKHReport::TYPE_MONTHLY])->nullable();
+            $table->text('message')->nullable();
             $table->foreignIdFor(Office::class, 'office_id')->nullable()->constrained()->cascadeOnDelete();
             $table->enum('status', [Review::STATUS_DRAFT, Review::STATUS_WAITING_APPROVAL, Review::STATUS_APPROVED, Review::STATUS_REVISION, Review::STATUS_REJECTED]);
             $table->timestamps();

@@ -15,4 +15,12 @@ class PKHReportApprovalController extends Controller
             'data_report' => PKHReport::all()
         ]);
     }
+
+
+    public function updateStatus($id, Request $request)
+    {
+        $data = PKHReport::findOrFail($id);
+        $data->update(['status' => $request->status]);
+        return redirect()->route('app.pillar.pkh.report.approval.index')->with('success', 'Berhasil update status');
+    }
 }

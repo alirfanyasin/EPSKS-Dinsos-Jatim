@@ -20,6 +20,11 @@ class PKHReportApprovalRoute extends BaseRoute
             'as' => $this->name('index'),
             'uses' => $this->uses('index')
         ]);
+
+        $this->router->post($this->prefix('update-status/{id}'), [
+            'as' => $this->name('update-status'),
+            'uses' => $this->uses('updateStatus')
+        ]);
     }
 
     public function controller(): string

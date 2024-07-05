@@ -85,7 +85,7 @@
                       @if (auth()->user()->name == $data->pkh->name ||
                               ($isAdmin && $data->office_id == Auth::user()->office_id) ||
                               Auth::user()->office_id == $isAdminJawaTimur)
-                        @if ($data->type == 'daily' && $data->status == 'approved')
+                        @if ($data->type == 'daily')
                           <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $data->pkh->name }}</td>
@@ -113,14 +113,14 @@
                             @role('admin')
                               <td>
                                 <button type="button" class="btn btn-primary btn-detail" data-toggle="modal"
-                                  data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
+                                  data-target="#detailReportDaily{{ $key }}">Lihat Detail</button>
                               </td>
                             @endrole
                           </tr>
                         @endif
                       @endif
                       {{-- Modal --}}
-                      <div class="modal fade" id="detailReportMonthly{{ $key }}" tabindex="-1" role="dialog"
+                      <div class="modal fade" id="detailReportDaily{{ $key }}" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                           <div class="modal-content">
@@ -209,7 +209,7 @@
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="exampleInputEmail1">Status</label>
+                                      <label for="status">Status</label>
                                       <input type="text" class="form-control" id="status" disabled
                                         value="{{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Disetujui' : '' }}
                               {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Disetujui' : '' }}
@@ -246,7 +246,7 @@
                     <tr>
                       <th>No.</th>
                       <th>Nama Lengkap</th>
-                      <th>Periode Laporan</th>
+                      <th>Tempat Kejadian</th>
                       <th>Waktu</th>
                       <th>Status</th>
                       @role('employee|admin')
@@ -275,27 +275,32 @@
                       @if (auth()->user()->name == $data->pkh->name ||
                               ($isAdmin && $data->office_id == Auth::user()->office_id) ||
                               Auth::user()->office_id == $isAdminJawaTimur)
-                        @if ($data->type == 'monthly' && $data->status == 'approved')
+                        @if ($data->type == 'monthly')
                           <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $data->pkh->name }}</td>
-                            <td>{{ $data->type == 'monthly' ? 'Harian' : 'Bulanan' }}</td>
-                            <td>{{ date('F Y', strtotime($data->month)) }}</td>
-                            <td>{{ $data->status }}</td>
+                            <td>{{ $data->type == 'daily' ? 'Harian' : 'Bulanan' }}</td>
+                            <td>{{ date('d F Y', strtotime($data->month)) }}</td>
+                            <td>
+                              {{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Disetujui' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Disetujui' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_REJECTED ? 'Ditolak' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}
+                            </td>
                             @role('employee')
                               <td>
                                 @if ($data->status == 'Revisi')
                                   <a href="{{ route('app.pillar.kartar.report.edit', $data->id) }}"
                                     class="btn btn-icon btn-warning" title="Edit">Revisi</i></a>
                                 @else
-                                  <button type="button" class="btn btn-info btn-detail" data-toggle="modal"
+                                  <button type="button" class="btn btn-primary btn-detail" data-toggle="modal"
                                     data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
                                 @endif
                               </td>
                             @endrole
                             @role('admin')
                               <td>
-                                <button type="button" class="btn btn-info btn-detail" data-toggle="modal"
+                                <button type="button" class="btn btn-primary btn-detail" data-toggle="modal"
                                   data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
                               </td>
                             @endrole
@@ -326,33 +331,33 @@
                                 </div>
                                 <div class="col-md-6">
                                   <div class="form-group">
-                                    <label for="exampleInputEmail1">Nama Karang Taruna</label>
+                                    <label for="exampleInputEmail1">Nama Lengkap</label>
                                     <input type="text" class="form-control" id="name_kartar" disabled
-                                      value="{{ $data->name_kartar }}">
+                                      value="{{ $data->pkh->name }}">
+                                  </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label for="exampleInputEmail1">Provinsi</label>
+                                    <input type="text" class="form-control" id="regency" disabled
+                                      value="{{ $data->pkh->province }}">
                                   </div>
                                 </div>
 
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <label for="exampleInputEmail1">Kabupaten / Kota</label>
-                                    <input type="text" class="form-control" id="regency" disabled
-                                      value="{{ $data->regency }}">
-                                  </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="exampleInputEmail1">Kecamatan</label>
                                     <input type="text" class="form-control" id="distric" disabled
-                                      value="{{ $data->distric }}">
+                                      value="{{ $data->pkh->city }}">
                                   </div>
                                 </div>
 
                                 <div class="col-md-6">
                                   <div class="form-group">
-                                    <label for="exampleInputEmail1">Desa / Kelurahan</label>
+                                    <label for="exampleInputEmail1">NIK</label>
                                     <input type="text" class="form-control" id="village" disabled
-                                      value="{{ $data->village }}">
+                                      value="{{ $data->pkh->nik }}">
                                   </div>
                                 </div>
                                 <div class="col-md-6">
@@ -370,9 +375,9 @@
                                       <label for="exampleInputEmail1">Dokumen Laporan</label>
                                       <div class="mb-3 input-group">
                                         <input type="text" class="form-control" placeholder="Document"
-                                          aria-label="" value="{{ $data->attachment }}" readonly>
+                                          aria-label="" value="{{ $data->attachment_monthly }}" readonly>
                                         <div class="input-group-append">
-                                          <a href="{{ asset('storage/image/pillars/kartar/report/' . $data->attachment) }}"
+                                          <a href="{{ asset('storage/image/pillars/PKH/report/' . $data->attachment_monthly) }}"
                                             class="btn btn-primary" type="button" target="_blank">Lihat Dokumen</a>
                                         </div>
                                       </div>
@@ -380,9 +385,12 @@
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="exampleInputEmail1">Status</label>
-                                      <input type="text" class="form-control" id="status" disabled
-                                        value="{{ $data->status }}">
+                                      <label for="status">Status</label>
+                                      <input type="text" class="form-control text-start" id="status" disabled
+                                        value="{{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Disetujui' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Disetujui' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_REJECTED ? 'Ditolak' : '' }}
+                              {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}">
                                     </div>
                                   </div>
                                 </div>
