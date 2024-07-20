@@ -8,14 +8,14 @@
             <h1>PSKS</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('app.dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item active"><a href="{{ route('app.pillar.kartar.index') }}">Data PKH</a></div>
+                <div class="breadcrumb-item active"><a href="{{ route('app.pillar.kartar.index') }}">Data ASPD</a></div>
                 <div class="breadcrumb-item"> Detail Laporan</div>
             </div>
         </div>
 
         <div class="section-body">
-            <h2 class="section-title">Data Laporan PKH</h2>
-            <p class="section-lead">Program Keluarg Harapan</p>
+            <h2 class="section-title">Data Laporan ASPD</h2>
+            <p class="section-lead">Asistensi Sosial Pendamping Disabilitas</p>
             <div class="card">
 
                 {{-- <h2>{{ Auth::user()->office_id }}</h2> --}}
@@ -38,12 +38,12 @@
                             <div class="p-0 card-header">
                                 <h4>Data Laporan Harian</h4>
                                 @role('employee')
-                                    <a class="btn btn-success" href="{{ route('app.pillar.pkh.report.create') }}"
+                                    <a class="btn btn-success" href="{{ route('app.pillar.aspd.report.create') }}"
                                         type="button">
                                         <i class="fas fa-plus"></i> Tambah Laporan
                                     </a>
                                     <a class="ml-3 btn btn-outline-danger"
-                                        href="{{ route('app.pillar.pkh.report.exportReport', ['select' => 'daily']) }}">
+                                        href="{{ route('app.pillar.aspd.report.exportReport', ['select' => 'daily']) }}">
                                         <i class="fas fa-file-pdf"></i> Export Laporan
                                     </a>
                                 @endrole
@@ -67,6 +67,7 @@
                                             $no = 1;
                                         @endphp
                                         @foreach ($data_report as $key => $data)
+                                            {{-- {{ dd($data_report) }} --}}
                                             @php
                                                 $isAdmin = false;
                                                 // Periksa apakah pengguna memiliki peran 'admin'
@@ -84,13 +85,13 @@
                                             @endphp
 
 
-                                            @if (auth()->user()->name == $data->pkh->name ||
+                                            @if (auth()->user()->name == $data->aspd->name ||
                                                     ($isAdmin && $data->office_id == Auth::user()->office_id) ||
                                                     Auth::user()->office_id == $isAdminJawaTimur)
                                                 @if ($data->type == 'daily')
                                                     <tr>
                                                         <td>{{ $no++ }}</td>
-                                                        <td>{{ $data->pkh->name }}</td>
+                                                        <td>{{ $data->aspd->name }}</td>
                                                         <td>{{ $data->venue }}</td>
                                                         <td>{{ date('d F Y', strtotime($data->date)) }}</td>
                                                         <td>
@@ -157,7 +158,7 @@
                                                                         <label for="exampleInputEmail1">Nama Lengkap</label>
                                                                         <input type="text" class="form-control"
                                                                             id="name" disabled
-                                                                            value="{{ $data->pkh->name }}">
+                                                                            value="{{ $data->aspd->name }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12">
@@ -209,9 +210,9 @@
                                                                             <label for="exampleInputEmail1">Dokumentasi
                                                                                 Lapangan</label>
                                                                             <div class="mb-3 input-group">
-                                                                                <a href="{{ asset('storage/image/pillars/PKH/report/' . $data->attachment_daily) }}"
+                                                                                <a href="{{ asset('storage/image/pillars/aspd/report/' . $data->attachment_daily) }}"
                                                                                     target="_blank">
-                                                                                    <img src="{{ asset('storage/image/pillars/PKH/report/' . $data->attachment_daily) }}"
+                                                                                    <img src="{{ asset('storage/image/pillars/aspd/report/' . $data->attachment_daily) }}"
                                                                                         class="w-100" alt="">
                                                                                 </a>
                                                                                 {{-- <input type="text" class="form-control" placeholder="Document"
@@ -251,7 +252,7 @@
                             <div class="p-0 card-header">
                                 <h4>Data Laporan Bulanan</h4>
                                 @role('employee')
-                                    <a class="btn btn-success" href="{{ route('app.pillar.pkh.report.create') }}"
+                                    <a class="btn btn-success" href="{{ route('app.pillar.aspd.report.create') }}"
                                         type="button">
                                         <i class="fas fa-plus"></i> Tambah Laporan
                                     </a>
@@ -290,13 +291,13 @@
                                                     }
                                                 }
                                             @endphp
-                                            @if (auth()->user()->name == $data->pkh->name ||
+                                            @if (auth()->user()->name == $data->aspd->name ||
                                                     ($isAdmin && $data->office_id == Auth::user()->office_id) ||
                                                     Auth::user()->office_id == $isAdminJawaTimur)
                                                 @if ($data->type == 'monthly')
                                                     <tr>
                                                         <td>{{ $no++ }}</td>
-                                                        <td>{{ $data->pkh->name }}</td>
+                                                        <td>{{ $data->aspd->name }}</td>
                                                         <td>{{ $data->type == 'daily' ? 'Harian' : 'Bulanan' }}</td>
                                                         <td>{{ date('d F Y', strtotime($data->month)) }}</td>
                                                         <td>
@@ -363,7 +364,7 @@
                                                                             Lengkap</label>
                                                                         <input type="text" class="form-control"
                                                                             id="name_kartar" disabled
-                                                                            value="{{ $data->pkh->name }}">
+                                                                            value="{{ $data->aspd->name }}">
                                                                     </div>
                                                                 </div>
 
@@ -372,7 +373,7 @@
                                                                         <label for="exampleInputEmail1">Provinsi</label>
                                                                         <input type="text" class="form-control"
                                                                             id="regency" disabled
-                                                                            value="{{ $data->pkh->province }}">
+                                                                            value="{{ $data->aspd->province }}">
                                                                     </div>
                                                                 </div>
 
@@ -382,7 +383,7 @@
                                                                             Kota</label>
                                                                         <input type="text" class="form-control"
                                                                             id="distric" disabled
-                                                                            value="{{ $data->pkh->city }}">
+                                                                            value="{{ $data->aspd->city }}">
                                                                     </div>
                                                                 </div>
 
@@ -391,7 +392,7 @@
                                                                         <label for="exampleInputEmail1">NIK</label>
                                                                         <input type="text" class="form-control"
                                                                             id="village" disabled
-                                                                            value="{{ $data->pkh->nik }}">
+                                                                            value="{{ $data->aspd->nik }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -415,7 +416,7 @@
                                                                                     value="{{ $data->attachment_monthly }}"
                                                                                     readonly>
                                                                                 <div class="input-group-append">
-                                                                                    <a href="{{ asset('storage/image/pillars/PKH/report/' . $data->attachment_monthly) }}"
+                                                                                    <a href="{{ asset('storage/image/pillars/aspd/report/' . $data->attachment_monthly) }}"
                                                                                         class="btn btn-primary"
                                                                                         type="button"
                                                                                         target="_blank">Lihat Dokumen</a>

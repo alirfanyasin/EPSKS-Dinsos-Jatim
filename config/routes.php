@@ -89,6 +89,7 @@ return [
         App\Http\Routes\Pillars\PKH\PKHReportRoute::class,
         App\Http\Routes\Pillars\ASPD\ASPDProfileRoute::class,
         App\Http\Routes\Pillars\ASPD\ASPDReportRoute::class,
+        App\Http\Routes\Pillars\ASPD\ASPDReportApprovalRoute::class,
         App\Http\Routes\Pillars\PKH\PKHTraining::class,
         App\Http\Routes\Pillars\PKH\PKHReportApprovalRoute::class,
         /** @inject web **/
