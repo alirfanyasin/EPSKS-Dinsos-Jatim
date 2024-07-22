@@ -20,6 +20,9 @@ class PKHReportApprovalController extends Controller
     public function updateStatus($id, Request $request)
     {
         $data = PKHReport::findOrFail($id);
+        if ($request->status === 'revision') {
+            $data->update(['message' => $request->message]);
+        }
         $data->update(['status' => $request->status]);
         return redirect()->route('app.pillar.pkh.report.approval.index')->with('success', 'Berhasil update status');
     }
