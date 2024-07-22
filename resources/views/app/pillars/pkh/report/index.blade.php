@@ -8,7 +8,7 @@
       <h1>PSKS</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="{{ route('app.dashboard') }}">Dashboard</a></div>
-        <div class="breadcrumb-item active"><a href="{{ route('app.pillar.kartar.index') }}">Data PKH</a></div>
+        <div class="breadcrumb-item active"><a href="{{ route('app.pillar.pkh.index') }}">Data PKH</a></div>
         <div class="breadcrumb-item"> Detail Laporan</div>
       </div>
     </div>
@@ -19,6 +19,8 @@
       <div class="card">
 
         {{-- <h2>{{ Auth::user()->office_id }}</h2> --}}
+
+
 
         <ul class="nav nav-pills" role="tablist">
           <li class="text-center nav-item w-50">
@@ -54,6 +56,7 @@
                       <th>Nama Lengkap</th>
                       <th>Tempat Kejadian</th>
                       <th>Waktu</th>
+                      <th>Aktifitas</th>
                       <th>Status</th>
                       @role('employee|admin')
                         <th>Aksi</th>
@@ -91,6 +94,8 @@
                             <td>{{ $data->pkh->name }}</td>
                             <td>{{ $data->venue }}</td>
                             <td>{{ date('d F Y', strtotime($data->date)) }}</td>
+                            <td>{{ Str::limit($data->activity, 20, '...') }}</td>
+
                             <td>
                               {{-- Menunggu Persetujuan dari Dinas Sosial Kabupaten/Kota --}}
                               {{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Disetujui' : '' }}
@@ -101,12 +106,12 @@
 
                             @role('employee')
                               <td>
-                                @if ($data->status == 'Revisi')
-                                  <a href="{{ route('app.pillar.kartar.report.revisi', $data->id) }}"
+                                @if ($data->status == 'revision')
+                                  <a href="{{ route('app.pillar.pkh.report.revision', $data->id) }}"
                                     class="btn btn-icon btn-warning" title="Edit">Revisi</i></a>
                                 @else
                                   <button type="button" class="btn btn-primary btn-detail" data-toggle="modal"
-                                    data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
+                                    data-target="#detailReportDaily{{ $key }}">Lihat Detail</button>
                                 @endif
                               </td>
                             @endrole
@@ -210,11 +215,17 @@
                                   <div class="col-md-6">
                                     <div class="form-group">
                                       <label for="status">Status</label>
-                                      <input type="text" class="form-control" id="status" disabled
+                                      <div class="px-3 py-2 rounded-sm bg-light">
+                                        {{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Disetujui' : '' }}
+                                        {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Disetujui' : '' }}
+                                        {{ $data->status == \App\Models\Review::STATUS_REJECTED ? 'Ditolak' : '' }}
+                                        {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}
+                                      </div>
+                                      {{-- <input type="text" class="form-control" id="status" disabled
                                         value="{{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Disetujui' : '' }}
                               {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Disetujui' : '' }}
                               {{ $data->status == \App\Models\Review::STATUS_REJECTED ? 'Ditolak' : '' }}
-                              {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}">
+                              {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}"> --}}
                                     </div>
                                   </div>
                                 </div>
@@ -246,7 +257,7 @@
                     <tr>
                       <th>No.</th>
                       <th>Nama Lengkap</th>
-                      <th>Tempat Kejadian</th>
+                      <th>Tipe Pelaporan</th>
                       <th>Waktu</th>
                       <th>Status</th>
                       @role('employee|admin')
@@ -280,7 +291,7 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ $data->pkh->name }}</td>
                             <td>{{ $data->type == 'daily' ? 'Harian' : 'Bulanan' }}</td>
-                            <td>{{ date('d F Y', strtotime($data->month)) }}</td>
+                            <td>{{ date('F Y', strtotime($data->month)) }}</td>
                             <td>
                               {{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Disetujui' : '' }}
                               {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Disetujui' : '' }}
@@ -289,9 +300,9 @@
                             </td>
                             @role('employee')
                               <td>
-                                @if ($data->status == 'Revisi')
-                                  <a href="{{ route('app.pillar.kartar.report.edit', $data->id) }}"
-                                    class="btn btn-icon btn-warning" title="Edit">Revisi</i></a>
+                                @if ($data->status == 'revision')
+                                  <a href="{{ route('app.pillar.pkh.report.revision', $data->id) }}"
+                                    class="btn btn-icon btn-warning" title="Revisi">Revisi</i></a>
                                 @else
                                   <button type="button" class="btn btn-primary btn-detail" data-toggle="modal"
                                     data-target="#detailReportMonthly{{ $key }}">Lihat Detail</button>
@@ -386,11 +397,17 @@
                                   <div class="col-md-6">
                                     <div class="form-group">
                                       <label for="status">Status</label>
-                                      <input type="text" class="form-control text-start" id="status" disabled
+                                      <div class="px-3 py-2 rounded-sm bg-light">
+                                        {{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Disetujui' : '' }}
+                                        {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Disetujui' : '' }}
+                                        {{ $data->status == \App\Models\Review::STATUS_REJECTED ? 'Ditolak' : '' }}
+                                        {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}
+                                      </div>
+                                      {{-- <input type="text" class="form-control text-start" id="status" disabled
                                         value="{{ $data->status == \App\Models\Review::STATUS_WAITING_APPROVAL ? 'Menunggu Disetujui' : '' }}
                               {{ $data->status == \App\Models\Review::STATUS_APPROVED ? 'Disetujui' : '' }}
                               {{ $data->status == \App\Models\Review::STATUS_REJECTED ? 'Ditolak' : '' }}
-                              {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}">
+                              {{ $data->status == \App\Models\Review::STATUS_REVISION ? 'Revisi' : '' }}"> --}}
                                     </div>
                                   </div>
                                 </div>

@@ -45,6 +45,14 @@ class PKHReportRoute extends BaseRoute
             'as' => $this->name('destroy'),
             'uses' => $this->uses('destroy')
         ]);
+        $this->router->get($this->prefix('revision/{id}'), [
+            'as' => $this->name('revision'),
+            'uses' => $this->uses('revision')
+        ]);
+        $this->router->post($this->prefix('revision-update/{id}'), [
+            'as' => $this->name('revision-update'),
+            'uses' => $this->uses('revisionUpdate')
+        ]);
 
         $this->router->get($this->prefix('exportReport/{select}'), [
             'as' => $this->name('exportReport'),
