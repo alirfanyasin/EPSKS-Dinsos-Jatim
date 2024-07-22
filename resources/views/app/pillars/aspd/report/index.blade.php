@@ -8,7 +8,7 @@
             <h1>PSKS</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('app.dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item active"><a href="{{ route('app.pillar.kartar.index') }}">Data ASPD</a></div>
+                <div class="breadcrumb-item active"><a href="{{ route('app.pillar.aspd.index') }}">Data ASPD</a></div>
                 <div class="breadcrumb-item"> Detail Laporan</div>
             </div>
         </div>
@@ -104,8 +104,9 @@
 
                                                         @role('employee')
                                                             <td>
-                                                                @if ($data->status == 'Revisi')
-                                                                    <a href="{{ route('app.pillar.kartar.report.revisi', $data->id) }}"
+                                                                {{-- {{ dd($data->status) }} --}}
+                                                                @if ($data->status == 'revision')
+                                                                    <a href="{{ route('app.pillar.aspd.report.show', $data->id) }}"
                                                                         class="btn btn-icon btn-warning"
                                                                         title="Edit">Revisi</i></a>
                                                                 @else
@@ -308,8 +309,8 @@
                                                         </td>
                                                         @role('employee')
                                                             <td>
-                                                                @if ($data->status == 'Revisi')
-                                                                    <a href="{{ route('app.pillar.kartar.report.edit', $data->id) }}"
+                                                                @if ($data->status == 'revision')
+                                                                    <a href="{{ route('app.pillar.aspd.report.update', $data->id) }}"
                                                                         class="btn btn-icon btn-warning"
                                                                         title="Edit">Revisi</i></a>
                                                                 @else
@@ -368,24 +369,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputEmail1">Provinsi</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="regency" disabled
-                                                                            value="{{ $data->aspd->province }}">
-                                                                    </div>
-                                                                </div>
 
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputEmail1">Kabupaten /
-                                                                            Kota</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="distric" disabled
-                                                                            value="{{ $data->aspd->city }}">
-                                                                    </div>
-                                                                </div>
 
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">

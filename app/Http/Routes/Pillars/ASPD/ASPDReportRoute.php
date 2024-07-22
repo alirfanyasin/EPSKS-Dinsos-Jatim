@@ -27,7 +27,7 @@ class ASPDReportRoute extends BaseRoute
             'uses' => $this->uses('create')
         ]);
 
-        $this->router->post($this->prefix('exportReport/{select}'), [
+        $this->router->get($this->prefix('exportReport/{select}'), [
             'as' => $this->name('exportReport'),
             'uses' => $this->uses('exportReport')
         ]);
@@ -45,6 +45,11 @@ class ASPDReportRoute extends BaseRoute
         $this->router->get($this->prefix('show/{id}'), [
             'as' => $this->name('show'),
             'uses' => $this->uses('show')
+        ]);
+
+        $this->router->post($this->prefix('update/{id}'), [
+            'as' => $this->name('update'),
+            'uses' => $this->uses('update')
         ]);
     }
 

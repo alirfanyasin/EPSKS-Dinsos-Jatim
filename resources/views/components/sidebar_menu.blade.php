@@ -231,7 +231,7 @@
                     <a class="nav-link" href="{{ route('app.pillar.aspd.report.index') }}">Laporan</a>
                 </li>
                 <li class='{{ request()->routeIs('app.pillar.aspd.report.approval.index') ? 'active' : '' }}'>
-                    <a class="nav-link" href="{{ route('app.pillar.aspd.report.approval.index') }}">Verifikasis
+                    <a class="nav-link" href="{{ route('app.pillar.aspd.report.approval.index') }}">Verifikasi
                         Laporan</a>
                 </li>
                 {{-- <li class=''>
@@ -278,9 +278,10 @@
                     <span>Laporan</span></a>
             </li>
         @else
-            <a class="nav-link" href="{{ route('app.pillar.aspd.report.index') }}"><i
-                    class="fas fa-paper-plane"></i>
-                <span>Laporan</span></a>
+            <li class="{{ request()->routeIs('app.pillar.aspd.report.index') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('app.pillar.aspd.report.index') }}"><i
+                        class="fas fa-paper-plane"></i>
+                    <span>Laporan</span></a>
             </li>
         @endif
     @endif

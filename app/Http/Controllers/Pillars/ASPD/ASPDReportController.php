@@ -31,6 +31,14 @@ class ASPDReportController extends Controller
             'pageTitle' => 'Laporan'
         ]);
     }
+    public function show($id)
+    {
+        // dd(Auth()->user()->aspd);
+        return view('app.pillars.aspd.report.create', [
+            'pageTitle' => 'Laporan',
+            'data_report' => ASPDReport::findOrfail($id)
+        ]);
+    }
 
 
     public function exportReport($select)
@@ -114,6 +122,51 @@ class ASPDReportController extends Controller
         // dd("asdasd");
 
         ASPDReport::create($data);
+        return redirect()->route('app.pillar.aspd.report.index')->with('success', 'Tambah Laporan Berhasil');
+    }
+    public function update(Request $request, $id)
+    {
+        // $this->rules($request);
+
+        $aspd = ASPDReport::findOrfail($id);
+        $data = [
+            'aspd_id' => Auth::user()->aspd->id,
+            'type' => $request->type,
+            'date' => $request->date,
+            'venue' => $request->venue,
+            'activity' => $request->activity,
+            'constraint' => $request->constraint,
+            'description' => $request->description,
+            'month' => $request->month,
+            'office_id' => Auth::user()->aspd->office_id,
+            'status' => Review::STATUS_WAITING_APPROVAL,
+        ];
+
+        if ($request->type == 'daily') {
+            if ($request->hasFile('attachment_daily')) {
+                $this->deleteFileIfExist($aspd->file);
+                $attachment = $request->file('attachment_daily');
+                $rdmStr = Str::random(5);
+                $nameAttachment = $rdmStr . '_' . $attachment->getClientOriginalName();
+                $attachment->storeAs('public/image/pillars/ASPD/report/', $nameAttachment);
+                $data['attachment_daily'] = $nameAttachment;
+            }
+        }
+        if ($request->type == 'monthly') {
+            if ($request->hasFile('attachment_monthly')) {
+                $this->deleteFileIfExist($aspd->file);
+
+                $attachment = $request->file('attachment_monthly');
+                $rdmStr = Str::random(5);
+                $nameAttachment = $rdmStr . '_' . $attachment->getClientOriginalName();
+                $attachment->storeAs('public/image/pillars/ASPD/report/', $nameAttachment);
+                $data['attachment_monthly'] = $nameAttachment;
+            }
+        }
+
+        // dd("asdasd");
+        $aspd->update([$data]);
+        // ASPDReport::where('id', $id)->update($data);
         return redirect()->route('app.pillar.aspd.report.index')->with('success', 'Tambah Laporan Berhasil');
     }
 }
