@@ -40,8 +40,8 @@ class EmployeeAuthController extends AuthenticatedSessionController
                 return redirect()->route('app.pillar.kartar.report.index');
             } else if (Auth::user()->pillar_id == 5) {
                 return redirect()->route('app.pillar.pkh.report.index');
-            } else {
-                return redirect()->route('app.employee.report.index');
+            } else if (Auth::user()->pillar_id == 6) {
+                return redirect()->route('app.pillar.aspd.report.index');
             }
         }
 

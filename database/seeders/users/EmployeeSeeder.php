@@ -32,7 +32,7 @@ class EmployeeSeeder extends Seeder
                 'nip' => '12345678' . $key + 1,
                 'username' => 'pegawai' . strtolower($pillar->code),
                 'name' => 'Pegawai ' . $pillar->code,
-                'email' => 'pegawai' . strtolower($pillar->code) . '@mail.com',
+                'email' => 'pegawai' . strtolower($pillar->code) . '@gmail.com',
                 'password' => 'password',
                 'is_employee' => true,
                 'pillar_id' => $pillar->id,
@@ -47,21 +47,21 @@ class EmployeeSeeder extends Seeder
             $employee->syncPermissions($role->permissions);
         }
 
-//        $offices = Office::query()->whereIn('name', ['DINAS SOSIAL KOTA SURABAYA', 'DINAS SOSIAL KABUPATEN SIDOARJO'])->get();
-//
-//        $offices->map(function ($office) use ($faker) {
-//            $user = User::query()->create([
-//                'nip' => $faker->unique()->randomNumber(9),
-//                'username' => 'tksk' . $faker->unique()->randomNumber(3),
-//                'name' => $faker->name,
-//                'email' => 'tksk' . $faker->unique()->randomNumber(3) . '@mail.com',
-//                'password' => 'password',
-//                'office_id' => $office->id,
-//                'pillar' => User::PILLAR_TKSK,
-//                'is_employee' => true,
-//            ]);
-//
-//            $user->assignRole(self::ROLE);
-//        });
+        //        $offices = Office::query()->whereIn('name', ['DINAS SOSIAL KOTA SURABAYA', 'DINAS SOSIAL KABUPATEN SIDOARJO'])->get();
+        //
+        //        $offices->map(function ($office) use ($faker) {
+        //            $user = User::query()->create([
+        //                'nip' => $faker->unique()->randomNumber(9),
+        //                'username' => 'tksk' . $faker->unique()->randomNumber(3),
+        //                'name' => $faker->name,
+        //                'email' => 'tksk' . $faker->unique()->randomNumber(3) . '@mail.com',
+        //                'password' => 'password',
+        //                'office_id' => $office->id,
+        //                'pillar' => User::PILLAR_TKSK,
+        //                'is_employee' => true,
+        //            ]);
+        //
+        //            $user->assignRole(self::ROLE);
+        //        });
     }
 }

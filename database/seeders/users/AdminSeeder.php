@@ -36,7 +36,7 @@ class AdminSeeder extends Seeder
                     'nip' => $faker->unique()->randomNumber(9),
                     'username' => strtolower(str_replace(' ', '', $office->name)) . strtolower($pillar->code),
                     'name' => $office->name . ' ' . $pillar->code,
-                    'email' => strtolower(str_replace(' ', '', $office->name)) . strtolower($pillar->code) . '@mail.com',
+                    'email' => strtolower(str_replace(' ', '', $office->name)) . strtolower($pillar->code) . '@gmail.com',
                     'password' => 'password',
                     'office_id' => $office->id,
                     'pillar_id' => $pillar->id,
