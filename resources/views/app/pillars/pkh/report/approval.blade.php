@@ -140,7 +140,7 @@
                                   </div>
                                   <div class="col-md-12">
                                     <div class="form-group">
-                                      <label for="exampleInputEmail1">Tanngal Pelaporan</label>
+                                      <label for="exampleInputEmail1">Tanggal Pelaporan</label>
                                       <input type="text" class="form-control" id="date" disabled
                                         value="{{ $data->date }}">
                                     </div>
@@ -327,70 +327,65 @@
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
+                                      <label for="exampleInputEmail1">Tipe Pelaporan</label>
+                                      <input type="text" class="form-control" id="type_report" disabled
+                                        value="{{ $data->period == 'daily' ? 'Harian' : 'Bulanan' }}">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
                                       <label for="exampleInputEmail1">Nama Lengkap</label>
-                                      <input type="text" class="form-control" id="name" disabled
+                                      <input type="text" class="form-control" id="name_kartar" disabled
                                         value="{{ $data->pkh->name }}">
                                     </div>
                                   </div>
+
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="exampleInputEmail1">NIK KTP</label>
-                                      <input type="text" class="form-control" id="type_report" disabled
+                                      <label for="exampleInputEmail1">Provinsi</label>
+                                      <input type="text" class="form-control" id="regency" disabled
+                                        value="{{ $data->pkh->province }}">
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">Kabupaten / Kota</label>
+                                      <input type="text" class="form-control" id="distric" disabled
+                                        value="{{ $data->pkh->city }}">
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">NIK</label>
+                                      <input type="text" class="form-control" id="village" disabled
                                         value="{{ $data->pkh->nik }}">
                                     </div>
                                   </div>
-                                  <div class="col-md-12">
+                                  <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="exampleInputEmail1">Tanngal Pelaporan</label>
-                                      <input type="text" class="form-control" id="date" disabled
-                                        value="{{ $data->date }}">
+                                      <label for="exampleInputEmail1">Bulan</label>
+                                      <input type="text" class="form-control" id="village" disabled
+                                        value="{{ $data->month == null ? date('Y') : date('M Y', strtotime($data->month)) }}">
                                     </div>
                                   </div>
                                 </div>
 
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label for="">Tempat Kegiatan</label>
-                                      <textarea class="form-control" name="" placeholder="Masukkan Tempat Kegiatan" style="min-height: 150px"
-                                        disabled>{{ $data->venue }}</textarea>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label for="">Aktifitas yang dilakukan</label>
-                                      <textarea class="form-control" name="" placeholder="Masukkan Aktivitas yang dilakukan"
-                                        style="min-height: 150px" disabled>{{ $data->activity }}</textarea>
-
-                                    </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label for="">Kendala</label>
-                                      <textarea class="form-control" name="" placeholder="Masukkan Kendala" style="min-height: 150px" disabled>{{ $data->constraint }}</textarea>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label for="">Lampiran</label>
-                                      <textarea class="form-control" name="" placeholder="Masukkan Uraian / Keterangan Foto"
-                                        style="min-height: 150px" disabled>{{ $data->description }}</textarea>
-                                    </div>
-                                  </div>
-                                </div>
                                 <div class="form-group">
                                   <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                       <div class="form-group">
-                                        <label for="exampleInputEmail1">Dokumentasi Lapangan</label>
+                                        <label for="exampleInputEmail1">Dokumen Laporan</label>
                                         <div class="mb-3 input-group">
-                                          <a href="{{ asset('storage/image/pillars/PKH/report/' . $data->attachment_monthly) }}"
-                                            target="_blank">
-                                            <img
-                                              src="{{ asset('storage/image/pillars/PKH/report/' . $data->attachment_monthly) }}"
-                                              class="w-100" alt="">
-                                          </a>
+                                          <input type="text" class="form-control" placeholder="Document"
+                                            aria-label="" value="{{ $data->attachment_monthly }}" readonly>
+                                          <div class="input-group-append">
+                                            <a href="{{ asset('storage/image/pillars/PKH/report/' . $data->attachment_monthly) }}"
+                                              class="btn btn-primary" type="button" target="_blank">Lihat Dokumen</a>
+                                          </div>
                                         </div>
+
                                       </div>
                                     </div>
 

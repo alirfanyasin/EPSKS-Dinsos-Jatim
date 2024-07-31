@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 use function Laravel\Prompts\error;
 
@@ -108,6 +109,9 @@ class PKHReportController extends Controller
 
         if ($request->type == 'daily') {
             if ($request->hasFile('attachment_daily')) {
+                if ($data->attachment_daily) {
+                    Storage::delete('public/image/pillars/PKH/report/' . $data->attachment_daily);
+                }
                 $attachment = $request->file('attachment_daily');
                 $rdmStr = Str::random(5);
                 $nameAttachment = $rdmStr . '_' . $attachment->getClientOriginalName();
@@ -118,6 +122,9 @@ class PKHReportController extends Controller
 
         if ($request->type == 'monthly') {
             if ($request->hasFile('attachment_monthly')) {
+                if ($data->attachment_monthly) {
+                    Storage::delete('public/image/pillars/PKH/report/' . $data->attachment_monthly);
+                }
                 $attachment = $request->file('attachment_monthly');
                 $rdmStr = Str::random(5);
                 $nameAttachment = $rdmStr . '_' . $attachment->getClientOriginalName();
@@ -125,6 +132,7 @@ class PKHReportController extends Controller
                 $data['attachment_monthly'] = $nameAttachment;
             }
         }
+        $data->save();
 
         return redirect()->route('app.pillar.pkh.report.index')->with('success', 'Revisi Laporan Berhasil');
     }
