@@ -74,6 +74,61 @@ class PKHReportController extends Controller
         return redirect()->route('app.pillar.pkh.report.index')->with('success', 'Tambah Laporan Berhasil');
     }
 
+
+    public function revision($id)
+    {
+        $data = PKHReport::findOrFail($id);
+
+        if ($data->status == 'revision') {
+            $data_report = $data;
+        }
+
+        return view('app.pillars.pkh.report.revision', [
+            'titlePage' => 'Revisi Laporan',
+            'data' => $data_report
+        ]);
+    }
+
+    public function revisionUpdate($id, Request $request)
+    {
+
+        $data = PKHReport::find($id);
+
+        $data->update([
+            'pkh_id' => Auth::user()->pkh->id,
+            'type' => $request->type,
+            'date' => $request->date,
+            'venue' => $request->venue,
+            'activity' => $request->activity,
+            'constraint' => $request->constraint,
+            'description' => $request->description,
+            'month' => $request->month,
+            'status' => Review::STATUS_WAITING_APPROVAL,
+        ]);
+
+        if ($request->type == 'daily') {
+            if ($request->hasFile('attachment_daily')) {
+                $attachment = $request->file('attachment_daily');
+                $rdmStr = Str::random(5);
+                $nameAttachment = $rdmStr . '_' . $attachment->getClientOriginalName();
+                $attachment->storeAs('public/image/pillars/PKH/report/', $nameAttachment);
+                $data['attachment_daily'] = $nameAttachment;
+            }
+        }
+
+        if ($request->type == 'monthly') {
+            if ($request->hasFile('attachment_monthly')) {
+                $attachment = $request->file('attachment_monthly');
+                $rdmStr = Str::random(5);
+                $nameAttachment = $rdmStr . '_' . $attachment->getClientOriginalName();
+                $attachment->storeAs('public/image/pillars/PKH/report/', $nameAttachment);
+                $data['attachment_monthly'] = $nameAttachment;
+            }
+        }
+
+        return redirect()->route('app.pillar.pkh.report.index')->with('success', 'Revisi Laporan Berhasil');
+    }
+
     public function exportReport($select)
     {
         return view('app.pillars.pkh.report.export', [
@@ -100,6 +155,7 @@ class PKHReportController extends Controller
         $data_report = DB::table('pkh_reports')
             ->whereYear('date', $dateYear)
             ->whereMonth('date', $dateMonth)
+            ->where('pkh_id', Auth::user()->pkh->id)
             ->get();
 
         if ($data_report->isNotEmpty()) {

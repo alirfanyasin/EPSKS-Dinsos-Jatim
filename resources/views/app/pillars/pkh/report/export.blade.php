@@ -65,6 +65,7 @@
           <form action="{{ route('app.pillar.pkh.report.export_pdf', ['nip' => Auth::user()->nip]) }}" method="POST">
             @csrf
             <input type="hidden" name="office_id" value="{{ Auth::user()->office_id }}">
+            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
             <input type="hidden" name="type" value="{{ $data['type'] }}">
             <input type="hidden" name="date" value="{{ $data['date'] }}">
             <div class="row">
