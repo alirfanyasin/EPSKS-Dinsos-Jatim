@@ -8,6 +8,8 @@ use App\Models\Pillars\ASPD\ASPDReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Review;
+use Illuminate\Support\Facades\Storage;
+
 
 use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -62,7 +64,7 @@ class ASPDReportController extends Controller
         $dateMonth = date('m', strtotime($data['month']));
 
         // Mengambil data laporan berdasarkan tahun dan bulan
-        $data_report = DB::table('pkh_reports')
+        $data_report = DB::table('aspd_reports')
             ->whereYear('date', $dateYear)
             ->whereMonth('date', $dateMonth)
             ->get();
@@ -74,9 +76,9 @@ class ASPDReportController extends Controller
             });
 
             if ($hasValidStatus) {
-                PDF::setOptions(['defaultFont' => 'Nunito Sans']);
-                $pdf = PDF::loadView('app.pillars.pkh.report.pdf.export-report', ['data' => $data_report, 'data_export' => $data]);
-                return $pdf->download('Laporan PKH - ' . Auth::user()->name . '.pdf');
+                PDF::setOptions(['defaultFont' => 'Nunito Sans', 'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+                $pdf = PDF::loadView('app.pillars.aspd.report.pdf.export-report', ['data' => $data_report, 'data_export' => $data]);
+                return $pdf->download('Laporan ASPD - ' . Auth::user()->name . '.pdf');
             }
         }
 
@@ -168,5 +170,65 @@ class ASPDReportController extends Controller
         $aspd->update([$data]);
         // ASPDReport::where('id', $id)->update($data);
         return redirect()->route('app.pillar.aspd.report.index')->with('success', 'Tambah Laporan Berhasil');
+    }
+
+    public function revision($id)
+    {
+        $data = ASPDReport::find($id);
+        if ($data->status == 'revision') {
+            $data_report = $data;
+        }
+
+        return view('app.pillars.aspd.report.revision', [
+            'titlePage' => 'Revisi Laporan',
+            'data' => $data_report
+        ]);
+    }
+
+    public function revisionUpdate($id, Request $request)
+    {
+
+        $data = ASPDReport::find($id);
+
+        $data->update([
+            'aspd_id' => Auth::user()->aspd->id,
+            'type' => $request->type,
+            'date' => $request->date,
+            'venue' => $request->venue,
+            'activity' => $request->activity,
+            'constraint' => $request->constraint,
+            'description' => $request->description,
+            'month' => $request->month,
+            'status' => Review::STATUS_WAITING_APPROVAL,
+        ]);
+
+        if ($request->type == 'daily') {
+            if ($request->hasFile('attachment_daily')) {
+                if ($data->attachment_daily) {
+                    Storage::delete('public/image/pillars/ASPD/report/' . $data->attachment_daily);
+                }
+                $attachment = $request->file('attachment_daily');
+                $rdmStr = Str::random(5);
+                $nameAttachment = $rdmStr . '_' . $attachment->getClientOriginalName();
+                $attachment->storeAs('public/image/pillars/ASPD/report/', $nameAttachment);
+                $data['attachment_daily'] = $nameAttachment;
+            }
+        }
+
+        if ($request->type == 'monthly') {
+            if ($request->hasFile('attachment_monthly')) {
+                if ($data->attachment_monthly) {
+                    Storage::delete('public/image/pillars/ASPD/report/' . $data->attachment_monthly);
+                }
+                $attachment = $request->file('attachment_monthly');
+                $rdmStr = Str::random(5);
+                $nameAttachment = $rdmStr . '_' . $attachment->getClientOriginalName();
+                $attachment->storeAs('public/image/pillars/ASPD/report/', $nameAttachment);
+                $data['attachment_monthly'] = $nameAttachment;
+            }
+        }
+        $data->save();
+
+        return redirect()->route('app.pillar.aspd.report.index')->with('success', 'Revisi Laporan Berhasil');
     }
 }

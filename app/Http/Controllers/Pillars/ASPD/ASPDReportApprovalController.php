@@ -21,9 +21,10 @@ class ASPDReportApprovalController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $data = ASPDReport::find($id);
-        $data->update([
-            'status' => $request->status
-        ]);
+        if ($request->status === 'revision') {
+            $data->update(['message' => $request->message]);
+        }
+        $data->update(['status' => $request->status]);
         return redirect()->route('app.pillar.aspd.report.approval.index')->with('success', 'Laporan ASPD Berhasil Update');
     }
 }

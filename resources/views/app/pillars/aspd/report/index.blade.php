@@ -106,7 +106,7 @@
                                                             <td>
                                                                 {{-- {{ dd($data->status) }} --}}
                                                                 @if ($data->status == 'revision')
-                                                                    <a href="{{ route('app.pillar.aspd.report.show', $data->id) }}"
+                                                                    <a href="{{ route('app.pillar.aspd.report.revision', $data->id) }}"
                                                                         class="btn btn-icon btn-warning"
                                                                         title="Edit">Revisi</i></a>
                                                                 @else
@@ -310,7 +310,7 @@
                                                         @role('employee')
                                                             <td>
                                                                 @if ($data->status == 'revision')
-                                                                    <a href="{{ route('app.pillar.aspd.report.update', $data->id) }}"
+                                                                    <a href="{{ route('app.pillar.aspd.report.revision', $data->id) }}"
                                                                         class="btn btn-icon btn-warning"
                                                                         title="Edit">Revisi</i></a>
                                                                 @else

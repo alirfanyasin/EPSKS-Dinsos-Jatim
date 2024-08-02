@@ -51,6 +51,16 @@ class ASPDReportRoute extends BaseRoute
             'as' => $this->name('update'),
             'uses' => $this->uses('update')
         ]);
+
+        $this->router->get($this->prefix('revision/{id}'), [
+            'as' => $this->name('revision'),
+            'uses' => $this->uses('revision')
+        ]);
+
+        $this->router->post($this->prefix('revision-update/{id}'), [
+            'as' => $this->name('revision-update'),
+            'uses' => $this->uses('revisionUpdate')
+        ]);
     }
 
     public function controller(): string
