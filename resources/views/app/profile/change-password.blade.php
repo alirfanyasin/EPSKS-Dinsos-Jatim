@@ -26,7 +26,7 @@
               @csrf
               <div class="mb-3">
                 <label for="current_password" class="form-label">Password</label>
-                <input type="text" class="form-control @error('current_password') is-invalid @enderror"
+                <input type="password" class="form-control @error('current_password') is-invalid @enderror"
                   name="current_password" id="current_password" autocomplete="none">
                 @error('current_password')
                   <div class="invalid-feedback">

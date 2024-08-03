@@ -22,8 +22,7 @@
             <div class="mt-3 text-center">
               <h6 class="fw-semibold">{{ auth()->user()->name }}</h6>
               <div class="fw-semibold">{{ auth()->user()->username }}</d>
-                <div class="fw-semibold">{{ auth()->user()->email }}</d>
-                </div>
+                {{-- <div class="fw-semibold">{{ auth()->user()->email }}</d> --}}
               </div>
             </div>
           </div>
