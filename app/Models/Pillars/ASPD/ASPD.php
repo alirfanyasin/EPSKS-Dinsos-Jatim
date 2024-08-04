@@ -36,4 +36,9 @@ class ASPD extends Model
     {
         return $this->belongsTo(Office::class, 'office_id');
     }
+
+    public function aspd_report(): HasMany
+    {
+        return $this->hasMany(ASPDReport::class, 'aspd_id');
+    }
 }

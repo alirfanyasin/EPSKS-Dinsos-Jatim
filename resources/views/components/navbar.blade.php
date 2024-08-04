@@ -42,8 +42,8 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">{{ auth()->user()->office->name }}</div>
-                {{-- <a href="{{ route('app.profile.index') }}" class="dropdown-item has-icon"> --}}
-                <i class="far fa-user"></i> Profil Saya
+                <a href="{{ route('app.profile.index') }}" class="dropdown-item has-icon">
+                    <i class="far fa-user"></i> Profil Saya
                 </a>
                 <!--
                 <a href="#" class="dropdown-item has-icon">

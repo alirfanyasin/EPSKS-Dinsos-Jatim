@@ -58,7 +58,10 @@
             </thead>
             <tbody>
                 @foreach ($data as $item)
-                    @if (date('Y-m', strtotime($item->date)) == $data_export['month'] && $item->status == 'approved')
+                    {{-- {{ dd($item) }} --}}
+                    @if (date('Y-m', strtotime($item->date)) == $data_export['month'] &&
+                            $item->status == 'approved' &&
+                            $item->aspd->user_id == Auth::user()->id)
                         <tr>
                             <td>{{ date('d F Y', strtotime($item->date)) }}</td>
                             <td>{{ $item->venue }}</td>

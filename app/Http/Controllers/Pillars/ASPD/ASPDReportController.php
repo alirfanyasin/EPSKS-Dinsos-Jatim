@@ -64,20 +64,30 @@ class ASPDReportController extends Controller
         $dateMonth = date('m', strtotime($data['month']));
 
         // Mengambil data laporan berdasarkan tahun dan bulan
-        $data_report = DB::table('aspd_reports')
-            ->whereYear('date', $dateYear)
-            ->whereMonth('date', $dateMonth)
-            ->get();
+        // $data_report = DB::table('aspd_reports')
+        //     ->whereYear('date', $dateYear)
+        //     ->whereMonth('date', $dateMonth)
+        //     ->get();
 
-        if ($data_report->isNotEmpty()) {
+        $data_export = ASPDReport::whereYear('date', $dateYear)->whereMonth('date', $dateMonth)->with([
+            'aspd' => function ($query) {
+                $query->select('id', 'name', 'user_id')->where('user_id', Auth::user()->id);
+            }
+        ])->get();
+        // dd($data_export);
+
+
+        if ($data_export->isNotEmpty()) {
             $validStatus = [Review::STATUS_APPROVED];
-            $hasValidStatus = $data_report->contains(function ($report) use ($validStatus) {
+            $hasValidStatus = $data_export->contains(function ($report) use ($validStatus) {
                 return in_array($report->status, $validStatus);
             });
 
+            // dd($hasValidStatus, $data_export);
+
             if ($hasValidStatus) {
                 PDF::setOptions(['defaultFont' => 'Nunito Sans', 'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
-                $pdf = PDF::loadView('app.pillars.aspd.report.pdf.export-report', ['data' => $data_report, 'data_export' => $data]);
+                $pdf = PDF::loadView('app.pillars.aspd.report.pdf.export-report', ['data' => $data_export, 'data_export' => $data]);
                 return $pdf->download('Laporan ASPD - ' . Auth::user()->name . '.pdf');
             }
         }

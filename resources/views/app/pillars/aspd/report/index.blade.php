@@ -112,7 +112,7 @@
                                                                 @else
                                                                     <button type="button" class="btn btn-primary btn-detail"
                                                                         data-toggle="modal"
-                                                                        data-target="#detailReportMonthly{{ $key }}">Lihat
+                                                                        data-target="#detailReportDaily{{ $key }}">Lihat
                                                                         Detail</button>
                                                                 @endif
                                                             </td>
