@@ -69,11 +69,7 @@ class ASPDReportController extends Controller
         //     ->whereMonth('date', $dateMonth)
         //     ->get();
 
-        $data_export = ASPDReport::whereYear('date', $dateYear)->whereMonth('date', $dateMonth)->with([
-            'aspd' => function ($query) {
-                $query->select('id', 'name', 'user_id')->where('user_id', Auth::user()->id);
-            }
-        ])->get();
+        $data_export = ASPDReport::whereYear('date', $dateYear)->whereMonth('date', $dateMonth)->where('aspd_id', Auth::user()->aspd->id)->get();
         // dd($data_export);
 
 

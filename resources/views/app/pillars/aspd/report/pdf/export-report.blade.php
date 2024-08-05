@@ -60,9 +60,7 @@
                 @foreach ($data as $item)
                     {{-- {{ dd($item) }} --}}
                     {{-- {{ dd($item->aspd) }} --}}
-                    @if (date('Y-m', strtotime($item->date)) == $data_export['month'] &&
-                            $item->status == 'approved' &&
-                            $item->aspd?->user_id == Auth::user()->id)
+                    @if (date('Y-m', strtotime($item->date)) == $data_export['month'] && $item->status == 'approved')
                         <tr>
                             <td>{{ date('d F Y', strtotime($item->date)) }}</td>
                             <td>{{ $item->venue }}</td>
