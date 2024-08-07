@@ -1,12 +1,12 @@
 <?php
 
-use App\Models\Office;
-use App\Models\Pillars\PKH\PKH;
-use App\Models\Pillars\PKH\PKHReport;
-use App\Models\Review;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Pillars\ASPD\ASPD;
+use App\Models\Pillars\ASPD\ASPDReport;
+use App\Models\Review;
+use App\Models\Office;
 
 return new class extends Migration
 {
@@ -15,9 +15,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pkh_reports', function (Blueprint $table) {
+        Schema::create('aspd_reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(PKH::class, 'pkh_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(ASPD::class, 'aspd_id')->constrained()->cascadeOnDelete();
             $table->string('date')->nullable(); // this can be used for daily or monthly date
             $table->string('venue')->nullable();
             $table->text('activity')->nullable();
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('attachment_monthly')->nullable();
             $table->string('month')->nullable();
             $table->text('description')->nullable();
-            $table->enum('type', [PKHReport::TYPE_DAILY, PKHReport::TYPE_MONTHLY])->nullable();
+            $table->enum('type', [ASPDReport::TYPE_DAILY, ASPDReport::TYPE_MONTHLY])->nullable();
             $table->text('message')->nullable();
             $table->foreignIdFor(Office::class, 'office_id')->nullable()->constrained()->cascadeOnDelete();
             $table->enum('status', [Review::STATUS_DRAFT, Review::STATUS_WAITING_APPROVAL, Review::STATUS_APPROVED, Review::STATUS_REVISION, Review::STATUS_REJECTED]);
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pkh_reports');
+        Schema::dropIfExists('aspd_reports');
     }
 };

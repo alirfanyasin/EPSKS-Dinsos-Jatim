@@ -33,7 +33,7 @@ class SuperAdminSeeder extends Seeder
                 'nip' => $faker->unique()->randomNumber(9),
                 'username' => strtolower(str_replace(' ', '', $office->name)),
                 'name' => $office->name,
-                'email' => strtolower(str_replace(' ', '', $office->name)) . '@mail.com',
+                'email' => strtolower(str_replace(' ', '', $office->name)) . '@gmail.com',
                 'password' => 'password',
                 'office_id' => $office->id,
             ]);

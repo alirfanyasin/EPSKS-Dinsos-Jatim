@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pillars\ASPD;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Users\CreateNewUserAfterASPDCreate;
 use App\Models\Pillars\ASPD\ASPD;
 use App\Models\Pillars\ASPD\ASPDQuota;
 use App\Models\Pillars\ASPD\ASPDRegency;
@@ -90,7 +91,7 @@ class ASPDController extends Controller
             'aspd_id' => $aspd->id,
             'aspd_quota_id' => $data['regency']
         ]);
-
+        CreateNewUserAfterASPDCreate::dispatch($aspd);
         return redirect()->route('app.pillar.aspd.index')->with('success', 'Data berhasil disimpan');
     }
 

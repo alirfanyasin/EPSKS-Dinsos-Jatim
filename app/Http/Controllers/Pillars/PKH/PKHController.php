@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pillars\PKH;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Users\CreateNewUserAfterPKHCreate;
 use App\Models\Pillars\PKH\PKH;
 use App\Models\Utilities\Province;
 use App\Models\Utilities\Regency;
@@ -78,7 +79,9 @@ class PKHController extends Controller
             $data['appointment_letter'] = $name_file_appointment_letter;
         }
 
-        PKH::create($data);
+        $pkh = PKH::create($data);
+
+        CreateNewUserAfterPKHCreate::dispatch($pkh);
         return redirect()->route('app.pillar.pkh.index')->with('success', 'Data berhasil disimpan.');
     }
 
@@ -178,19 +181,19 @@ class PKHController extends Controller
     public function rules($request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'nik' => 'required|string|max:20',
+            'name' => 'required|string|max:100',
+            'nik' => 'required|digits:16',
             'tmt' => 'required',
             'religion' => 'required|string',
             'gender' => 'required|string',
             'place_of_birth' => 'required|string|max:255',
             'date_of_birth' => 'required|date',
             'email' => 'required|email|max:255|unique:users,email',
-            'phone' => 'required|max:15',
+            'phone' => 'required|digits:12',
             'address' => 'required|string|max:255',
             'province' => 'required|string|max:255',
             'city' => 'required|string|max:255',
-            'no_npwp' => 'required|max:30',
+            'no_npwp' => 'required|digits:15',
             'appointment_letter' => 'nullable|file|mimes:pdf|max:2048',
             'clothes_size' => 'required|max:10',
             'education' => 'array', // Make sure 'education' is an array
@@ -205,15 +208,15 @@ class PKHController extends Controller
             'marital_status' => 'required|string|max:255',
             'number_of_children' => 'nullable|integer',
             'husband_or_wife_name' => 'nullable|string|max:255',
-            'family_card_number' => 'required|max:20',
-            'no_bpjs' => 'nullable|max:20',
+            'family_card_number' => 'required|digits:16',
+            'no_bpjs' => 'nullable|digits:13',
         ]);
     }
 
     private function deleteFileIfExists($fileName)
     {
-        if ($fileName && Storage::exists('public/image/pillars/pkh/profile/' . $fileName)) {
-            Storage::delete('public/image/pillars/pkh/profile/' . $fileName);
+        if ($fileName && Storage::exists('public/image/pillars/PKH/profile/' . $fileName)) {
+            Storage::delete('public/image/pillars/PKH/profile/' . $fileName);
         }
     }
 }

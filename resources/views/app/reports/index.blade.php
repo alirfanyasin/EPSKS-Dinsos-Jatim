@@ -48,6 +48,7 @@
                       <th>No</th>
                       <th>Tempat Kejadian</th>
                       <th>Waktu</th>
+                      <th>Aktifitas</th>
                       <th>Status</th>
                       <th>Aksi</th>
                     </tr>
@@ -58,6 +59,7 @@
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $dailyReport->venue }}</td>
                         <td>{{ $dailyReport->dailyDate }}</td>
+                        <td>{{ Str::limit($dailyReport->activity, 20, '...') }}</td>
                         <td>{{ $dailyReport->statusLabel }}</td>
                         <td>
                           <div class="d-flex">

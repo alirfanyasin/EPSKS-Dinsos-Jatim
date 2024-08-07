@@ -54,6 +54,7 @@
                       <th>IPSM</th>
                       <th>Nama Lengkap</th>
                       <th>Tempat Kejadian</th>
+                      <th>Aktifitas</th>
                       <th>Waktu</th>
                       <th>Status</th>
                     </tr>
@@ -65,6 +66,7 @@
                         <td>{{ $dailyReport->psm->membership_number }}</td>
                         <td>{{ $dailyReport->psm->name }}</td>
                         <td>{{ $dailyReport->venue }}</td>
+                        <td>{{ $dailyReport->activity }}</td>
                         <td>{{ $dailyReport->dailyDate }}</td>
                         <td>{{ $dailyReport->statusLabel }}</td>
                       </tr>

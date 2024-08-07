@@ -21,9 +21,11 @@
       <div class="card">
         <div class="card-header">
           <h4>Data PKH</h4>
-          <a class="btn btn-success" href="{{ route('app.pillar.pkh.create') }}" type="button">
-            <i class="fas fa-plus"></i> Tambah Data PKH
-          </a>
+          @role('admin')
+            <a class="btn btn-success" href="{{ route('app.pillar.pkh.create') }}" type="button">
+              <i class="fas fa-plus"></i> Tambah Data PKH
+            </a>
+          @endrole
           {{-- <a class="btn btn-primary" style="margin-left: 10px" href="{{ route('app.pillar.kartar.import') }}"
             type="button">
             <i class="fas fa-file-import"></i> Import Data
@@ -88,7 +90,8 @@
                       @role('admin')
                         <td>
                           <div class="flex-row flex-wrap d-flex">
-                            <a href="{{ route('app.pillar.pkh.edit', $data->id) }}" class="btn btn-icon btn-primary btn-sm w-100" title="Edit">Edit
+                            <a href="{{ route('app.pillar.pkh.edit', $data->id) }}"
+                              class="btn btn-icon btn-primary btn-sm w-100" title="Edit">Edit
                               Data</a>
 
                             <div class="w-100">

@@ -21,9 +21,11 @@
       <div class="card">
         <div class="card-header">
           <h4>Data ASPD</h4>
-          <a class="btn btn-success" href="{{ route('app.pillar.aspd.create') }}" type="button">
-            <i class="fas fa-plus"></i> Tambah Data ASPD
-          </a>
+          @role('admin')
+            <a class="btn btn-success" href="{{ route('app.pillar.aspd.create') }}" type="button">
+              <i class="fas fa-plus"></i> Tambah Data ASPD
+            </a>
+          @endrole
           {{-- <a class="btn btn-primary" style="margin-left: 10px" href="{{ route('app.pillar.kartar.import') }}"
             type="button">
             <i class="fas fa-file-import"></i> Import Data

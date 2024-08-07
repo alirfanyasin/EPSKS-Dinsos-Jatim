@@ -2,11 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Models\Pillars\ASPD\ASPD;
 use App\Models\Pillars\Kartar\KarangTaruna;
 use App\Models\Pillars\LKS;
 use App\Models\Pillars\PSM\PSM;
 use App\Models\User;
 use App\Models\Pillars\Pillar;
+use App\Models\Pillars\PKH\PKH;
 use App\Models\Pillars\TKSK\TKSK;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -50,6 +52,8 @@ class GenerateEmployeeReportCode implements ShouldQueue
             Pillar::PILLAR_PSM => $this->generatePSMCode(),
             Pillar::PILLAR_LKS => $this->generateLKSCode(),
             Pillar::PILLAR_KARTAR => $this->generateKARTARCode(),
+            Pillar::PILLAR_ASPD => $this->generateASPDCode(),
+            Pillar::PILLAR_PKH => $this->generatePKHCode(),
             default => throw new \Exception('Pillar not found'),
         };
     }
@@ -87,6 +91,25 @@ class GenerateEmployeeReportCode implements ShouldQueue
     private function generateKARTARCode(): void
     {
         KarangTaruna::query()->where('office_id', $this->officeId)->get()->each(function ($employee) {
+            User::query()->where('id', $employee->user_id)->update([
+                'employee_code' => Str::random(7),
+                'code_expired_date' => $this->request['expired_date']
+            ]);
+        });
+    }
+
+    private function generateASPDCode(): void
+    {
+        ASPD::query()->where('office_id', $this->officeId)->get()->each(function ($employee) {
+            User::query()->where('id', $employee->user_id)->update([
+                'employee_code' => Str::random(7),
+                'code_expired_date' => $this->request['expired_date']
+            ]);
+        });
+    }
+    private function generatePKHCode(): void
+    {
+        PKH::query()->where('office_id', $this->officeId)->get()->each(function ($employee) {
             User::query()->where('id', $employee->user_id)->update([
                 'employee_code' => Str::random(7),
                 'code_expired_date' => $this->request['expired_date']
