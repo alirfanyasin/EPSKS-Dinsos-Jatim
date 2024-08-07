@@ -15,8 +15,9 @@ return new class extends Migration
         Schema::create('pkh_trainings', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(PKH::class, 'pkh_id')->constrained()->cascadeOnDelete();
-            $table->string('name');
+            $table->string('training_name');
             $table->string('organizer');
+            $table->string('date');
             $table->string('certificate');
             $table->timestamps();
         });

@@ -9,4 +9,11 @@ class PKHTraining extends Model
 {
     use HasFactory;
     protected $table = 'pkh_trainings';
+    protected $fillable = [
+        'pkh_id',
+        'training_name',
+        'organizer',
+        'date',
+        'certificate'
+    ];
 }

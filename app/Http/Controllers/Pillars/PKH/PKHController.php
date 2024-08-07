@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Pillars\PKH;
 use App\Http\Controllers\Controller;
 use App\Jobs\Users\CreateNewUserAfterPKHCreate;
 use App\Models\Pillars\PKH\PKH;
+use App\Models\Pillars\PKH\PKHMember;
+use App\Models\Pillars\PKH\PKHTraining;
 use App\Models\Utilities\Province;
 use App\Models\Utilities\Regency;
 use Illuminate\Support\Str;
@@ -94,17 +96,20 @@ class PKHController extends Controller
 
         return view('app.pillars.pkh.show', [
             'pageTitle' => 'Detail Data PKH',
-            'data' => $data
+            'data' => $data,
+            'data_training' => PKHTraining::where('pkh_id', $id)->get()
         ]);
     }
     public function edit($id)
     {
         $data = PKH::findOrFail($id);
+
         $data->education = $data->education;
 
         return view('app.pillars.pkh.edit', [
             'pageTitle' => 'Detail Data PKH',
-            'data' => $data
+            'data' => $data,
+            'data_training' => PKHTraining::where('pkh_id', $id)->get()
         ]);
     }
     public function update(Request $request, $id)

@@ -93,6 +93,7 @@ return [
         App\Http\Routes\Pillars\PKH\PKHTraining::class,
         App\Http\Routes\Pillars\PKH\PKHReportApprovalRoute::class,
         App\Http\Routes\ProfileRoute::class,
+        App\Http\Routes\Pillars\PKH\PKHMemberRoute::class,
         /** @inject web **/
     ],
     'api' => [

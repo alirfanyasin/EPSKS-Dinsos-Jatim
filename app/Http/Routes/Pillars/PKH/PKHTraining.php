@@ -18,9 +18,19 @@ class PKHTraining extends BaseRoute
      */
     public function register(): void
     {
-        $this->router->get($this->prefix('index'), [
-            'as' => $this->name('index'),
-            'uses' => $this->uses('index')
+        $this->router->get($this->prefix('create/{pkh_id}'), [
+            'as' => $this->name('create'),
+            'uses' => $this->uses('create')
+        ]);
+
+        $this->router->post($this->prefix('store/{pkh_id}'), [
+            'as' => $this->name('store'),
+            'uses' => $this->uses('store')
+        ]);
+
+        $this->router->delete($this->prefix('delete'), [
+            'as' => $this->name('delete'),
+            'uses' => $this->uses('delete')
         ]);
     }
 

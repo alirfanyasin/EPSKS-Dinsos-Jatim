@@ -83,7 +83,7 @@
                           <a href="{{ route('app.pillar.pkh.show', $data->id) }}"
                             class="mb-2 btn btn-sm btn-icon btn-info w-100" title="Detail">Detail
                             Data</a>
-                          <a href="" class="btn btn-sm btn-icon btn-warning w-100" title="Detail Laporan">Detail
+                          <a href="{{route('app.pillar.pkh.report.index')}}" class="btn btn-sm btn-icon btn-warning w-100" title="Detail Laporan">Detail
                             Laporan</a>
                         </div>
                       </td>
