@@ -258,7 +258,7 @@
                                                         <td>{{ $data_training_member->training_name }}</td>
                                                         <td>{{ $data_training_member->organizer }}</td>
                                                         <td>{{ $data_training_member->date }}</td>
-                                                        <td><a href="{{ asset('storage/image/pillars/kartar/certificate/' . $data_training_member->certificate) }}"
+                                                        <td><a href="{{ asset('storage/image/pillars/pkh/certificate/' . $data_training_member->certificate) }}"
                                                                 class="text-danger" target="_blank"><i
                                                                     class="far fa-file-pdf"
                                                                     style="font-size: 30px;"></i></a></td>
