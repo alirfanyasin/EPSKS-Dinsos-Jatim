@@ -94,6 +94,7 @@ return [
         App\Http\Routes\Pillars\PKH\PKHReportApprovalRoute::class,
         App\Http\Routes\ProfileRoute::class,
         App\Http\Routes\Pillars\PKH\PKHMemberRoute::class,
+        App\Http\Routes\Pillars\ASPD\QuotaRoute::class,
         /** @inject web **/
     ],
     'api' => [
