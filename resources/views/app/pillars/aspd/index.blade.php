@@ -57,7 +57,6 @@
                     $isAdmin = false;
                     $isAdminJawaTimur = 0;
 
-                    // Periksa apakah pengguna memiliki peran 'admin'
                     foreach (auth()->user()->roles as $role) {
                         if ($role->name == 'admin' || $role->name == 'super-admin') {
                             $isAdmin = true;
