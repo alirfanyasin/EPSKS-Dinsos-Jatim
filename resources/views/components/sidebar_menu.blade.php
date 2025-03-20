@@ -250,12 +250,12 @@
     </li>
   @endif
 
-  @if (auth()->user()->hasRole('super-admin'))
+  {{-- @if (auth()->user()->hasRole('super-admin'))
     <li class='{{ request()->routeIs('app.account.*') ? 'active' : '' }}'>
       <a class="nav-link" href="{{ route('app.account.index') }}"><i class="fas fa-user"></i> <span>Kelola
           Akun</span></a>
     </li>
-  @endif
+  @endif --}}
 
 
   @if (auth()->user()->hasRole('employee'))
@@ -282,12 +282,12 @@
     @endif
   @endif
 
-  <li class='{{ request()->routeIs('app.complaint.*') ? 'active' : '' }}'>
+  {{-- <li class='{{ request()->routeIs('app.complaint.*') ? 'active' : '' }}'>
     <a class="nav-link" href="{{ route('app.complaint.index') }}"><i class="fas fa-paper-plane"></i>
       <span>Masukkan / Saran</span></a>
-  </li>
+  </li> --}}
 
-  <li class="nav-item dropdown">
+  {{-- <li class="nav-item dropdown">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-download"></i><span>Download</span></a>
     <ul class="dropdown-menu">
       <li class=''>
@@ -297,6 +297,6 @@
         <a class="nav-link" href="#">Format Laporan</a>
       </li>
     </ul>
-  </li>
+  </li> --}}
 
 </ul>
